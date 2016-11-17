@@ -8,9 +8,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta charset="utf-8">
 <!-- Bootstrap -->
- <link href="/computer-database/css/bootstrap.min.css" rel="stylesheet" media="screen">
-    <link href="/computer-database/css/font-awesome.css" rel="stylesheet" media="screen">
-    <link href="/computer-database/css/main.css" rel="stylesheet" media="screen">
+ <link href="/computerdatabase/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="/computerdatabase/css/font-awesome.css" rel="stylesheet" media="screen">
+    <link href="/computerdatabase/css/main.css" rel="stylesheet" media="screen">
 <%@ page import="com.excilys.formation.pagination.Page" %>
 <%@ taglib uri="../mytags.tld" prefix="m" %>  
 <%@ taglib prefix="my" tagdir="/WEB-INF/tags" %>
@@ -18,7 +18,7 @@
 <body>
     <header class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
-            <a class="navbar-brand" href="dashboard.html"> Application - Computer Database </a>
+            <a class="navbar-brand" href="dashboard"> Application - Computer Database </a>
         </div>
     </header>
     <jsp:useBean id="pageComputer" type="com.excilys.formation.pagination.Page" scope="application" />
