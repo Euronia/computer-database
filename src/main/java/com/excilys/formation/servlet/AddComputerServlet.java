@@ -9,28 +9,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class Dashboard
+ * Servlet implementation class addComputer
  */
-public class Test2 extends HttpServlet {
+public class AddComputerServlet extends HttpServlet {
     /**
      * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
      *      response)
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html");
-        response.setCharacterEncoding( "UTF-8" );
-        PrintWriter out = response.getWriter();
-        out.println("<!DOCTYPE html>");
-        out.println("<html>");
-        out.println("<head>");
-        out.println("<meta charset=\"utf-8\" />");
-        out.println("<title>Test</title>");
-        out.println("</head>");
-        out.println("<body>");
-        out.println("<p>Ceci est une page générée depuis une servlet.</p>");
-        out.println("</body>");
-        out.println("</html>");
+        this.getServletContext().getRequestDispatcher("/WEB-INF/views/addComputer.jsp").forward(request, response);
     }
 
     /**

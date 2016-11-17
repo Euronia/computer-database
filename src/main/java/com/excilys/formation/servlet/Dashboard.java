@@ -17,7 +17,7 @@ import com.excilys.formation.service.exception.ServiceException;
 /**
  * Servlet implementation class Dashboard
  */
-public class Test extends HttpServlet {
+public class Dashboard extends HttpServlet {
     /**
      * 
      */
@@ -31,26 +31,19 @@ public class Test extends HttpServlet {
             throws ServletException, IOException {
         Page<ComputerDto> pageComputer = new Page<>(10);
         ComputerService computerService = new ComputerServiceImpl();
+        if (request.getParameter("page") != null) {
+            pageComputer.setCurrentPage(Integer.parseInt(request.getParameter("page")));
+        }
+        if (request.getParameter("perPage") != null) {
+            pageComputer.setElementsByPage(Integer.parseInt(request.getParameter("perPage")));;
+        }
         try {
             computerService.getPage(pageComputer);
         } catch (ServiceException e) {
             e.printStackTrace();
         }
         this.getServletContext().setAttribute("pageComputer", pageComputer);
-        this.getServletContext().getRequestDispatcher("/WEB-INF/views/test.jsp").forward(request, response);
-        /*response.setContentType("text/html");
-        response.setCharacterEncoding( "UTF-8" );
-        PrintWriter out = response.getWriter();
-        out.println("<!DOCTYPE html>");
-        out.println("<html>");
-        out.println("<head>");
-        out.println("<meta charset=\"utf-8\" />");
-        out.println("<title>Test</title>");
-        out.println("</head>");
-        out.println("<body>");
-        out.println("<p>Ceci est une page générée depuis une servlet.</p>");
-        out.println("</body>");
-        out.println("</html>");*/
+        this.getServletContext().getRequestDispatcher("/WEB-INF/views/dashboard.jsp").forward(request, response);
     }
 
     /**

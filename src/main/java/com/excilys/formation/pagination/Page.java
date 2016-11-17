@@ -63,6 +63,10 @@ public class Page<T> {
     public void setElements(List<T> elements) {
         this.elements = elements ;
     }
+    
+    public List<T> getElements() {
+        return elements;
+    }
 
 
     ////////// Methods //////////

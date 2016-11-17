@@ -4,7 +4,7 @@ import java.time.LocalDate;
 
 /**
  * DTO class for computers.
- * @author Euronia ( with the help of  kfuster)
+ * @author Euronia 
  *
  */
 public class ComputerDto {
@@ -30,4 +30,42 @@ public class ComputerDto {
         }
         return stringBuilder.toString();
     }
+    public int getId() {
+        return id;
+    }
+    public void setId(int id) {
+        this.id = id;
+    }
+    public String getName() {
+        return name;
+    }
+    public void setName(String name) {
+        this.name = name;
+    }
+    public LocalDate getIntroduced() {
+        return introduced;
+    }
+    public void setIntroduced(LocalDate introduced) {
+        this.introduced = introduced;
+    }
+    public LocalDate getDiscontinued() {
+        return discontinued;
+    }
+    public void setDiscontinued(LocalDate discontinued) {
+        this.discontinued = discontinued;
+    }
+    public int getCompanyId() {
+        return companyId;
+    }
+    public void setCompanyId(int companyId) {
+        this.companyId = companyId;
+    }
+    public String getCompanyName() {
+        return companyName;
+    }
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
+    }
+    
+    
 }
