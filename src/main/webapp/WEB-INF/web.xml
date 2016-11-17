@@ -6,12 +6,12 @@
     version="3.1">
    
 	<servlet>
-		<servlet-name>Test</servlet-name>
-		<servlet-class>com.excilys.formation.servlet.Test</servlet-class>
+		<servlet-name>Dashboard</servlet-name>
+		<servlet-class>com.excilys.formation.servlet.Dashboard</servlet-class>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>Test</servlet-name>
-		<url-pattern>/test</url-pattern>
+		<servlet-name>Dashboard</servlet-name>
+		<url-pattern>/dashboard</url-pattern>
 	</servlet-mapping>
 	
 	<servlet>
