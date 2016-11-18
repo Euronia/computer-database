@@ -99,7 +99,11 @@ public class Page<T> {
     }
     
     public void calculateNbPages() {
+        if (elementsByPage != 0) {
         nbPages = (totalElements + elementsByPage -1) / elementsByPage;
+        } else {
+            nbPages = 1;
+        }
     }
  
 

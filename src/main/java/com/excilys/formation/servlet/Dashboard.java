@@ -34,7 +34,7 @@ public class Dashboard extends HttpServlet {
             pageComputer.setCurrentPage(Integer.parseInt(request.getParameter("page")));
         }
         if (request.getParameter("perPage") != null) {
-            pageComputer.setElementsByPage(Integer.parseInt(request.getParameter("perPage")));;
+            pageComputer.setElementsByPage(Integer.parseInt(request.getParameter("perPage")));
         }
         try {
             computerService.getPage(pageComputer);
