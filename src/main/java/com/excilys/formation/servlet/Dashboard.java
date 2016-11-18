@@ -30,9 +30,11 @@ public class Dashboard extends HttpServlet {
             throws ServletException, IOException {
         Page<ComputerDto> pageComputer = new Page<>(10);
         ComputerService computerService = new ComputerServiceImpl();
-        if (request.getParameter("page") != null) {
+        if (request.getParameter("page") == "") {
+            pageComputer.setCurrentPage(1); 
+        } else if (request.getParameter("page") != null) {
             pageComputer.setCurrentPage(Integer.parseInt(request.getParameter("page")));
-        }
+        } 
         if (request.getParameter("perPage") != null) {
             pageComputer.setElementsByPage(Integer.parseInt(request.getParameter("perPage")));
         }

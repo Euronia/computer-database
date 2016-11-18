@@ -18,8 +18,9 @@ public class ComputerServiceImplTest {
 
     @Test
     public void testComputerServiceImpl() {
-        ComputerServiceImpl computerServiceImpl = new ComputerServiceImpl();
+        //ComputerServiceImpl computerServiceImpl = new ComputerServiceImpl();
         //assertNotNull(computerServiceImpl.dao)
+        fail("Not yet implemented");
     }
 
     @Test
