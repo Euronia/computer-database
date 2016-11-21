@@ -1,15 +1,16 @@
-package com.excilys.formation.service;
+package com.excilys.formation.service.companyservice.companyserviceimpl;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import com.excilys.formation.dto.CompanyDto;
 import com.excilys.formation.entity.Company;
+import com.excilys.formation.exception.PersistenceException;
 import com.excilys.formation.pagination.Page;
-import com.excilys.formation.persistence.CompanyDao;
-import com.excilys.formation.persistence.CompanyDaoImpl;
-import com.excilys.formation.persistence.exception.PersistenceException;
-import com.excilys.formation.service.util.ServiceUtil;
+import com.excilys.formation.persistence.companydao.CompanyDao;
+import com.excilys.formation.persistence.companydao.companydaoimpl.CompanyDaoImpl;
+import com.excilys.formation.service.companyservice.CompanyService;
+import com.excilys.formation.util.ServiceUtil;
 
 public class CompanyServiceImpl implements CompanyService {
     private CompanyDao companyDao;

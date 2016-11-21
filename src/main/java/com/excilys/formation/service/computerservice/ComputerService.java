@@ -1,7 +1,8 @@
-package com.excilys.formation.service;
+package com.excilys.formation.service.computerservice;
 
 import com.excilys.formation.dto.ComputerDto;
-import com.excilys.formation.service.exception.ServiceException;
+import com.excilys.formation.exception.ServiceException;
+import com.excilys.formation.service.BaseService;
 
 public interface ComputerService extends BaseService<ComputerDto> {
 

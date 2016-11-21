@@ -1,7 +1,7 @@
 package com.excilys.formation.service;
 
+import com.excilys.formation.exception.ServiceException;
 import com.excilys.formation.pagination.Page;
-import com.excilys.formation.service.exception.ServiceException;
 
 public interface BaseService<T> {
 	

@@ -1,4 +1,4 @@
-package com.excilys.formation.persistence;
+package com.excilys.formation.persistence.companydao.companydaoimpl;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -7,9 +7,11 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import com.excilys.formation.entity.Company;
-import com.excilys.formation.persistence.exception.PersistenceException;
+import com.excilys.formation.exception.PersistenceException;
+import com.excilys.formation.mapper.PersistenceMapper;
 import com.excilys.formation.pagination.Page;
-import com.excilys.formation.persistence.mapper.PersistenceMapper;
+import com.excilys.formation.persistence.ConnectionProvider;
+import com.excilys.formation.persistence.companydao.CompanyDao;
 
 /**
  * DAO class for companies.

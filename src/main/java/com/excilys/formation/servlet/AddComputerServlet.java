@@ -10,12 +10,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.excilys.formation.dto.CompanyDto;
 import com.excilys.formation.dto.ComputerDto;
+import com.excilys.formation.exception.ServiceException;
 import com.excilys.formation.pagination.Page;
-import com.excilys.formation.service.CompanyService;
-import com.excilys.formation.service.CompanyServiceImpl;
-import com.excilys.formation.service.ComputerService;
-import com.excilys.formation.service.ComputerServiceImpl;
-import com.excilys.formation.service.exception.ServiceException;
+import com.excilys.formation.service.companyservice.CompanyService;
+import com.excilys.formation.service.companyservice.companyserviceimpl.CompanyServiceImpl;
+import com.excilys.formation.service.computerservice.ComputerService;
+import com.excilys.formation.service.computerservice.computerserviceimpl.ComputerServiceImpl;
 
 /**
  * Servlet implementation class addComputer

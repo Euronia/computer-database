@@ -1,4 +1,4 @@
-package com.excilys.formation.persistence.mapper;
+package com.excilys.formation.mapper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

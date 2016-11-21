@@ -20,7 +20,8 @@
 		<logback.version>1.1.3</logback.version>
 		<dbunit.version>2.5.3</dbunit.version>
 		<mavencompiler.version>3.6.0</mavencompiler.version>
-		<servlet.version>1.2.1</servlet.version>
+		<servletjstl.version>1.2.1</servletjstl.version>
+		<servletapi.version>3.1.0</servletapi.version>
 		<jersey.version>1.19.3</jersey.version>
 		<jquery.version>2.1.4</jquery.version>
 		<selenium.version>3.0.1</selenium.version>
@@ -32,22 +33,33 @@
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<version>${mysql.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.mockito</groupId>
-			<artifactId>mockito-all</artifactId>
-			<version>${mockito.version}</version>
+			<scope>runtime</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.maven.plugins</groupId>
 			<artifactId>maven-compiler-plugin</artifactId>
 			<version>${mavencompiler.version}</version>
 			<type>maven-plugin</type>
+		</dependency>				
+		<dependency>
+		    <groupId>org.webjars</groupId>
+		    <artifactId>jquery</artifactId>
+		    <version>${jquery.version}</version>
 		</dependency>
+		
+		
+		<!--  Servlet dependencies -->
 		<dependency>
 			<groupId>javax.servlet.jsp.jstl</groupId>
 			<artifactId>javax.servlet.jsp.jstl-api</artifactId>
-			<version>${servlet.version}</version>
+			<version>${servletjstl.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+		    <groupId>javax.servlet</groupId>
+		    <artifactId>javax.servlet-api</artifactId>
+		    <version>${servletapi.version}</version>
+		    <scope>provided</scope>
 		</dependency>
 		
 		<!-- Logging dependencies -->
@@ -68,6 +80,11 @@
 			<groupId>org.dbunit</groupId>
 			<artifactId>dbunit</artifactId>
 			<version>${dbunit.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-all</artifactId>
+			<version>${mockito.version}</version>
 		</dependency>		
 		
 		<!-- Jersey Dependencies -->
@@ -86,20 +103,16 @@
 		    <artifactId>jersey-servlet</artifactId>
 		    <version>${jersey.version}</version>
 		</dependency>
-		
-		<dependency>
-		    <groupId>org.webjars</groupId>
-		    <artifactId>jquery</artifactId>
-		    <version>${jquery.version}</version>
-		</dependency>
+
+		<!-- Selenium Dependencies -->
 		<dependency>
 		    <groupId>org.seleniumhq.selenium</groupId>
-		    <artifactId>selenium-java</artifactId>
+		    <artifactId>selenium-server</artifactId>
 		    <version>${selenium.version}</version>
 		</dependency>
 		<dependency>
 		    <groupId>org.seleniumhq.selenium</groupId>
-		    <artifactId>selenium-server</artifactId>
+		    <artifactId>selenium-java</artifactId>
 		    <version>${selenium.version}</version>
 		</dependency>
 		<dependency>

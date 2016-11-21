@@ -1,4 +1,4 @@
-package com.excilys.formation.persistence.exception;
+package com.excilys.formation.exception;
 
 public class PersistenceException extends Exception {
 	

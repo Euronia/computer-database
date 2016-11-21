@@ -1,15 +1,16 @@
-package com.excilys.formation.service;
+package com.excilys.formation.service.computerservice.computerserviceimpl;
 
 import java.util.ArrayList;
 import java.util.List;
 import com.excilys.formation.dto.ComputerDto;
 import com.excilys.formation.entity.Company;
 import com.excilys.formation.entity.Computer;
-import com.excilys.formation.persistence.exception.PersistenceException;
+import com.excilys.formation.exception.PersistenceException;
 import com.excilys.formation.pagination.Page;
-import com.excilys.formation.persistence.ComputerDao;
-import com.excilys.formation.persistence.ComputerDaoImpl;
-import com.excilys.formation.service.util.ServiceUtil;
+import com.excilys.formation.persistence.computerdao.ComputerDao;
+import com.excilys.formation.persistence.computerdao.computerdaoimpl.ComputerDaoImpl;
+import com.excilys.formation.service.computerservice.ComputerService;
+import com.excilys.formation.util.ServiceUtil;
 
 /**
  * Service class for Computers.
@@ -116,22 +117,6 @@ public class ComputerServiceImpl implements ComputerService {
             }
         }
         return computers;
-    }
-    /**
-     * Converts a ComputerDto to Computer.
-     * @param pDto the Dto to convert
-     * @return a Computer
-     */
-    private Computer dtoToComputer(ComputerDto pDto) {
-        Computer computer = null;
-        if (pDto != null) {
-                Company company = new Company(pDto.companyName); 
-                company.setId(pDto.companyId);
-                computer =new Computer.ComputerBuilder(pDto.name,company)
-                        .setIntroduced(pDto.introduced).setDiscontinued(pDto.discontinued).setId(pDto.id)
-                        .build();         
-        }
-        return computer;
     }
     /**
      * Converts a list from Computer to ComputerDto.

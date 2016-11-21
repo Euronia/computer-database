@@ -1,7 +1,7 @@
 package com.excilys.formation.persistence;
 
+import com.excilys.formation.exception.PersistenceException;
 import com.excilys.formation.pagination.Page;
-import com.excilys.formation.persistence.exception.PersistenceException;
 
 public interface BaseDao<T> {
 	

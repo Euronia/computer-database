@@ -4,10 +4,10 @@ import java.util.Scanner;
 
 import com.excilys.formation.cli.util.MenuUtil;
 import com.excilys.formation.dto.CompanyDto;
+import com.excilys.formation.exception.ServiceException;
 import com.excilys.formation.pagination.Page;
-import com.excilys.formation.service.CompanyService;
-import com.excilys.formation.service.CompanyServiceImpl;
-import com.excilys.formation.service.exception.ServiceException;
+import com.excilys.formation.service.companyservice.CompanyService;
+import com.excilys.formation.service.companyservice.companyserviceimpl.CompanyServiceImpl;
 
 /**
  * This menu allows the user to do an action on the company table. Currently

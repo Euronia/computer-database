@@ -1,7 +1,8 @@
-package com.excilys.formation.persistence;
+package com.excilys.formation.persistence.computerdao;
 
 import com.excilys.formation.entity.Computer;
-import com.excilys.formation.persistence.exception.PersistenceException;
+import com.excilys.formation.exception.PersistenceException;
+import com.excilys.formation.persistence.BaseDao;
 
 public interface ComputerDao extends BaseDao<Computer> {
 
