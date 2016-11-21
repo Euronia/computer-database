@@ -3,6 +3,7 @@
  */
 package com.excilys.formation.persistence.computerdao.computerdaoimpl;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,8 +15,9 @@ import com.excilys.formation.entity.Computer;
 import com.excilys.formation.exception.PersistenceException;
 import com.excilys.formation.mapper.PersistenceMapper;
 import com.excilys.formation.pagination.Page;
-import com.excilys.formation.persistence.ConnectionProvider;
 import com.excilys.formation.persistence.computerdao.ComputerDao;
+import com.excilys.formation.persistence.connectionprovider.HikariConnectionProvider;
+import com.excilys.formation.persistence.connectionprovider.JdbcConnectionProvider;
 
 /**
  * @author Euronia
@@ -26,7 +28,7 @@ public class ComputerDaoImpl implements ComputerDao {
 
     ////////// Attributes //////////
 
-    ConnectionProvider connectionProvider;
+    HikariConnectionProvider connectionProvider;
     private static ComputerDaoImpl computerDaoImpl = null;
     public static final String SELECT_JOIN_COMPUTER ="SELECT computer.id, computer.name, computer.introduced, computer.discontinued, company.id as companyId, company.name as companyName FROM computer LEFT JOIN company ON computer.company_id=company.id";
     public static final String CREATE_COMPUTER = "INSERT INTO computer (name, introduced, discontinued, company_id) VALUES(?,?,?,?)";
@@ -39,7 +41,7 @@ public class ComputerDaoImpl implements ComputerDao {
      * Basic Constructor.
      */
     public ComputerDaoImpl() {
-        this.connectionProvider = ConnectionProvider.getInstance();
+        this.connectionProvider = HikariConnectionProvider.getInstance();
     }
 
     public static ComputerDaoImpl getInstance() {
@@ -50,11 +52,11 @@ public class ComputerDaoImpl implements ComputerDao {
     }
     ////////// Getters and Setters //////////
 
-    public ConnectionProvider getJdbcUtil() {
+    public HikariConnectionProvider getJdbcUtil() {
         return connectionProvider;
     }
 
-    public void setJdbcUtil(ConnectionProvider jdbcUtil) {
+    public void setJdbcUtil(HikariConnectionProvider jdbcUtil) {
         this.connectionProvider = jdbcUtil;
     }
 
@@ -68,11 +70,10 @@ public class ComputerDaoImpl implements ComputerDao {
      */
     @Override
     public Page<Computer> getPage(Page<Computer> pPage) throws PersistenceException {
-        connectionProvider.openConnection();
         List<Computer> computers = new ArrayList<Computer>();
         String query = SELECT_JOIN_COMPUTER + " LIMIT ? OFFSET ?";
-        try {
-           PreparedStatement preparedStatement = connectionProvider.getConnection().prepareStatement(query);
+        try (Connection connection = connectionProvider.getConnection()){
+           PreparedStatement preparedStatement = connection.prepareStatement(query);
            preparedStatement.setInt(1, pPage.getElementsByPage());
            preparedStatement.setInt(2, (pPage.getCurrentPage() - 1) * pPage.getElementsByPage());
            ResultSet resultSet = preparedStatement.executeQuery();
@@ -83,14 +84,13 @@ public class ComputerDaoImpl implements ComputerDao {
                e.printStackTrace();
                throw new PersistenceException("La requete getPage de DAOComputer a échouée");
            }
-        connectionProvider.closeConnection();
         return pPage;
     }
     
     private int count() {
         int total = 0;
-        try {
-            Statement statement = connectionProvider.getConnection().createStatement();
+        try (Connection connection = connectionProvider.getConnection()){
+            Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(COUNT_ALL);
             resultSet.next();
             total = resultSet.getInt("total");
@@ -110,10 +110,9 @@ public class ComputerDaoImpl implements ComputerDao {
      */
 
     public Computer getById(int pid) {
-        connectionProvider.openConnection();
         Computer returnComputer = null; // Initialization in case of Exception
         String query = SELECT_JOIN_COMPUTER + " WHERE computer.id=?";
-        try {
+        try (Connection connection = connectionProvider.getConnection()){
             PreparedStatement ps = connectionProvider.getConnection().prepareStatement(query);
             ps.setInt(1, pid);
             ResultSet results;
@@ -123,17 +122,15 @@ public class ComputerDaoImpl implements ComputerDao {
             e.printStackTrace();
             System.out.println("La requete getById de DAOComputer a échouée");
         }
-        connectionProvider.closeConnection();
         return returnComputer;
     }
 
     @Override
     public Computer getByName(String pname) throws PersistenceException {
-        connectionProvider.openConnection();
         Computer returnComputer = null;
         String query = SELECT_JOIN_COMPUTER + " WHERE computer.name=?";
-        try {
-            PreparedStatement ps = connectionProvider.getConnection().prepareStatement(query);
+        try (Connection connection = connectionProvider.getConnection()){
+            PreparedStatement ps = connection.prepareStatement(query);
             ps.setString(1, pname);
             ResultSet results;
             results = ps.executeQuery();
@@ -141,7 +138,6 @@ public class ComputerDaoImpl implements ComputerDao {
         } catch (Exception e) {
             System.out.println("La requete getByName de DAOComputer a échouée");
         }
-        connectionProvider.closeConnection();
         return returnComputer;
     }
 
@@ -154,9 +150,8 @@ public class ComputerDaoImpl implements ComputerDao {
      */
     @Override
     public Computer create(Computer pToCreate) {
-        connectionProvider.openConnection();
-        try {
-            PreparedStatement ps = connectionProvider.getConnection().prepareStatement(CREATE_COMPUTER);
+        try (Connection connection = connectionProvider.getConnection()){
+            PreparedStatement ps = connection.prepareStatement(CREATE_COMPUTER);
 
             ps.setString(1, pToCreate.getName());
             ps.setObject(2, pToCreate.getIntroduced());
@@ -164,10 +159,8 @@ public class ComputerDaoImpl implements ComputerDao {
             ps.setInt(4, pToCreate.getManufacturer().getId());
             ps.executeUpdate();
         } catch (Exception e) {
-
+          
         }
-
-        connectionProvider.closeConnection();
         return pToCreate;
     }
 
@@ -180,9 +173,8 @@ public class ComputerDaoImpl implements ComputerDao {
 
     @Override
     public Computer update(Computer pToUpdate) {
-        connectionProvider.openConnection();
-        try {
-            PreparedStatement ps = connectionProvider.getConnection().prepareStatement(UPDATE_COMPUTER);
+        try (Connection connection = connectionProvider.getConnection()){
+            PreparedStatement ps = connection.prepareStatement(UPDATE_COMPUTER);
 
             ps.setString(1, pToUpdate.getName());
             ps.setObject(2, pToUpdate.getIntroduced());
@@ -193,7 +185,6 @@ public class ComputerDaoImpl implements ComputerDao {
         } catch (Exception e) {
 
         }
-        connectionProvider.closeConnection();
         return pToUpdate;
     }
 
@@ -205,15 +196,13 @@ public class ComputerDaoImpl implements ComputerDao {
      */
     @Override
     public void delete(Computer pcomputer) {
-        connectionProvider.openConnection();
-        try {
-            PreparedStatement ps = connectionProvider.getConnection().prepareStatement(DELETE_COMPUTER);
+        try (Connection connection = connectionProvider.getConnection()){
+            PreparedStatement ps = connection.prepareStatement(DELETE_COMPUTER);
             ps.setInt(1, pcomputer.getId());
             ps.executeUpdate();
         } catch (Exception e) {
 
         }
-        connectionProvider.closeConnection();
     }
 
     /**
@@ -224,15 +213,14 @@ public class ComputerDaoImpl implements ComputerDao {
      */
 
     public void delete(int pid) {
-        connectionProvider.openConnection();
-        try {
-            PreparedStatement ps = connectionProvider.getConnection().prepareStatement(DELETE_COMPUTER);
+
+        try (Connection connection = connectionProvider.getConnection()){
+            PreparedStatement ps = connection.prepareStatement(DELETE_COMPUTER);
             ps.setInt(1, pid);
             ps.executeUpdate();
         } catch (Exception e) {
 
         }
-        connectionProvider.closeConnection();
     }
     
     

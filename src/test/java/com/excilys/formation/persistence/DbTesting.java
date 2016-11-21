@@ -12,6 +12,8 @@ import org.h2.tools.RunScript;
 import org.junit.Before;
 import org.junit.BeforeClass;
 
+import com.excilys.formation.persistence.connectionprovider.JdbcConnectionProvider;
+
 /**
  * Initiate and populate the database for persistence tests
  * @author Euronia
@@ -19,7 +21,7 @@ import org.junit.BeforeClass;
  */
 
 public class DbTesting {
-    protected final static ConnectionProvider connectionTest = ConnectionProvider.getInstance();
+    protected final static JdbcConnectionProvider connectionTest = JdbcConnectionProvider.getInstance();
 
     /**
      * returns a DataSet from an existing XML File representing our database

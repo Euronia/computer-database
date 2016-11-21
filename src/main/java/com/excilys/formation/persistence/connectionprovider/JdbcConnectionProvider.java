@@ -1,4 +1,4 @@
-package com.excilys.formation.persistence;
+package com.excilys.formation.persistence.connectionprovider;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -14,11 +14,11 @@ import com.excilys.formation.util.PropertyReader;
  * @version 1.0
  */
 
-public class ConnectionProvider {
+public class JdbcConnectionProvider implements ConnectionProvider {
 
     ////////// Parameters //////////
 
-    private static final ConnectionProvider CONNECTIONPROVIDER_INSTANCE;
+    private static final JdbcConnectionProvider CONNECTIONPROVIDER_INSTANCE;
     private Connection connection;
     private static final String PROPERTIES_ADRESS = "connection.properties";
     private String url;
@@ -28,7 +28,7 @@ public class ConnectionProvider {
     
     ////////// Constructors //////////
 
-    public ConnectionProvider(String url, String driver, String user, String pwd) {
+    public JdbcConnectionProvider(String url, String driver, String user, String pwd) {
         this.url = url;
         this.driver = driver;
         this.user = user;
@@ -43,7 +43,7 @@ public class ConnectionProvider {
         Properties properties;
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
         properties = PropertyReader.readProperties(classLoader.getResourceAsStream(PROPERTIES_ADRESS));
-        if (properties == null)
+        if (properties.isEmpty())
         {
             throw new RuntimeException("Empty connection properties or invalid adress");
         }
@@ -57,10 +57,10 @@ public class ConnectionProvider {
             e.printStackTrace();
         }
         
-        CONNECTIONPROVIDER_INSTANCE = new ConnectionProvider(nestedUrl,nestedDriver,nestedUser,nestedPwd);
+        CONNECTIONPROVIDER_INSTANCE = new JdbcConnectionProvider(nestedUrl,nestedDriver,nestedUser,nestedPwd);
     }
     
-    public static ConnectionProvider getInstance() {
+    public static JdbcConnectionProvider getInstance() {
         return CONNECTIONPROVIDER_INSTANCE;
     }
 
@@ -137,7 +137,4 @@ public class ConnectionProvider {
             e.printStackTrace();
         }
     }
-    
-    
-
 }

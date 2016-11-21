@@ -8,6 +8,8 @@ import org.dbunit.database.IDatabaseConnection;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.xml.FlatXmlDataSet;
 
+import com.excilys.formation.persistence.connectionprovider.JdbcConnectionProvider;
+
 /** 
  * Allows to export an existing database to an XML file
  * @author Euronia
@@ -16,7 +18,7 @@ import org.dbunit.dataset.xml.FlatXmlDataSet;
 public class DbToXml {
     public static void main(String[] args) throws Exception {
        //Opens the connection to the database
-       Connection connection = ConnectionProvider.getInstance().getConnection();
+       Connection connection = JdbcConnectionProvider.getInstance().getConnection();
        IDatabaseConnection dbConnection = new DatabaseConnection(connection);
        // Creates a DataSet from our database
        IDataSet fullDataSet = dbConnection.createDataSet();

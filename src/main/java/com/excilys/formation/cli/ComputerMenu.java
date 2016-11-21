@@ -171,7 +171,7 @@ public class ComputerMenu implements BaseMenu {
                     System.out.println(new StringBuilder().append("Entrez une nouvelle date de début de production (")
                             .append(computerDto.introduced)
                             .append(") au format aaaa-mm-jj (\"null\" pour retirer la date):").toString());
-                    computerDto.introduced = MenuUtil.inputNewDate(computerDto.introduced).toString();
+                    computerDto.introduced = MenuUtil.inputNewDate(computerDto.introduced);
                     // DISCONTINUED
                     System.out.println(new StringBuilder().append("Entrez une nouvelle date de fin de production (")
                             .append(computerDto.discontinued)
