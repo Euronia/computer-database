@@ -12,7 +12,7 @@ import com.excilys.formation.pagination.Page;
  *
  */
 public class MenuUtil {
-    private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("YYYY-MM-dd");
     /**
      * Wait until the scanner has a new line and returns it.
      * @return the next line from the scanner
@@ -60,14 +60,14 @@ public class MenuUtil {
      * @param pLocalDate the old date
      * @return a LocalDate or null
      */
-    public static LocalDate inputNewDate(LocalDate pLocalDate) {
-        LocalDate date = null;
+    public static String inputNewDate(String pLocalDate) {
+        String date = null;
         boolean valid = false;
         while (date == null && !valid) {
             String line = MainMenu.scanner.nextLine();
             if (!line.isEmpty() && !line.equals("null")) {
                 try {
-                    date = LocalDate.parse(line, formatter);
+                    date = LocalDate.parse(line, formatter).toString();
                 } catch (DateTimeParseException e) {
                     System.out.println("La date est au mauvais format");
                 }

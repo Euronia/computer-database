@@ -63,13 +63,13 @@ public class AddComputerServlet extends HttpServlet {
         if (introduced.isEmpty()) {
             computerDto.setIntroduced(null);
         } else {
-            computerDto.setIntroduced(LocalDate.parse(introduced));
+            computerDto.setIntroduced(introduced);
         }
         String discontinued = request.getParameter("discontinued");
         if (discontinued.isEmpty()) {
             computerDto.setDiscontinued(null);
         } else {
-            computerDto.setDiscontinued(LocalDate.parse(discontinued));
+            computerDto.setDiscontinued(discontinued);
         }
         String company = request.getParameter("companyId");
         computerDto.setCompanyId(Integer.parseInt(company));

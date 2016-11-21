@@ -90,10 +90,10 @@ public class ComputerMenu implements BaseMenu {
         computerDto.name = name;
         System.out.println(
                 "Vous pouvez entrez une date de début de production au format aaaa-mm-jj (ou appuyer sur entrée pour passer)");
-        computerDto.introduced = MenuUtil.inputDate();
+        computerDto.introduced = MenuUtil.inputDate().toString();
         System.out.println(
                 "Vous pouvez entrez une date d'arrêt de production au format aaaa-mm-jj (ou appuyer sur entrée pour passer)");
-        computerDto.discontinued = MenuUtil.inputDate();
+        computerDto.discontinued = MenuUtil.inputDate().toString();
         System.out.println("Entrez l'id de la compagnie fabricant l'ordinateur : ");
         computerDto.companyId = MenuUtil.waitForInt();
         try {
@@ -171,7 +171,7 @@ public class ComputerMenu implements BaseMenu {
                     System.out.println(new StringBuilder().append("Entrez une nouvelle date de début de production (")
                             .append(computerDto.introduced)
                             .append(") au format aaaa-mm-jj (\"null\" pour retirer la date):").toString());
-                    computerDto.introduced = MenuUtil.inputNewDate(computerDto.introduced);
+                    computerDto.introduced = MenuUtil.inputNewDate(computerDto.introduced).toString();
                     // DISCONTINUED
                     System.out.println(new StringBuilder().append("Entrez une nouvelle date de fin de production (")
                             .append(computerDto.discontinued)
