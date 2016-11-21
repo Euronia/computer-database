@@ -12,6 +12,9 @@
 </head>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="com.excilys.formation.pagination.Page" %>
+<script src="../computerdatabase/js/jquery.min.js"></script>
+<script src="../computerdatabase/js/jquery.validate.min.js"></script>
+<script src="../computerdatabase/js/validation/addcomputer-validation.js"></script>
   <jsp:useBean id="pageCompany" type="com.excilys.formation.pagination.Page" scope="application" />
 <body>
     <header class="navbar navbar-inverse navbar-fixed-top">
@@ -25,7 +28,7 @@
             <div class="row">
                 <div class="col-xs-8 col-xs-offset-2 box">
                     <h1>Add Computer</h1>
-                    <form action="addComputer" method="POST">
+                    <form action="addComputer" method="POST" id="addComputer">
                         <fieldset>
                             <div class="form-group">
                                 <label for="computerName">Computer name</label>

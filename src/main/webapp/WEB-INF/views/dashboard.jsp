@@ -14,6 +14,7 @@
 <%@ page import="com.excilys.formation.pagination.Page" %>
 <%@ taglib uri="../mytags.tld" prefix="m" %>  
 <%@ taglib prefix="my" tagdir="/WEB-INF/tags" %>
+
 </head>
 <body>
     <header class="navbar navbar-inverse navbar-fixed-top">

@@ -1,4 +1,4 @@
-package com.excilys.formation.service.exception;
+package com.excilys.formation.exception;
 
 import static org.junit.Assert.*;
 

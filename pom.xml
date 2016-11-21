@@ -26,6 +26,7 @@
 		<jquery.version>2.1.4</jquery.version>
 		<selenium.version>3.0.1</selenium.version>
 		<checkstyle.version>2.17</checkstyle.version>
+		<h2database.version>1.4.193</h2database.version>
 	</properties>
 
 	<dependencies>
@@ -85,7 +86,12 @@
 			<groupId>org.mockito</groupId>
 			<artifactId>mockito-all</artifactId>
 			<version>${mockito.version}</version>
-		</dependency>		
+		</dependency>
+		<dependency>
+		    <groupId>com.h2database</groupId>
+		    <artifactId>h2</artifactId>
+		    <version>${h2database.version}</version>
+		</dependency>	
 		
 		<!-- Jersey Dependencies -->
 		<dependency>

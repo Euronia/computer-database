@@ -16,5 +16,4 @@
 	<root level="WARN">
 		<appender-ref ref="CONSOLE" />
 	</root>
-
 </configuration>

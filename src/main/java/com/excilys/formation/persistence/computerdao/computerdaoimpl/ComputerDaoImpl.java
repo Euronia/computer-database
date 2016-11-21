@@ -39,7 +39,7 @@ public class ComputerDaoImpl implements ComputerDao {
      * Basic Constructor.
      */
     public ComputerDaoImpl() {
-        this.connectionProvider = new ConnectionProvider();
+        this.connectionProvider = ConnectionProvider.getInstance();
     }
 
     public static ComputerDaoImpl getInstance() {

@@ -21,6 +21,10 @@ footer .btn-group {
     margin:10px 10px;
 }
 
+.my-error-class {
+	color: #FF0000;;
+}
+
 input[type='checkbox'] {
     margin: 0px;
     padding:0px;
