@@ -1,5 +1,6 @@
 package com.excilys.formation.persistence.companydao.companydaoimpl;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,7 +13,7 @@ import com.excilys.formation.mapper.PersistenceMapper;
 import com.excilys.formation.pagination.Page;
 import com.excilys.formation.persistence.companydao.CompanyDao;
 import com.excilys.formation.persistence.connectionprovider.ConnectionProvider;
-import com.excilys.formation.persistence.connectionprovider.JdbcConnectionProvider;
+import com.excilys.formation.persistence.connectionprovider.HikariConnectionProvider;
 
 /**
  * DAO class for companies.
@@ -30,7 +31,7 @@ public class CompanyDaoImpl implements CompanyDao {
      * Initialize the connectionProvider.
      */
     private CompanyDaoImpl() {
-        connectionProvider =  JdbcConnectionProvider.getInstance();
+        connectionProvider =  HikariConnectionProvider.getInstance();
     }
     /**
      * Getter for the instance of CompanyDaoJdbc.
@@ -45,25 +46,22 @@ public class CompanyDaoImpl implements CompanyDao {
     }
     @Override
     public Company getById(int pId) throws PersistenceException {
-        connectionProvider.openConnection();
         Company company = null;
-        try {
-            PreparedStatement preparedStatement = connectionProvider.getConnection().prepareStatement(SELECT_BY_NAME);
+        try (Connection connection = connectionProvider.getConnection()){
+            PreparedStatement preparedStatement = connection.prepareStatement(SELECT_BY_NAME);
             preparedStatement.setInt(1, pId);
             ResultSet resultSet = preparedStatement.executeQuery();
             company = PersistenceMapper.mapResultToCompany(resultSet);
         } catch (SQLException e) {
             throw new PersistenceException("Problème lors de la récupération de la compagnie");
         }
-        connectionProvider.closeConnection();
         return company;
     }
     @Override
     public Page<Company> getPage(Page<Company> pPage) throws PersistenceException {
-        connectionProvider.openConnection();
         List<Company> allCompanies = new ArrayList<>();
-        try {
-            PreparedStatement preparedStatement = connectionProvider.getConnection().prepareStatement(SELECT_PAGE);
+        try (Connection connection = connectionProvider.getConnection()){
+            PreparedStatement preparedStatement = connection.prepareStatement(SELECT_PAGE);
             preparedStatement.setInt(1, pPage.getElementsByPage());
             preparedStatement.setInt(2, (pPage.getCurrentPage() - 1) * pPage.getElementsByPage());
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -73,7 +71,6 @@ public class CompanyDaoImpl implements CompanyDao {
         } catch (SQLException e) {
             throw new PersistenceException("Problème lors de la récupération de la page de compagnies");
         }
-        connectionProvider.closeConnection();
         return pPage;
     }
     /**
@@ -82,8 +79,8 @@ public class CompanyDaoImpl implements CompanyDao {
      */
     private int count() {
         int total = 0;
-        try {
-            Statement statement = connectionProvider.getConnection().createStatement();
+        try (Connection connection = connectionProvider.getConnection()){
+            Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(COUNT_ALL);
             if (resultSet.next()) {
                 total = resultSet.getInt("total");

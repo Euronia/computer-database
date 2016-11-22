@@ -113,7 +113,7 @@ public class ComputerDaoImpl implements ComputerDao {
         Computer returnComputer = null; // Initialization in case of Exception
         String query = SELECT_JOIN_COMPUTER + " WHERE computer.id=?";
         try (Connection connection = connectionProvider.getConnection()){
-            PreparedStatement ps = connectionProvider.getConnection().prepareStatement(query);
+            PreparedStatement ps = connection.prepareStatement(query);
             ps.setInt(1, pid);
             ResultSet results;
             results = ps.executeQuery();

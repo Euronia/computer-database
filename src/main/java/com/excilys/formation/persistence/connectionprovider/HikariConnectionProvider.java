@@ -27,8 +27,7 @@ public class HikariConnectionProvider implements ConnectionProvider {
     
     static{
         
-        Properties properties = new Properties();
-        properties = PropertyReader.getInstance().readProperties(PROPERTIES_ADRESS);
+        Properties properties = PropertyReader.getInstance().readProperties(PROPERTIES_ADRESS);
         if (properties.isEmpty())
         {
             throw new RuntimeException("Invalid Properties for Hikari connection");

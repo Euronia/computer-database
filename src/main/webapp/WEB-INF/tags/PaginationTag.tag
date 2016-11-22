@@ -8,7 +8,7 @@
                     <input type="checkbox" name="cb" class="cb" value="0">
                 </td>
 				<td>
-					${a.name} 
+					<a href="/computerdatabase/editComputer?id=${a.id}" onclick="">${a.name}</a>
 				</td>
 				<td>
 					<c:if test="${a.introduced != null}" > 
