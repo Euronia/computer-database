@@ -11,6 +11,7 @@ import com.excilys.formation.exception.PersistenceException;
 import com.excilys.formation.mapper.PersistenceMapper;
 import com.excilys.formation.pagination.Page;
 import com.excilys.formation.persistence.companydao.CompanyDao;
+import com.excilys.formation.persistence.connectionprovider.ConnectionProvider;
 import com.excilys.formation.persistence.connectionprovider.JdbcConnectionProvider;
 
 /**
@@ -19,7 +20,7 @@ import com.excilys.formation.persistence.connectionprovider.JdbcConnectionProvid
  *
  */
 public class CompanyDaoImpl implements CompanyDao {
-    private JdbcConnectionProvider connectionProvider;
+    private ConnectionProvider connectionProvider;
     private static CompanyDaoImpl companyDaoImpl = null;
     private static final String SELECT_BY_NAME = "SELECT * FROM company WHERE id=?";
     private static final String SELECT_PAGE = "SELECT * FROM company LIMIT ? OFFSET ?";
@@ -29,7 +30,7 @@ public class CompanyDaoImpl implements CompanyDao {
      * Initialize the connectionProvider.
      */
     private CompanyDaoImpl() {
-        connectionProvider = JdbcConnectionProvider.getInstance();
+        connectionProvider =  JdbcConnectionProvider.getInstance();
     }
     /**
      * Getter for the instance of CompanyDaoJdbc.

@@ -9,4 +9,7 @@ public interface ConnectionProvider {
         return null;
     }
     public Connection getConnection() throws SQLException;
+
+    public void openConnection() ;
+    public void closeConnection();
 }

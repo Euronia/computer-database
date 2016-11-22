@@ -51,4 +51,13 @@ public class HikariConnectionProvider implements ConnectionProvider {
             e.printStackTrace();
         }
     }
+
+    @Override
+    public void openConnection() {
+       try {
+        datasource.getConnection();
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    }
 }

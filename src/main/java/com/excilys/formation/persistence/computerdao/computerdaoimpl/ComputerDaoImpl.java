@@ -18,7 +18,6 @@ import com.excilys.formation.pagination.Page;
 import com.excilys.formation.persistence.computerdao.ComputerDao;
 import com.excilys.formation.persistence.connectionprovider.ConnectionProvider;
 import com.excilys.formation.persistence.connectionprovider.HikariConnectionProvider;
-import com.excilys.formation.persistence.connectionprovider.JdbcConnectionProvider;
 
 /**
  * @author Euronia
