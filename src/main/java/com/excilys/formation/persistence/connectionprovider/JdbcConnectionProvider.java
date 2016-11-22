@@ -60,7 +60,7 @@ public class JdbcConnectionProvider implements ConnectionProvider {
         CONNECTIONPROVIDER_INSTANCE = new JdbcConnectionProvider(nestedUrl,nestedDriver,nestedUser,nestedPwd);
     }
     
-    public static JdbcConnectionProvider getInstance() {
+    public static ConnectionProvider getInstance() {
         return CONNECTIONPROVIDER_INSTANCE;
     }
 

@@ -1,6 +1,5 @@
 package com.excilys.formation.persistence.connectionprovider;
 
-import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Properties;
@@ -40,7 +39,8 @@ public class HikariConnectionProvider implements ConnectionProvider {
         CONNECTIONPROVIDER_INSTANCE = new HikariConnectionProvider(ds);
     }
 
-    public static HikariConnectionProvider getInstance() {
+    public static ConnectionProvider getInstance()
+    {
         return CONNECTIONPROVIDER_INSTANCE;
     }
     
