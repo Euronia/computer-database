@@ -182,4 +182,11 @@ public class ComputerServiceImpl implements ComputerService {
         computerDto.companyName = company.getName();
         return computerDto;
     }
+    
+    public void deleteMultiplesId(List<Integer> ids) {
+        for (int id : ids)
+        {
+            delete(id);
+        }
+    }
 }

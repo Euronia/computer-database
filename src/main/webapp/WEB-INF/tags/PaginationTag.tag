@@ -5,7 +5,7 @@
 		<c:forEach items="${pageComputer.elements}" var="a">
 			<tr>
 				<td class="editMode">
-                    <input type="checkbox" name="cb" class="cb" value="0">
+                    <input type="checkbox" name="cb" class="cb" value="${a.id}">
                 </td>
 				<td>
 					<a href="/computerdatabase/editComputer?id=${a.id}" onclick="">${a.name}</a>

@@ -2,12 +2,12 @@ package com.excilys.formation.cli;
 
 import java.util.Scanner;
 
-import com.excilys.formation.cli.util.MenuUtil;
 import com.excilys.formation.dto.ComputerDto;
 import com.excilys.formation.exception.ServiceException;
 import com.excilys.formation.pagination.Page;
 import com.excilys.formation.service.computerservice.ComputerService;
 import com.excilys.formation.service.computerservice.computerserviceimpl.ComputerServiceImpl;
+import com.excilys.formation.util.MenuUtil;
 
 /**
  * This menu allows the user to do an action on the computer table. Currently

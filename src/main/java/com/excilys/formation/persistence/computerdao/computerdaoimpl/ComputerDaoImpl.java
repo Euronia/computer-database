@@ -200,6 +200,7 @@ public class ComputerDaoImpl implements ComputerDao {
             PreparedStatement ps = connection.prepareStatement(DELETE_COMPUTER);
             ps.setInt(1, pcomputer.getId());
             ps.executeUpdate();
+            System.out.println("Deleted");
         } catch (Exception e) {
 
         }

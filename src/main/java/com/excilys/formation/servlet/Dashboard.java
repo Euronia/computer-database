@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.excilys.formation.dto.ComputerDto;
 import com.excilys.formation.exception.ServiceException;
+import com.excilys.formation.mapper.RequestMapper;
 import com.excilys.formation.pagination.Page;
 import com.excilys.formation.service.computerservice.ComputerService;
 import com.excilys.formation.service.computerservice.computerserviceimpl.ComputerServiceImpl;
@@ -53,6 +54,13 @@ public class Dashboard extends HttpServlet {
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        ComputerService computerService = new ComputerServiceImpl();
+        try {
+            computerService.deleteMultiplesId(RequestMapper.toList(request));
+            System.out.println(RequestMapper.toList(request));
+        } catch (ServiceException e) {
+            e.printStackTrace();
+        }
         doGet(request, response);
     }
 }
