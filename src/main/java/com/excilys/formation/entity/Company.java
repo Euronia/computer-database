@@ -18,6 +18,12 @@ public class Company {
 	{
 		this.name = cname;
 	}
+	
+	public Company (int id, String name)
+	{
+	    this.id = id;
+	    this.name = name;
+	}
 
 	
 	////////// Getters and Setters //////////

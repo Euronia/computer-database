@@ -52,7 +52,34 @@ public class EditComputerServlet extends HttpServlet {
     
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        this.getServletContext().getRequestDispatcher("/WEB-INF/views/editComputer.jsp").forward(request, response);
+        ComputerService computerService = new ComputerServiceImpl();
+        ComputerDto computerDto = new ComputerDto();
+        computerDto.setId(Integer.parseInt(request.getParameter("id")));
+        System.out.println(request.getParameter("name"));
+        computerDto.setName(request.getParameter("name"));
+        String introduced = request.getParameter("introduced");
+        if (introduced != null && introduced.isEmpty()) {
+            computerDto.setIntroduced(null);
+        } else {
+            computerDto.setIntroduced(introduced);
+        }
+        String discontinued = request.getParameter("discontinued");
+        if (discontinued != null && discontinued.isEmpty()) {
+            computerDto.setDiscontinued(null);
+        } else {
+            computerDto.setDiscontinued(discontinued);
+        }
+        String company = request.getParameter("companyId");
+        if (company != null) {
+        computerDto.setCompanyId(Integer.parseInt(company));
+        }
+        try {
+            System.out.println(computerDto);
+            computerService.update(computerDto);
+        } catch (ServiceException e) {
+            e.printStackTrace();
+        }
+        response.sendRedirect("/computerdatabase/dashboard");
     }
     
 }

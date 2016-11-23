@@ -33,25 +33,25 @@
                     <h1>Edit Computer</h1>
 
                     <form action="editComputer" method="POST">
-                        <input type="hidden" value="0" id="id"/> <!-- TODO: Change this value with the computer id -->
+                        <input type="hidden" value="${computer.id }" name="id" id="id"/> <!-- TODO: Change this value with the computer id -->
                         <fieldset>
                             <div class="form-group">
                                 <label for="computerName">Computer name</label>
-                                <input type="text" value ="${computer.name}"class="form-control" id="computerName" placeholder="Computer name">
+                                <input type="text" value ="${computer.name}"class="form-control" id="computerName" name="name" placeholder="Computer name">
                             </div>
                             <div class="form-group">
                                 <label for="introduced">Introduced date</label>
                                 <input type="date" class="form-control" 
-                                <c:if test="${not empty computer.introduced}"> value="${computer.introduced }"</c:if>id="introduced" placeholder="Introduced date">
+                                <c:if test="${not empty computer.introduced}"> value="${computer.introduced }"</c:if>id="introduced" name="introduced" placeholder="Introduced date">
                             </div>
                             <div class="form-group">
                                 <label for="discontinued">Discontinued date</label>
                                 <input type="date" class="form-control" 
-                                 <c:if test="${not empty computer.discontinued}"> value="${computer.discontinued }"</c:if>id="discontinued" placeholder="Discontinued date">
+                                 <c:if test="${not empty computer.discontinued}"> value="${computer.discontinued }"</c:if>id="discontinued" name="discontinued" placeholder="Discontinued date">
                             </div>
                             <div class="form-group">
                                 <label for="companyId">Company</label>
-                                <select class="form-control" id="companyId" >
+                                <select class="form-control" id="companyId" name="companyId">
                                     <option value="0" > - - - - -</option>
                                 	<c:forEach items="${pageCompany.elements}" var="company">
                                     	<option value="${company.id}">${company.name}</option>
