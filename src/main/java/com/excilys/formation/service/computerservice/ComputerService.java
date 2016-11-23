@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.excilys.formation.dto.ComputerDto;
 import com.excilys.formation.exception.ServiceException;
+import com.excilys.formation.pagination.Page;
 import com.excilys.formation.service.BaseService;
 
 public interface ComputerService extends BaseService<ComputerDto> {
@@ -18,5 +19,9 @@ public interface ComputerService extends BaseService<ComputerDto> {
     
     default public void deleteMultiplesId (List<Integer> ids) throws ServiceException {
         throw new UnsupportedOperationException("deleteMultiplesId() is not implemented");
+    }
+    
+    default public Page<ComputerDto> getPageFilter(Page<ComputerDto> pPage, String filter) {
+        throw new UnsupportedOperationException("getPageFilter() is not implemented");
     }
 }

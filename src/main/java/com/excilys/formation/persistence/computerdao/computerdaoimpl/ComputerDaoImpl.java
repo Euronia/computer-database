@@ -35,6 +35,7 @@ public class ComputerDaoImpl implements ComputerDao {
     public static final String UPDATE_COMPUTER = "UPDATE computer SET name = ?, introduced = ?, discontinued = ?, company_id = ? WHERE id = ? ;";
     public static final String DELETE_COMPUTER = "DELETE FROM computer WHERE id = ?";
     public static final String COUNT_ALL = "SELECT COUNT(*) as total FROM computer";
+    public static final String COUNT_ALL_FILTERED = "SELECT COUNT(*) as total FROM ( SELECT computer.id, computer.name, computer.introduced, computer.discontinued, company.id as companyId, company.name as companyName FROM computer LEFT JOIN company ON computer.company_id=company.id WHERE computer.name LIKE ? OR company.name LIKE ? ) AS derivedTable";
     
     ////////// Constructors //////////
     /**
@@ -87,11 +88,48 @@ public class ComputerDaoImpl implements ComputerDao {
         return pPage;
     }
     
+    public Page<Computer> getAllFilter(Page<Computer> pPage,String filter) throws PersistenceException {
+        List<Computer> computers = new ArrayList<Computer>();
+        filter = "%" + filter + "%";
+        String query = SELECT_JOIN_COMPUTER + " WHERE computer.name LIKE ? OR company.name LIKE ? LIMIT ? OFFSET ? ";
+        try (Connection connection = connectionProvider.getConnection()){
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(3, pPage.getElementsByPage());
+            preparedStatement.setInt(4, (pPage.getCurrentPage() - 1) * pPage.getElementsByPage());
+            preparedStatement.setString(1, filter);
+            preparedStatement.setString(2, filter);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            computers = PersistenceMapper.mapResultsToComputerList(resultSet);
+            pPage.setElements(computers);
+            pPage.setTotalElements(count(filter));
+            } catch (SQLException e) {
+                e.printStackTrace();
+                throw new PersistenceException("La requete getPage de DAOComputer a échouée");
+            }
+         return pPage;
+    }
+    
     private int count() {
         int total = 0;
         try (Connection connection = connectionProvider.getConnection()){
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(COUNT_ALL);
+            resultSet.next();
+            total = resultSet.getInt("total");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return total;
+    }
+    
+    private int count(String filter) {
+        int total = 0;
+        try (Connection connection = connectionProvider.getConnection()){
+            PreparedStatement preparedStatement = connection.prepareStatement(COUNT_ALL_FILTERED );
+            preparedStatement.setString(1,  filter);
+            preparedStatement.setString(2, filter);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            
             resultSet.next();
             total = resultSet.getInt("total");
         } catch (SQLException e) {

@@ -106,6 +106,24 @@ public class ComputerServiceImpl implements ComputerService {
         pPage.elements = computerListToDtoList(pageCompany.elements);
         return pPage;
     }
+    
+    public Page<ComputerDto> getPageFilter(Page<ComputerDto> pPage, String filter) {
+        Page<Computer> pageCompany = new Page<Computer>(10);
+        ServiceUtil.copyAttributes(pPage, pageCompany);
+        pageCompany.setElements(dtoListToComputerList(pPage.elements));
+        try {
+            System.out.println(computerDao.getAllFilter(pageCompany,filter));
+        } catch (PersistenceException e) {
+            e.printStackTrace();
+        }
+        
+        System.out.println(pageCompany.elements);
+        ServiceUtil.copyAttributes(pageCompany, pPage);
+        pPage.elements = computerListToDtoList(pageCompany.elements);
+   
+        return pPage;    
+    }
+    
     @Override
     public ComputerDto update(ComputerDto pComputerDto) {
         System.out.println(pComputerDto);

@@ -7,7 +7,7 @@
    
 	<servlet>
 		<servlet-name>Dashboard</servlet-name>
-		<servlet-class>com.excilys.formation.servlet.Dashboard</servlet-class>
+		<servlet-class>com.excilys.formation.servlet.DashboardServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>Dashboard</servlet-name>

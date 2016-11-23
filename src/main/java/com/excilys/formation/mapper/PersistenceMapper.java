@@ -19,7 +19,7 @@ public class PersistenceMapper {
                 Computer computer = extractComputer(pResultSet);
                 computerList.add(computer);
             }
-        }
+        } 
         return computerList;
     }
     

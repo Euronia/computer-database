@@ -17,7 +17,7 @@ import com.excilys.formation.service.computerservice.computerserviceimpl.Compute
 /**
  * Servlet implementation class Dashboard
  */
-public class Dashboard extends HttpServlet {
+public class DashboardServlet extends HttpServlet {
     /**
      * 
      */
@@ -39,10 +39,15 @@ public class Dashboard extends HttpServlet {
         if (request.getParameter("perPage") != null) {
             pageComputer.setElementsByPage(Integer.parseInt(request.getParameter("perPage")));
         }
-        try {
-            computerService.getPage(pageComputer);
-        } catch (ServiceException e) {
-            e.printStackTrace();
+        if (request.getParameter("search") != null) {
+                computerService.getPageFilter(pageComputer, request.getParameter("search"));     
+                this.getServletContext().setAttribute("filter", request.getParameter("search"));
+        } else {
+            try {
+                computerService.getPage(pageComputer);
+            } catch (ServiceException e) {
+                e.printStackTrace();
+            }
         }
         this.getServletContext().setAttribute("pageComputer", pageComputer);
         this.getServletContext().getRequestDispatcher("/WEB-INF/views/dashboard.jsp").forward(request, response);
