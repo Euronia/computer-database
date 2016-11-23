@@ -57,10 +57,10 @@ public class MenuUtil {
     }
     /**
      * Asks for a new date but with the possibility to keep the old one.
-     * @param pLocalDate the old date
+     * @param localDate the old date
      * @return a LocalDate or null
      */
-    public static String inputNewDate(String pLocalDate) {
+    public static String inputNewDate(String localDate) {
         String date = null;
         boolean valid = false;
         while (date == null && !valid) {
@@ -72,7 +72,7 @@ public class MenuUtil {
                     System.out.println("La date est au mauvais format");
                 }
             } else if (line.isEmpty()) {
-                date = pLocalDate;
+                date = localDate;
                 valid = true;
             } else {
                 valid = true;
@@ -85,17 +85,17 @@ public class MenuUtil {
      * @param pStringToCheck the String to check
      * @return a boolean
      */
-    public static boolean isInteger(String pStringToCheck) {
-        if (pStringToCheck == null) {
+    public static boolean isInteger(String stringToCheck) {
+        if (stringToCheck == null) {
             return false;
         }
-        int length = pStringToCheck.length();
+        int length = stringToCheck.length();
         if (length == 0) {
             return false;
         }
         int i = 0;
         // we check if the string starts with "-" and the length is > 1
-        if (pStringToCheck.charAt(0) == '-') {
+        if (stringToCheck.charAt(0) == '-') {
             if (length == 1) {
                 return false;
             }
@@ -103,7 +103,7 @@ public class MenuUtil {
         }
         // we check each char of the string to see if it's a number
         for (; i < length; i++) {
-            char c = pStringToCheck.charAt(i);
+            char c = stringToCheck.charAt(i);
             if (c < '0' || c > '9') {
                 return false;
             }
@@ -112,31 +112,31 @@ public class MenuUtil {
     }
     /**
      * Manage the page navigation in the menus.
-     * @param pPage the Page on which to operate
+     * @param page the Page on which to operate
      * @return a boolean indicating if the operation was successful
      */
-    public static boolean manageNavigation(Page<?> pPage) {
+    public static boolean manageNavigation(Page<?> page) {
         boolean ok = false;
         while (!ok) {
             int nextOption = MenuUtil.waitForInt();
             if (nextOption == 1) {
-                ok = pPage.prevPage();
+                ok = page.prevPage();
                 if (!ok) {
                     System.out.println("Vous êtes déjà sur la première page");
                 }
             } else if (nextOption == 2) {
-                ok = pPage.nextPage();
+                ok = page.nextPage();
                 if (!ok) {
                     System.out.println("Vous êtes déjà sur la dernière page");
                 }
             } else if (nextOption == 3) {
                 MainMenu.scanner.nextLine();
                 System.out.print("Entrez le numéro de la page :");
-                String page = "";
-                while (page.isEmpty() && !MenuUtil.isInteger(page)) {
-                    page = MainMenu.scanner.nextLine();
+                String pageString = "";
+                while (pageString.isEmpty() && !MenuUtil.isInteger(pageString)) {
+                    pageString = MainMenu.scanner.nextLine();
                 }
-                ok = pPage.setPage(Integer.parseInt(page));
+                ok = page.setPage(Integer.parseInt(pageString));
                 if (!ok) {
                     System.out.println("Cette page n'existe pas");
                 }

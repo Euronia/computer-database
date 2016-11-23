@@ -20,16 +20,14 @@ public class HikariConnectionProvider implements ConnectionProvider {
         return datasource.getConnection();
     }
     
-    public HikariConnectionProvider (HikariDataSource ds)
-    {
+    public HikariConnectionProvider (HikariDataSource ds) {
         this.datasource = ds;
     }
     
-    static{
+    static {
         
         Properties properties = PropertyReader.getInstance().readProperties(PROPERTIES_ADRESS);
-        if (properties.isEmpty())
-        {
+        if (properties.isEmpty()) {
             throw new RuntimeException("Invalid Properties for Hikari connection");
         }
         HikariConfig config = new HikariConfig(properties);
@@ -38,8 +36,7 @@ public class HikariConnectionProvider implements ConnectionProvider {
         CONNECTIONPROVIDER_INSTANCE = new HikariConnectionProvider(ds);
     }
 
-    public static ConnectionProvider getInstance()
-    {
+    public static ConnectionProvider getInstance() {
         return CONNECTIONPROVIDER_INSTANCE;
     }
     

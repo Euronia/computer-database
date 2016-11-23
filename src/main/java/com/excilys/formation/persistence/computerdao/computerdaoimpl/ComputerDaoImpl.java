@@ -30,7 +30,7 @@ public class ComputerDaoImpl implements ComputerDao {
 
     ConnectionProvider connectionProvider;
     private static ComputerDaoImpl computerDaoImpl = null;
-    public static final String SELECT_JOIN_COMPUTER ="SELECT computer.id, computer.name, computer.introduced, computer.discontinued, company.id as companyId, company.name as companyName FROM computer LEFT JOIN company ON computer.company_id=company.id";
+    public static final String SELECT_JOIN_COMPUTER = "SELECT computer.id, computer.name, computer.introduced, computer.discontinued, company.id as companyId, company.name as companyName FROM computer LEFT JOIN company ON computer.company_id=company.id";
     public static final String CREATE_COMPUTER = "INSERT INTO computer (name, introduced, discontinued, company_id) VALUES(?,?,?,?)";
     public static final String UPDATE_COMPUTER = "UPDATE computer SET name = ?, introduced = ?, discontinued = ?, company_id = ? WHERE id = ? ;";
     public static final String DELETE_COMPUTER = "DELETE FROM computer WHERE id = ?";
@@ -70,48 +70,48 @@ public class ComputerDaoImpl implements ComputerDao {
      * @return a List of all the entries in the computer table
      */
     @Override
-    public Page<Computer> getPage(Page<Computer> pPage) throws PersistenceException {
+    public Page<Computer> getPage(Page<Computer> page) throws PersistenceException {
         List<Computer> computers = new ArrayList<Computer>();
         String query = SELECT_JOIN_COMPUTER + " LIMIT ? OFFSET ?";
-        try (Connection connection = connectionProvider.getConnection()){
+        try (Connection connection = connectionProvider.getConnection()) {
            PreparedStatement preparedStatement = connection.prepareStatement(query);
-           preparedStatement.setInt(1, pPage.getElementsByPage());
-           preparedStatement.setInt(2, (pPage.getCurrentPage() - 1) * pPage.getElementsByPage());
+           preparedStatement.setInt(1, page.getElementsByPage());
+           preparedStatement.setInt(2, (page.getCurrentPage() - 1) * page.getElementsByPage());
            ResultSet resultSet = preparedStatement.executeQuery();
            computers = PersistenceMapper.mapResultsToComputerList(resultSet);
-           pPage.setElements(computers);
-           pPage.setTotalElements(count());
+           page.setElements(computers);
+           page.setTotalElements(count());
            } catch (SQLException e) {
                e.printStackTrace();
                throw new PersistenceException("La requete getPage de DAOComputer a échouée");
            }
-        return pPage;
+        return page;
     }
     
-    public Page<Computer> getAllFilter(Page<Computer> pPage,String filter) throws PersistenceException {
+    public Page<Computer> getAllFilter(Page<Computer> page,String filter) throws PersistenceException {
         List<Computer> computers = new ArrayList<Computer>();
         filter = "%" + filter + "%";
         String query = SELECT_JOIN_COMPUTER + " WHERE computer.name LIKE ? OR company.name LIKE ? LIMIT ? OFFSET ? ";
-        try (Connection connection = connectionProvider.getConnection()){
+        try (Connection connection = connectionProvider.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setInt(3, pPage.getElementsByPage());
-            preparedStatement.setInt(4, (pPage.getCurrentPage() - 1) * pPage.getElementsByPage());
+            preparedStatement.setInt(3, page.getElementsByPage());
+            preparedStatement.setInt(4, (page.getCurrentPage() - 1) * page.getElementsByPage());
             preparedStatement.setString(1, filter);
             preparedStatement.setString(2, filter);
             ResultSet resultSet = preparedStatement.executeQuery();
             computers = PersistenceMapper.mapResultsToComputerList(resultSet);
-            pPage.setElements(computers);
-            pPage.setTotalElements(count(filter));
+            page.setElements(computers);
+            page.setTotalElements(count(filter));
             } catch (SQLException e) {
                 e.printStackTrace();
                 throw new PersistenceException("La requete getPage de DAOComputer a échouée");
             }
-         return pPage;
+         return page;
     }
     
     private int count() {
         int total = 0;
-        try (Connection connection = connectionProvider.getConnection()){
+        try (Connection connection = connectionProvider.getConnection()) {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(COUNT_ALL);
             resultSet.next();
@@ -124,7 +124,7 @@ public class ComputerDaoImpl implements ComputerDao {
     
     private int count(String filter) {
         int total = 0;
-        try (Connection connection = connectionProvider.getConnection()){
+        try (Connection connection = connectionProvider.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(COUNT_ALL_FILTERED );
             preparedStatement.setString(1,  filter);
             preparedStatement.setString(2, filter);
@@ -150,7 +150,7 @@ public class ComputerDaoImpl implements ComputerDao {
     public Computer getById(int pid) {
         Computer returnComputer = null; // Initialization in case of Exception
         String query = SELECT_JOIN_COMPUTER + " WHERE computer.id=?";
-        try (Connection connection = connectionProvider.getConnection()){
+        try (Connection connection = connectionProvider.getConnection()) {
             PreparedStatement ps = connection.prepareStatement(query);
             ps.setInt(1, pid);
             ResultSet results;
@@ -167,7 +167,7 @@ public class ComputerDaoImpl implements ComputerDao {
     public Computer getByName(String pname) throws PersistenceException {
         Computer returnComputer = null;
         String query = SELECT_JOIN_COMPUTER + " WHERE computer.name=?";
-        try (Connection connection = connectionProvider.getConnection()){
+        try (Connection connection = connectionProvider.getConnection()) {
             PreparedStatement ps = connection.prepareStatement(query);
             ps.setString(1, pname);
             ResultSet results;
@@ -187,19 +187,19 @@ public class ComputerDaoImpl implements ComputerDao {
      * @return
      */
     @Override
-    public Computer create(Computer pToCreate) {
-        try (Connection connection = connectionProvider.getConnection()){
+    public Computer create(Computer toCreate) {
+        try (Connection connection = connectionProvider.getConnection()) {
             PreparedStatement ps = connection.prepareStatement(CREATE_COMPUTER);
 
-            ps.setString(1, pToCreate.getName());
-            ps.setObject(2, pToCreate.getIntroduced());
-            ps.setObject(3, pToCreate.getDiscontinued());
-            ps.setInt(4, pToCreate.getManufacturer().getId());
+            ps.setString(1, toCreate.getName());
+            ps.setObject(2, toCreate.getIntroduced());
+            ps.setObject(3, toCreate.getDiscontinued());
+            ps.setInt(4, toCreate.getManufacturer().getId());
             ps.executeUpdate();
         } catch (Exception e) {
           
         }
-        return pToCreate;
+        return toCreate;
     }
 
     /**
@@ -210,20 +210,20 @@ public class ComputerDaoImpl implements ComputerDao {
      */
 
     @Override
-    public Computer update(Computer pToUpdate) {
-        try (Connection connection = connectionProvider.getConnection()){
+    public Computer update(Computer toUpdate) {
+        try (Connection connection = connectionProvider.getConnection()) {
             PreparedStatement ps = connection.prepareStatement(UPDATE_COMPUTER);
 
-            ps.setString(1, pToUpdate.getName());
-            ps.setObject(2, pToUpdate.getIntroduced());
-            ps.setObject(3, pToUpdate.getDiscontinued());
-            ps.setInt(4, pToUpdate.getManufacturer().getId());
-            ps.setInt(5, pToUpdate.getId());
+            ps.setString(1, toUpdate.getName());
+            ps.setObject(2, toUpdate.getIntroduced());
+            ps.setObject(3, toUpdate.getDiscontinued());
+            ps.setInt(4, toUpdate.getManufacturer().getId());
+            ps.setInt(5, toUpdate.getId());
             ps.executeUpdate();
         } catch (Exception e) {
 
         }
-        return pToUpdate;
+        return toUpdate;
     }
 
     /**
@@ -234,7 +234,7 @@ public class ComputerDaoImpl implements ComputerDao {
      */
     @Override
     public void delete(Computer pcomputer) {
-        try (Connection connection = connectionProvider.getConnection()){
+        try (Connection connection = connectionProvider.getConnection()) {
             PreparedStatement ps = connection.prepareStatement(DELETE_COMPUTER);
             ps.setInt(1, pcomputer.getId());
             ps.executeUpdate();
@@ -252,15 +252,11 @@ public class ComputerDaoImpl implements ComputerDao {
 
     public void delete(int pid) {
 
-        try (Connection connection = connectionProvider.getConnection()){
+        try (Connection connection = connectionProvider.getConnection()) {
             PreparedStatement ps = connection.prepareStatement(DELETE_COMPUTER);
             ps.setInt(1, pid);
             ps.executeUpdate();
         } catch (Exception e) {
-
         }
     }
-    
-    
-
 }

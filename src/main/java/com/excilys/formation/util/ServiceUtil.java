@@ -15,10 +15,10 @@ public class ServiceUtil {
      * @param pPageToCopy the page we want the attributes of
      * @param pNewPage the page that'll receives the attribute
      */
-    public static void copyAttributes(Page<?> pPageToCopy, Page<?> pNewPage) {
-        pNewPage.setCurrentPage(pPageToCopy.getCurrentPage());
-        pNewPage.setElementsByPage(pPageToCopy.getElementsByPage());
-        pNewPage.nbPages = pPageToCopy.nbPages;
-        pNewPage.setTotalElements(pPageToCopy.getTotalElements());
+    public static void copyAttributes(Page<?> pageToCopy, Page<?> newPage) {
+    	newPage.setCurrentPage(pageToCopy.getCurrentPage());
+    	newPage.setElementsByPage(pageToCopy.getElementsByPage());
+    	newPage.nbPages = pageToCopy.nbPages;
+    	newPage.setTotalElements(pageToCopy.getTotalElements());
     }
 }

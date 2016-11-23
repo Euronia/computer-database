@@ -19,9 +19,7 @@ public class PersistenceException extends Exception {
 		super(message,cause);
 	}
 	
-	public PersistenceException(Throwable cause){
+	public PersistenceException(Throwable cause) {
 		super(cause);
 	}
-	
-
 }

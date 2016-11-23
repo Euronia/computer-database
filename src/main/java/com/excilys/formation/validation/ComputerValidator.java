@@ -9,8 +9,8 @@ import com.excilys.formation.dto.ComputerDto;
 
 public class ComputerValidator {
 
-    public static List<String> validate(ComputerDto pcomputer)
-    {
+	//TODO replace List with a Map 
+    public static List<String> validate(ComputerDto pcomputer) {
         List<String> errors = new ArrayList<String>();
         errors.addAll(nameIsValid(pcomputer.getName()));
         errors.addAll(dateIsValid(pcomputer.getIntroduced(),null));
@@ -20,9 +20,9 @@ public class ComputerValidator {
     
     private static List<String> nameIsValid(String pname) {
         List<String> errors = new ArrayList<String>();
-        if (pname.trim().length() >=3) {
+        if (pname.trim().length() >= 3) {
             errors.add("The name must be atleast 3 characters long");
-        };
+        }
         return errors;
     }
     
@@ -30,12 +30,11 @@ public class ComputerValidator {
         List<String> errors = new ArrayList<String>();
         if (date != null) {
             try {
-            LocalDate localDate = LocalDate.parse(date);
+			LocalDate localDate = LocalDate.parse(date);
             } catch (DateTimeParseException e) {
                 errors.add("Invalid date");
             }
         }
         return errors;
-    }
-    
+    }   
 }

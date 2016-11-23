@@ -5,16 +5,16 @@ import com.excilys.formation.pagination.Page;
 
 public interface BaseDao<T> {
 	
-	default public T create (T t) throws PersistenceException {
+	public default T create (T t) throws PersistenceException {
 		throw new UnsupportedOperationException("Create() is not implemented");
 	}
-	default public Page<T> getPage(Page<T> ppage) throws PersistenceException {
+	public default Page<T> getPage(Page<T> ppage) throws PersistenceException {
 		throw new UnsupportedOperationException("getList() is not implemented");
 	}
-	default public T update (T t) throws PersistenceException {
+	public default T update (T t) throws PersistenceException {
 		throw new UnsupportedOperationException("update() is not implemented");
 	}
-	default public void delete (int pId) throws PersistenceException {
+	public default void delete (int pId) throws PersistenceException {
 		throw new UnsupportedOperationException("delete() is not implemented");
 	}
 }

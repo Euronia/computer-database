@@ -26,12 +26,12 @@ public class ComputerServiceImpl implements ComputerService {
      * Constructor for ComputerServiceImpl.
      * Initializes computerDao.
      */
+    
     public ComputerServiceImpl() {
         computerDao = ComputerDaoImpl.getInstance();
     }
     
-    private String localDateToString(LocalDate date)
-    {
+    private String localDateToString(LocalDate date) {
         if (date == null) {
             return null;
         } else {
@@ -39,8 +39,7 @@ public class ComputerServiceImpl implements ComputerService {
         }
     }
     
-    private LocalDate stringToLocalDate(String date)
-    {
+    private LocalDate stringToLocalDate(String date) {
         if (date == null) {
             return null;
         } else {
@@ -93,24 +92,24 @@ public class ComputerServiceImpl implements ComputerService {
         return computerDto;
     }
     @Override
-    public Page<ComputerDto> getPage(Page<ComputerDto> pPage) {
+    public Page<ComputerDto> getPage(Page<ComputerDto> page) {
         Page<Computer> pageCompany = new Page<Computer>(10);
-        ServiceUtil.copyAttributes(pPage, pageCompany);
-        pageCompany.setElements(dtoListToComputerList(pPage.elements));
+        ServiceUtil.copyAttributes(page, pageCompany);
+        pageCompany.setElements(dtoListToComputerList(page.elements));
         try {
             pageCompany = computerDao.getPage(pageCompany);
         } catch (PersistenceException e) {
             e.printStackTrace();
         }
-        ServiceUtil.copyAttributes(pageCompany, pPage);
-        pPage.elements = computerListToDtoList(pageCompany.elements);
-        return pPage;
+        ServiceUtil.copyAttributes(pageCompany, page);
+        page.elements = computerListToDtoList(pageCompany.elements);
+        return page;
     }
     
-    public Page<ComputerDto> getPageFilter(Page<ComputerDto> pPage, String filter) {
+    public Page<ComputerDto> getPageFilter(Page<ComputerDto> page, String filter) {
         Page<Computer> pageCompany = new Page<Computer>(10);
-        ServiceUtil.copyAttributes(pPage, pageCompany);
-        pageCompany.setElements(dtoListToComputerList(pPage.elements));
+        ServiceUtil.copyAttributes(page, pageCompany);
+        pageCompany.setElements(dtoListToComputerList(page.elements));
         try {
             System.out.println(computerDao.getAllFilter(pageCompany,filter));
         } catch (PersistenceException e) {
@@ -118,10 +117,10 @@ public class ComputerServiceImpl implements ComputerService {
         }
         
         System.out.println(pageCompany.elements);
-        ServiceUtil.copyAttributes(pageCompany, pPage);
-        pPage.elements = computerListToDtoList(pageCompany.elements);
+        ServiceUtil.copyAttributes(pageCompany, page);
+        page.elements = computerListToDtoList(pageCompany.elements);
    
-        return pPage;    
+        return page;    
     }
     
     @Override
@@ -134,7 +133,7 @@ public class ComputerServiceImpl implements ComputerService {
                 //TODO set as CompanyBuilder
         try {
             computerDao.update(computer);
-            System.out.println("updated : "+ computer);
+            System.out.println("updated : " + computer);
         } catch (PersistenceException e) {
             e.printStackTrace();
         }
@@ -143,14 +142,14 @@ public class ComputerServiceImpl implements ComputerService {
     
     /**
      * Converts a list from ComputerDto to Computer.
-     * @param pListDto the list to convert
+     * @param listDto the list to convert
      * @return a Computer List
      */
-    private List<Computer> dtoListToComputerList(List<ComputerDto> pListDto) {
+    private List<Computer> dtoListToComputerList(List<ComputerDto> listDto) {
         List<Computer> computers = null;
-        if (pListDto != null) {
+        if (listDto != null) {
             computers = new ArrayList<>();
-            for (ComputerDto computer : pListDto) {
+            for (ComputerDto computer : listDto) {
                 Company company = new Company(computer.companyName); 
                 company.setId(computer.companyId);
                 computers.add(new Computer.ComputerBuilder(computer.name,company)
@@ -209,8 +208,7 @@ public class ComputerServiceImpl implements ComputerService {
     }
     
     public void deleteMultiplesId(List<Integer> ids) {
-        for (int id : ids)
-        {
+        for (int id : ids) {
             delete(id);
         }
     }

@@ -73,7 +73,7 @@ public class ComputerMenu implements BaseMenu {
     public void list() {
         boolean continueLoop = true;
         pageComputer = new Page<>(10);
-        while(continueLoop) {
+        while (continueLoop) {
             showComputerPage();
             continueLoop = MenuUtil.manageNavigation(pageComputer);
         }
@@ -83,7 +83,7 @@ public class ComputerMenu implements BaseMenu {
     public void create() {
         ComputerDto computerDto = new ComputerDto();
         System.out.println("Entrez le nom de l'ordinateur");
-        String name ="";
+        String name = "";
         while (name.isEmpty()) {
             name = scanner.nextLine();
         }
@@ -123,7 +123,7 @@ public class ComputerMenu implements BaseMenu {
     public void info() {
         System.out.println("Quelle est l'id de l'ordinateur auquel vous souhaitez acceder ?");
         scanner.nextLine();
-        String infoId= MenuUtil.waitForLine();
+        String infoId = MenuUtil.waitForLine();
         int idToShow = -1;
         if (MenuUtil.isInteger(infoId)) {
             idToShow = Integer.parseInt(infoId);
@@ -154,17 +154,15 @@ public class ComputerMenu implements BaseMenu {
         if (MenuUtil.isInteger(input)) {
             idToUpdate = Integer.parseInt(input);
         }
-        if (idToUpdate >=1) {
+        if (idToUpdate >= 1) {
             try {
                 ComputerDto computerDto = computerService.getById(idToUpdate);
-                if (computerDto != null)
-                {
+                if (computerDto != null) {
                     // NAME
                     System.out.println(new StringBuilder().append("Entrez un nouveau nom si vous souhaitez le changer (")
                           .append(computerDto.name).append(") :").toString());  
                     String newName = scanner.nextLine();
-                    if (!newName.isEmpty())
-                    {
+                    if (!newName.isEmpty()) {
                         computerDto.name = newName;
                     }
                     // INTRODUCED
@@ -202,8 +200,7 @@ public class ComputerMenu implements BaseMenu {
         if (MenuUtil.isInteger(input)) {
             idToDelete = Integer.parseInt(input);
         }
-        if (idToDelete >= 1)
-        {
+        if (idToDelete >= 1) {
             try {
                 computerService.delete(idToDelete);
                 System.out.println("Ordinateur supprimé");

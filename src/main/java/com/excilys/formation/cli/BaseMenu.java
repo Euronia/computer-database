@@ -9,16 +9,14 @@ package com.excilys.formation.cli;
 
 public interface BaseMenu {
 
-	public void startMenu();
-	public void exitMenu();
-	
-	/*public void getListMenu();
-	public void getByIDMenu();
-	public void getByNameMenu();
-	public void AddMenu();
-	public void UpdateMenu();
-	public void DeleteMenu();
-	
-	*/
-	
+  /**
+   * This method launch the menu in the cli.
+   */
+  public void startMenu();
+  
+  /**
+   * This method closes the menu in the cli.
+   */
+  public void exitMenu();
+
 }

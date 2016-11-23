@@ -43,8 +43,7 @@ public class JdbcConnectionProvider implements ConnectionProvider {
         Properties properties;
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
         properties = PropertyReader.readProperties(classLoader.getResourceAsStream(PROPERTIES_ADRESS));
-        if (properties.isEmpty())
-        {
+        if (properties.isEmpty()) {
             throw new RuntimeException("Empty connection properties or invalid adress");
         }
         nestedUrl = properties.getProperty("url");
@@ -68,7 +67,7 @@ public class JdbcConnectionProvider implements ConnectionProvider {
     ////////// Getters and Setters //////////
 
     public Connection getConnection() throws SQLException {
-        if (connection ==null){
+        if (connection == null) {
             connection = DriverManager.getConnection(url,user,pwd);
         }
         return connection;

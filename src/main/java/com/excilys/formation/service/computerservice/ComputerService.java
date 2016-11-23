@@ -15,13 +15,13 @@ public interface ComputerService extends BaseService<ComputerDto> {
 
     default public ComputerDto getById(int pId) throws ServiceException {
         throw new UnsupportedOperationException("getById() is not implemented");
-    };
+    }
     
     default public void deleteMultiplesId (List<Integer> ids) throws ServiceException {
         throw new UnsupportedOperationException("deleteMultiplesId() is not implemented");
     }
     
-    default public Page<ComputerDto> getPageFilter(Page<ComputerDto> pPage, String filter) {
+    default public Page<ComputerDto> getPageFilter(Page<ComputerDto> page, String filter) {
         throw new UnsupportedOperationException("getPageFilter() is not implemented");
     }
 }

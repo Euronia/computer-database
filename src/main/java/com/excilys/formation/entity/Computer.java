@@ -21,59 +21,50 @@ public class Computer {
 	
 	////////// Builder //////////
 	
-	public static class ComputerBuilder
-	{
+	public static class ComputerBuilder {
 	    private int nestedId;
 		private String nestedName;
 		private LocalDate nestedIntroduced;
 		private LocalDate nestedDiscontinued;
 		private Company nestedManufacturer;
 		
-		public ComputerBuilder(String name, Company manufacturer)
-		{
+		public ComputerBuilder(String name, Company manufacturer) {
 			nestedName = name;
 			nestedManufacturer = manufacturer;
 		}
 		
-		public ComputerBuilder setId(int pid)
-		{
+		public ComputerBuilder setId(int pid) {
 		    nestedId = pid;
 		    return this;
 		}
 		
-		public ComputerBuilder setName(String pname)
-		{
+		public ComputerBuilder setName(String pname) {
 			nestedName = pname;
 			return this;
 		}
 		
-		public ComputerBuilder setIntroduced(LocalDate pdate)
-		{
+		public ComputerBuilder setIntroduced(LocalDate pdate) {
 			nestedIntroduced = pdate;
 			return this;
 		}
 		
-		public ComputerBuilder setDiscontinued(LocalDate pdate)
-		{
+		public ComputerBuilder setDiscontinued(LocalDate pdate) {
 			nestedDiscontinued = pdate;
 			return this;
 		}
 		
-		public ComputerBuilder setCompany(Company pmanufacturer)
-		{
+		public ComputerBuilder setCompany(Company pmanufacturer) {
 			nestedManufacturer = pmanufacturer;
 			return this;
 		}
 		
-		public Computer build()
-		{
+		public Computer build() {
 			return new Computer(this);
 		}
 	}
 	////////// Constructors //////////
 	
-	public Computer (ComputerBuilder builder)
-	{
+	public Computer (ComputerBuilder builder) {
 	    id = builder.nestedId;
 		name = builder.nestedName;
 		introduced = builder.nestedIntroduced;
@@ -134,14 +125,12 @@ public class Computer {
 	@Override 
 	public String toString () {
 		String returnString;
-		returnString = "[" + this.getId() +
-			"]: " +this.getName() ;
-		if (this.getIntroduced() != null)
-		{
+		returnString = "[" + this.getId() 
+		+ "]: " + this.getName() ;
+		if (this.getIntroduced() != null) {
 			returnString =  returnString.concat(" Introduced : " + this.getIntroduced().toString());
 		}
-		if (this.getDiscontinued() != null)
-		{
+		if (this.getDiscontinued() != null) {
 			returnString =  returnString.concat(" Discontinued : " + this.getDiscontinued().toString());
 		}
 			returnString = returnString.concat(" owned by company [" + this.getManufacturer() + "]");
@@ -197,8 +186,4 @@ public class Computer {
     public Company getCompany() {
         return manufacturer;
     }
-	
-	
-	
-	
 }

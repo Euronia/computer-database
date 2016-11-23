@@ -19,7 +19,7 @@ public interface ComputerDao extends BaseDao<Computer> {
         throw new UnsupportedOperationException("delete() is not implemented");
     }
     
-    default public Page<Computer> getAllFilter(Page<Computer> pPage,String filter) throws PersistenceException {
+    default public Page<Computer> getAllFilter(Page<Computer> page,String filter) throws PersistenceException {
         throw new UnsupportedOperationException("getAllFilter() is not implemented");
     }
 }

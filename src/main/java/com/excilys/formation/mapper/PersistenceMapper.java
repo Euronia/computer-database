@@ -11,64 +11,64 @@ import com.excilys.formation.util.DateConverter;
 
 public class PersistenceMapper {
     
-    public static List<Computer> mapResultsToComputerList(ResultSet pResultSet) throws SQLException {
+    public static List<Computer> mapResultsToComputerList(ResultSet resultSet) throws SQLException {
         List<Computer> computerList = null;
-        if (pResultSet != null) {
+        if (resultSet != null) {
             computerList = new ArrayList<Computer>();
-            while (pResultSet.next()) {
-                Computer computer = extractComputer(pResultSet);
+            while (resultSet.next()) {
+                Computer computer = extractComputer(resultSet);
                 computerList.add(computer);
             }
         } 
         return computerList;
     }
     
-    public static List<Company> mapResultsToCompanyList(ResultSet pResultSet) throws SQLException {
+    public static List<Company> mapResultsToCompanyList(ResultSet resultSet) throws SQLException {
         List<Company> companyList = null;
-        if (pResultSet != null) {
+        if (resultSet != null) {
             companyList = new ArrayList<Company>();
-            while (pResultSet.next()) {
-                Company company = extractCompany(pResultSet);
+            while (resultSet.next()) {
+                Company company = extractCompany(resultSet);
                 companyList.add(company);
             }
         }
         return companyList;
     }
     
-    public static Company mapResultToCompany(ResultSet pResultSet) throws SQLException {
+    public static Company mapResultToCompany(ResultSet resultSet) throws SQLException {
         Company company = null;
-        if (pResultSet != null) {
-            if (pResultSet.next()) {
-                company = extractCompany(pResultSet);
+        if (resultSet != null) {
+            if (resultSet.next()) {
+                company = extractCompany(resultSet);
             }
         }
         return company;
     }
     
-    public static Computer mapResultToComputer(ResultSet pResultSet) throws SQLException {
+    public static Computer mapResultToComputer(ResultSet resultSet) throws SQLException {
         Computer computer = null;
-        if (pResultSet != null) {
-            if (pResultSet.next()) {
-                computer = extractComputer(pResultSet);
+        if (resultSet != null) {
+            if (resultSet.next()) {
+                computer = extractComputer(resultSet);
             }
         }
         return computer;
     }
     
-    private static Computer extractComputer(ResultSet pResultSet) throws SQLException {
-        Company company = new Company(pResultSet.getString("companyName"));
-        company.setId(pResultSet.getInt("companyId"));
+    private static Computer extractComputer(ResultSet resultSet) throws SQLException {
+        Company company = new Company(resultSet.getString("companyName"));
+        company.setId(resultSet.getInt("companyId"));
         
-        Computer computer = new Computer.ComputerBuilder(pResultSet.getString("name"),company)
-                 .setId(pResultSet.getInt("id"))
-                 .setDiscontinued(DateConverter.fromTimestampToLocalDate(pResultSet.getTimestamp("discontinued")))
-                 .setIntroduced(DateConverter.fromTimestampToLocalDate(pResultSet.getTimestamp("introduced"))).build();
+        Computer computer = new Computer.ComputerBuilder(resultSet.getString("name"),company)
+                 .setId(resultSet.getInt("id"))
+                 .setDiscontinued(DateConverter.fromTimestampToLocalDate(resultSet.getTimestamp("discontinued")))
+                 .setIntroduced(DateConverter.fromTimestampToLocalDate(resultSet.getTimestamp("introduced"))).build();
         return computer;            
     }
     
-    private static Company extractCompany(ResultSet pResultSet) throws SQLException { 
-        Company company = new Company(pResultSet.getString("name"));
-        company.setId(pResultSet.getInt("id"));
+    private static Company extractCompany(ResultSet resultSet) throws SQLException { 
+        Company company = new Company(resultSet.getString("name"));
+        company.setId(resultSet.getInt("id"));
         return company;
     }
 }

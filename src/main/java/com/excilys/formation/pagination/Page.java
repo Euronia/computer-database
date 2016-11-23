@@ -18,8 +18,7 @@ public class Page<T> {
         currentPage = 1;
     }
     
-    public Page(int pelementsByPage)
-    {
+    public Page(int pelementsByPage) {
         currentPage = 1;
         elementsByPage = pelementsByPage;
     }
@@ -68,10 +67,8 @@ public class Page<T> {
         return elements;
     }
 
-
     ////////// Methods //////////
     
-
     public boolean nextPage() {
         if (currentPage < nbPages) {
             currentPage++;
@@ -84,7 +81,7 @@ public class Page<T> {
         if (currentPage > 1) {
             currentPage--;
             return true;
-        }else { 
+        } else { 
             return false;
         }
     }
@@ -100,11 +97,9 @@ public class Page<T> {
     
     public void calculateNbPages() {
         if (elementsByPage != 0) {
-        nbPages = (totalElements + elementsByPage -1) / elementsByPage;
+        nbPages = (totalElements + elementsByPage - 1) / elementsByPage;
         } else {
             nbPages = 1;
         }
     }
- 
-
 }

@@ -47,10 +47,11 @@ public class CompanyDaoImpl implements CompanyDao {
         }
         return companyDaoImpl;
     }
+
     @Override
     public Company getById(int pId) throws PersistenceException {
         Company company = null;
-        try (Connection connection = connectionProvider.getConnection()){
+        try (Connection connection = connectionProvider.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_BY_NAME);
             preparedStatement.setInt(1, pId);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -60,29 +61,32 @@ public class CompanyDaoImpl implements CompanyDao {
         }
         return company;
     }
+
     @Override
-    public Page<Company> getPage(Page<Company> pPage) throws PersistenceException {
+    public Page<Company> getPage(Page<Company> page) throws PersistenceException {
         List<Company> allCompanies = new ArrayList<>();
-        try (Connection connection = connectionProvider.getConnection()){
+        try (Connection connection = connectionProvider.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_PAGE);
-            preparedStatement.setInt(1, pPage.getElementsByPage());
-            preparedStatement.setInt(2, (pPage.getCurrentPage() - 1) * pPage.getElementsByPage());
+            preparedStatement.setInt(1, page.getElementsByPage());
+            preparedStatement.setInt(2, (page.getCurrentPage() - 1) * page.getElementsByPage());
             ResultSet resultSet = preparedStatement.executeQuery();
             allCompanies = PersistenceMapper.mapResultsToCompanyList(resultSet);
-            pPage.setElements(allCompanies);
-            pPage.setTotalElements(count());
+            page.setElements(allCompanies);
+            page.setTotalElements(count());
         } catch (SQLException e) {
             throw new PersistenceException("Problème lors de la récupération de la page de compagnies");
         }
-        return pPage;
+        return page;
     }
+
     /**
      * Count the total number of companies.
      * @return the number of companies in the DB
      */
+
     private int count() {
         int total = 0;
-        try (Connection connection = connectionProvider.getConnection()){
+        try (Connection connection = connectionProvider.getConnection()) {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(COUNT_ALL);
             if (resultSet.next()) {

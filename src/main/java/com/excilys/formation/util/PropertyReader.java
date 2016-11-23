@@ -14,8 +14,7 @@ public class PropertyReader {
 	    PROPERTYREADER = new PropertyReader();
 	}
 	
-	public static PropertyReader getInstance()
-	{
+	public static PropertyReader getInstance() {
 	    return PROPERTYREADER;
 	}
 	

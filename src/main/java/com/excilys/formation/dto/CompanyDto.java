@@ -7,13 +7,14 @@ package com.excilys.formation.dto;
  *
  */
 public class CompanyDto {
+
+    //////////  Attributes //////////
+
     public int id;
     public String name;
-    @Override
-    public String toString() {
-        return new StringBuilder().append("Company [id=").append(id).append(", name=").append(name).append("]")
-                .toString();
-    }
+    
+    ////////// Getters And Setters //////////
+    
     public int getId() {
         return id;
     }
@@ -26,5 +27,14 @@ public class CompanyDto {
     public void setName(String name) {
         this.name = name;
     }
+    
+    ////////// Methods //////////
+    
+    @Override
+    public String toString() {
+        return new StringBuilder().append("Company [id=").append(id).append(", name=").append(name).append("]")
+                .toString();
+    }
+
     
 }

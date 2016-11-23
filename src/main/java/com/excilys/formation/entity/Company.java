@@ -14,13 +14,11 @@ public class Company {
 	
 	////////// Constructors //////////
 	
-	public Company (String cname)
-	{
+	public Company (String cname) {
 		this.name = cname;
 	}
 	
-	public Company (int id, String name)
-	{
+	public Company (int id, String name) {
 	    this.id = id;
 	    this.name = name;
 	}
@@ -73,7 +71,4 @@ public class Company {
 			return false;
 		return true;
 	}
-
-
-	
 }

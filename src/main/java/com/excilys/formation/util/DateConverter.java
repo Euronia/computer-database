@@ -5,18 +5,17 @@ import java.time.LocalDate;
 
 public class DateConverter {
     
-    public static LocalDate fromTimestampToLocalDate(Timestamp pTimestamp) {
-        if (pTimestamp != null) {
-            return pTimestamp.toLocalDateTime().toLocalDate();
+    public static LocalDate fromTimestampToLocalDate(Timestamp timestamp) {
+        if (timestamp != null) {
+            return timestamp.toLocalDateTime().toLocalDate();
         }
         return null;
     }
     
-    public static Timestamp fromLocalDateToTimestamp(LocalDate pLocalDate) {
-        if (pLocalDate != null) {
-            return Timestamp.valueOf(pLocalDate.atStartOfDay());
+    public static Timestamp fromLocalDateToTimestamp(LocalDate localDate) {
+        if (localDate != null) {
+            return Timestamp.valueOf(localDate.atStartOfDay());
         }
     return null;
-    }
-    
+    } 
 }
