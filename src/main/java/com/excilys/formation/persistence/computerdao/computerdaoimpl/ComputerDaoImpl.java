@@ -240,7 +240,6 @@ public class ComputerDaoImpl implements ComputerDao {
             ps.executeUpdate();
             System.out.println("Deleted");
         } catch (Exception e) {
-
         }
     }
 

@@ -21,7 +21,7 @@ import com.excilys.formation.persistence.connectionprovider.JdbcConnectionProvid
  */
 
 public class DbTesting {
-    protected final static JdbcConnectionProvider connectionTest = JdbcConnectionProvider.getInstance();
+    protected final static JdbcConnectionProvider connectionTest = (JdbcConnectionProvider) JdbcConnectionProvider.getInstance();
 
     /**
      * returns a DataSet from an existing XML File representing our database

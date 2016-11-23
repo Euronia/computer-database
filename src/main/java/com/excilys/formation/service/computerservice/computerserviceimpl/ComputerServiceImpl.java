@@ -126,7 +126,6 @@ public class ComputerServiceImpl implements ComputerService {
     
     @Override
     public ComputerDto update(ComputerDto pComputerDto) {
-        System.out.println(pComputerDto);
         Company company = new Company(pComputerDto.companyName);
         company.setId(pComputerDto.companyId);
         Computer computer = new Computer.ComputerBuilder(pComputerDto.name,company)
@@ -141,6 +140,7 @@ public class ComputerServiceImpl implements ComputerService {
         }
         return computerToDto(computer);
     }
+    
     /**
      * Converts a list from ComputerDto to Computer.
      * @param pListDto the list to convert

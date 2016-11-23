@@ -26,6 +26,9 @@ public class CompanyDaoImpl implements CompanyDao {
     private static final String SELECT_BY_NAME = "SELECT * FROM company WHERE id=?";
     private static final String SELECT_PAGE = "SELECT * FROM company LIMIT ? OFFSET ?";
     private static final String COUNT_ALL = "SELECT COUNT(*) as total FROM company";
+    private static final String DELETE_COMPUTERS = "DELETE FROM computer WHERE computer.company_id = ?";
+    private static final String DELETE_COMPANY = "DELETE FROM company WHERE company.id = ?";
+    
     /**
      * CompanyDaoJdbc constructor.
      * Initialize the connectionProvider.
@@ -89,5 +92,28 @@ public class CompanyDaoImpl implements CompanyDao {
             e.printStackTrace();
         }
         return total;
+    }
+    
+    public void delete(int pid) {
+        try (Connection connection = connectionProvider.getConnection()) {
+            connection.setAutoCommit(false);
+            
+            try { 
+            PreparedStatement preparedStatementDeleteComputers = connection.prepareStatement(DELETE_COMPUTERS);
+            preparedStatementDeleteComputers.setInt(1, pid);
+            preparedStatementDeleteComputers.executeUpdate();
+            
+            PreparedStatement preparedStatementDeleteCompany = connection.prepareStatement(DELETE_COMPANY);
+            preparedStatementDeleteCompany.setInt(1, pid);
+            preparedStatementDeleteCompany.executeUpdate();
+            } catch (SQLException e) {
+                connection.rollback();
+            }
+            
+            connection.commit();
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

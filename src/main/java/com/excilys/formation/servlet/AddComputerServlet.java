@@ -16,6 +16,7 @@ import com.excilys.formation.service.companyservice.CompanyService;
 import com.excilys.formation.service.companyservice.companyserviceimpl.CompanyServiceImpl;
 import com.excilys.formation.service.computerservice.ComputerService;
 import com.excilys.formation.service.computerservice.computerserviceimpl.ComputerServiceImpl;
+import com.excilys.formation.validation.ComputerValidator;
 
 /**
  * Servlet implementation class addComputer
@@ -78,6 +79,11 @@ public class AddComputerServlet extends HttpServlet {
         } catch (ServiceException e) {
             e.printStackTrace();
         }
-        doGet(request, response);
+        if (!ComputerValidator.validate(computerDto).isEmpty()) {
+            // TODO : remonter les erreurs de la validation
+            doGet(request, response);
+        } else {
+            doGet(request, response);
+        }
     }
 }
