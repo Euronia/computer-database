@@ -63,9 +63,9 @@ public class ComputerServiceImpl implements ComputerService {
         return null;
     }
     @Override
-    public void delete(int pId) {
+    public void delete(long id) {
         try {
-            computerDao.delete(pId);
+            computerDao.delete(id);
         } catch (PersistenceException e) {
             e.printStackTrace();
         }
@@ -85,7 +85,7 @@ public class ComputerServiceImpl implements ComputerService {
             computerDto.name = computer.getName();
             computerDto.introduced = localDateToString(computer.getIntroduced());
             computerDto.discontinued = localDateToString(computer.getDiscontinued());
-            Company company = computer.getCompany();
+            Company company = computer.getManufacturer();
             computerDto.companyId = company.getId();
             computerDto.companyName = company.getName();
         }
@@ -106,6 +106,11 @@ public class ComputerServiceImpl implements ComputerService {
         return page;
     }
     
+    /**
+     * 
+     * @param
+     * @return 
+     */
     public Page<ComputerDto> getPageFilter(Page<ComputerDto> page, String filter) {
         Page<Computer> pageCompany = new Page<Computer>(10);
         ServiceUtil.copyAttributes(page, pageCompany);
@@ -122,7 +127,7 @@ public class ComputerServiceImpl implements ComputerService {
    
         return page;    
     }
-    
+
     @Override
     public ComputerDto update(ComputerDto pComputerDto) {
         Company company = new Company(pComputerDto.companyName);
@@ -183,7 +188,7 @@ public class ComputerServiceImpl implements ComputerService {
                 } else {
                     computerDto.discontinued = null;
                 }
-                Company company = computer.getCompany();
+                Company company = computer.getManufacturer();
                 computerDto.companyId = company.getId();
                 computerDto.companyName = company.getName();
                 computersDto.add(computerDto);
@@ -207,7 +212,7 @@ public class ComputerServiceImpl implements ComputerService {
         if (pComp.getDiscontinued() != null) {
             computerDto.discontinued = pComp.getDiscontinued().toString();
         }        
-        Company company = pComp.getCompany();
+        Company company = pComp.getManufacturer();
         computerDto.companyId = company.getId();
         computerDto.companyName = company.getName();
         return computerDto;

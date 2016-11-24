@@ -21,7 +21,7 @@ import com.excilys.formation.persistence.connectionprovider.HikariConnectionProv
 
 /**
  * @author Euronia
- * @version 1.0
+ * 
  */
 
 public class ComputerDaoImpl implements ComputerDao {
@@ -194,7 +194,7 @@ public class ComputerDaoImpl implements ComputerDao {
             ps.setString(1, toCreate.getName());
             ps.setObject(2, toCreate.getIntroduced());
             ps.setObject(3, toCreate.getDiscontinued());
-            ps.setInt(4, toCreate.getManufacturer().getId());
+            ps.setLong(4, toCreate.getManufacturer().getId());
             ps.executeUpdate();
         } catch (Exception e) {
           
@@ -217,8 +217,8 @@ public class ComputerDaoImpl implements ComputerDao {
             ps.setString(1, toUpdate.getName());
             ps.setObject(2, toUpdate.getIntroduced());
             ps.setObject(3, toUpdate.getDiscontinued());
-            ps.setInt(4, toUpdate.getManufacturer().getId());
-            ps.setInt(5, toUpdate.getId());
+            ps.setLong(4, toUpdate.getManufacturer().getId());
+            ps.setLong(5, toUpdate.getId());
             ps.executeUpdate();
         } catch (Exception e) {
 
@@ -236,7 +236,7 @@ public class ComputerDaoImpl implements ComputerDao {
     public void delete(Computer pcomputer) {
         try (Connection connection = connectionProvider.getConnection()) {
             PreparedStatement ps = connection.prepareStatement(DELETE_COMPUTER);
-            ps.setInt(1, pcomputer.getId());
+            ps.setLong(1, pcomputer.getId());
             ps.executeUpdate();
             System.out.println("Deleted");
         } catch (Exception e) {
@@ -246,15 +246,15 @@ public class ComputerDaoImpl implements ComputerDao {
     /**
      * A method that deletes an entry of the computer table.
      *
-     * @param pid the id of the entry that we want to delete from our
+     * @param id the id of the entry that we want to delete from our
      *            table
      */
 
-    public void delete(int pid) {
+    public void delete(long id) {
 
         try (Connection connection = connectionProvider.getConnection()) {
             PreparedStatement ps = connection.prepareStatement(DELETE_COMPUTER);
-            ps.setInt(1, pid);
+            ps.setLong(1, id);
             ps.executeUpdate();
         } catch (Exception e) {
         }

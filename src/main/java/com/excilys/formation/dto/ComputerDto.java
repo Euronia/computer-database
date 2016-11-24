@@ -9,19 +9,19 @@ public class ComputerDto {
 
     ////////// Parameters //////////
 
-    public int id;
+    public long id;
     public String name;
     public String introduced;
     public String discontinued;
-    public int companyId;
+    public long companyId;
     public String companyName;
     
     ////////// Getters and Setters //////////
     
-    public int getId() {
+    public long getId() {
         return id;
     }
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
     public String getName() {
@@ -42,10 +42,10 @@ public class ComputerDto {
     public void setDiscontinued(String discontinued) {
         this.discontinued = discontinued;
     }
-    public int getCompanyId() {
+    public long getCompanyId() {
         return companyId;
     }
-    public void setCompanyId(int companyId) {
+    public void setCompanyId(long  companyId) {
         this.companyId = companyId;
     }
     public String getCompanyName() {

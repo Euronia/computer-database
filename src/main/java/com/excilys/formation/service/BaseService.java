@@ -14,7 +14,7 @@ public interface BaseService<T> {
 	default public T update (T t) throws ServiceException {
 		throw new UnsupportedOperationException("update() is not implemented");
 	}
-	default public void delete (int pid) throws ServiceException {
+	default public void delete (long id) throws ServiceException {
 		throw new UnsupportedOperationException("delete() is not implemented");
 	}
 }

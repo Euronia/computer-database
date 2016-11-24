@@ -98,17 +98,17 @@ public class CompanyDaoImpl implements CompanyDao {
         return total;
     }
     
-    public void delete(int pid) {
+    public void delete(long id) {
         try (Connection connection = connectionProvider.getConnection()) {
             connection.setAutoCommit(false);
             
             try { 
             PreparedStatement preparedStatementDeleteComputers = connection.prepareStatement(DELETE_COMPUTERS);
-            preparedStatementDeleteComputers.setInt(1, pid);
+            preparedStatementDeleteComputers.setLong(1, id);
             preparedStatementDeleteComputers.executeUpdate();
             
             PreparedStatement preparedStatementDeleteCompany = connection.prepareStatement(DELETE_COMPANY);
-            preparedStatementDeleteCompany.setInt(1, pid);
+            preparedStatementDeleteCompany.setLong(1, id);
             preparedStatementDeleteCompany.executeUpdate();
             } catch (SQLException e) {
                 connection.rollback();

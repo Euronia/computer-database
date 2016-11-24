@@ -10,15 +10,15 @@ public class CompanyDto {
 
     //////////  Attributes //////////
 
-    public int id;
+    public long id;
     public String name;
     
     ////////// Getters And Setters //////////
     
-    public int getId() {
+    public long getId() {
         return id;
     }
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
     public String getName() {
