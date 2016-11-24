@@ -139,7 +139,7 @@ public class ComputerServiceImpl implements ComputerService {
         }
         return computerToDto(computer);
     }
-    
+
     /**
      * Converts a list from ComputerDto to Computer.
      * @param listDto the list to convert
@@ -159,6 +159,7 @@ public class ComputerServiceImpl implements ComputerService {
         }
         return computers;
     }
+
     /**
      * Converts a list from Computer to ComputerDto.
      * @param pList the list to convert
@@ -190,7 +191,12 @@ public class ComputerServiceImpl implements ComputerService {
         }
         return computersDto;
     }
-    
+
+    /**
+     * Transform a Computer into a ComputerDto.
+     * @param pComp the Computer we want to transform
+     * @return the parameter computer transformed into a ComputerDto
+     */
     private ComputerDto computerToDto(Computer pComp) {
         ComputerDto computerDto = new ComputerDto();
         computerDto.id = pComp.getId();
@@ -206,7 +212,11 @@ public class ComputerServiceImpl implements ComputerService {
         computerDto.companyName = company.getName();
         return computerDto;
     }
-    
+
+    /**
+     * Calls the delete() method on all the ID in the parameter List.
+     * @param ids A list of integers representing the Ids to delete.
+     */
     public void deleteMultiplesId(List<Integer> ids) {
         for (int id : ids) {
             delete(id);

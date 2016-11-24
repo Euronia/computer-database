@@ -18,6 +18,16 @@ import com.excilys.formation.service.computerservice.computerserviceimpl.Compute
 
 public class EditComputerServlet extends HttpServlet {
 
+    ////////// Parameters //////////
+    
+    private static final long serialVersionUID = 5820010289218504083L;
+
+    ////////// Methods //////////
+    
+    /**
+     * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+     *      response)
+     */
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         ComputerDto computer = null;
@@ -50,6 +60,10 @@ public class EditComputerServlet extends HttpServlet {
         this.getServletContext().getRequestDispatcher("/WEB-INF/views/editComputer.jsp").forward(request, response);
     }
     
+    /**
+     * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+     *      response)
+     */
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         ComputerService computerService = new ComputerServiceImpl();

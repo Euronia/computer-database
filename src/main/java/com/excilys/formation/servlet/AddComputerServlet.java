@@ -21,11 +21,13 @@ import com.excilys.formation.validation.ComputerValidator;
  * Servlet implementation class addComputer
  */
 public class AddComputerServlet extends HttpServlet {
-    /**
-     * 
-     */
+
+    ////////// Parameters //////////
+    
     private static final long serialVersionUID = 1L;
 
+    ////////// Methods //////////
+    
     /**
      * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
      *      response)

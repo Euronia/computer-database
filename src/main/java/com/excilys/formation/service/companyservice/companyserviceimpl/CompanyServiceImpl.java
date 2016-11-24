@@ -13,15 +13,23 @@ import com.excilys.formation.service.companyservice.CompanyService;
 import com.excilys.formation.util.ServiceUtil;
 
 public class CompanyServiceImpl implements CompanyService {
+
+    ////////// Parameters //////////
+
     private CompanyDao companyDao;
+
+    ////////// Constructors //////////
+
     /**
      * Constructor for CompanyServiceImpl.
      * Initializes the companyDao.
      */
-    
-    public CompanyServiceImpl() {
+     public CompanyServiceImpl() {
         companyDao = CompanyDaoImpl.getInstance();
     }
+
+    ////////// Methods ///////////
+
     @Override
     public Page<CompanyDto> getPage(Page<CompanyDto> page) {
         Page<Company> pageCompany = new Page<Company>(10);
@@ -36,6 +44,7 @@ public class CompanyServiceImpl implements CompanyService {
         page.elements = companyListToDtoList(pageCompany.elements);
         return page;
     }
+    
     /**
      * Converts a list from CompanyDto to Company.
      * @param listDto the list to convert
@@ -53,6 +62,7 @@ public class CompanyServiceImpl implements CompanyService {
         }
         return companies;
     }
+    
     /**
      * Convert a list from Company to CompanyDto.
      * @param pList the list to convert

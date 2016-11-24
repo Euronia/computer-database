@@ -18,11 +18,13 @@ import com.excilys.formation.service.computerservice.computerserviceimpl.Compute
  * Servlet implementation class Dashboard
  */
 public class DashboardServlet extends HttpServlet {
-    /**
-     * 
-     */
-    private static final long serialVersionUID = 1L;
+ 
+    ////////// Parameters //////////
+    
+    private static final long serialVersionUID = 6163744348925320231L;
 
+    ////////// Methods //////////
+    
     /**
      * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
      *      response)
