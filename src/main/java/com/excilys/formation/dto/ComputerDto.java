@@ -9,12 +9,12 @@ public class ComputerDto {
 
     ////////// Parameters //////////
 
-    public long id;
-    public String name;
-    public String introduced;
-    public String discontinued;
-    public long companyId;
-    public String companyName;
+    private long id;
+    private String name;
+    private String introduced;
+    private String discontinued;
+    private long companyId;
+    private String companyName;
     
     ////////// Getters and Setters //////////
     

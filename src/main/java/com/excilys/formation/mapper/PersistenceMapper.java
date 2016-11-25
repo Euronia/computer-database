@@ -59,16 +59,16 @@ public class PersistenceMapper {
         Company company = new Company(resultSet.getString("companyName"));
         company.setId(resultSet.getInt("companyId"));
         
-        Computer computer = new Computer.ComputerBuilder(resultSet.getString("name"),company)
-                 .setId(resultSet.getInt("id"))
-                 .setDiscontinued(DateConverter.fromTimestampToLocalDate(resultSet.getTimestamp("discontinued")))
-                 .setIntroduced(DateConverter.fromTimestampToLocalDate(resultSet.getTimestamp("introduced"))).build();
+        Computer computer = new Computer.ComputerBuilder(resultSet.getString("name")).manufacturer(company)
+                 .id(resultSet.getInt("id"))
+                 .discontinued(DateConverter.fromTimestampToLocalDate(resultSet.getTimestamp("discontinued")))
+                 .introduced(DateConverter.fromTimestampToLocalDate(resultSet.getTimestamp("introduced"))).build();
         return computer;            
     }
     
     private static Company extractCompany(ResultSet resultSet) throws SQLException { 
         Company company = new Company(resultSet.getString("name"));
-        company.setId(resultSet.getInt("id"));
+        company.setId(resultSet.getLong("id"));
         return company;
     }
 }

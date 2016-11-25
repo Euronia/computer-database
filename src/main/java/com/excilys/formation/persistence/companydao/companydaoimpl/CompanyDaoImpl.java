@@ -12,7 +12,6 @@ import com.excilys.formation.exception.PersistenceException;
 import com.excilys.formation.mapper.PersistenceMapper;
 import com.excilys.formation.pagination.Page;
 import com.excilys.formation.persistence.companydao.CompanyDao;
-import com.excilys.formation.persistence.connectionprovider.ConnectionProvider;
 import com.excilys.formation.persistence.connectionprovider.HikariConnectionProvider;
 
 /**
@@ -21,7 +20,7 @@ import com.excilys.formation.persistence.connectionprovider.HikariConnectionProv
  *
  */
 public class CompanyDaoImpl implements CompanyDao {
-    private ConnectionProvider connectionProvider;
+    private HikariConnectionProvider connectionProvider;
     private static CompanyDaoImpl companyDaoImpl = null;
     private static final String SELECT_BY_NAME = "SELECT * FROM company WHERE id=?";
     private static final String SELECT_PAGE = "SELECT * FROM company LIMIT ? OFFSET ?";

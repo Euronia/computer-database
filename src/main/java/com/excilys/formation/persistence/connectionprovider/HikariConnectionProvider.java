@@ -4,23 +4,25 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Properties;
 
+import javax.sql.DataSource;
+
 import com.excilys.formation.util.PropertyReader;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
-public class HikariConnectionProvider implements ConnectionProvider {
+public class HikariConnectionProvider {
 
     ////////// Parameters //////////
     
-    private static final HikariConnectionProvider CONNECTIONPROVIDER_INSTANCE;
+    private static final HikariConnectionProvider CONNECTION_PROVIDER_INSTANCE;
     private static final String PROPERTIES_ADRESS = "hikariConnection.properties";
-    private HikariDataSource datasource ;
+    private DataSource datasource ;
     
     public Connection getConnection() throws SQLException {
         return datasource.getConnection();
     }
     
-    public HikariConnectionProvider (HikariDataSource ds) {
+    public HikariConnectionProvider (DataSource ds) {
         this.datasource = ds;
     }
     
@@ -33,11 +35,11 @@ public class HikariConnectionProvider implements ConnectionProvider {
         HikariConfig config = new HikariConfig(properties);
         HikariDataSource ds = new HikariDataSource(config);
         
-        CONNECTIONPROVIDER_INSTANCE = new HikariConnectionProvider(ds);
+        CONNECTION_PROVIDER_INSTANCE = new HikariConnectionProvider(ds);
     }
 
-    public static ConnectionProvider getInstance() {
-        return CONNECTIONPROVIDER_INSTANCE;
+    public static HikariConnectionProvider getInstance() {
+        return CONNECTION_PROVIDER_INSTANCE;
     }
     
     public void closeConnection() {
@@ -48,7 +50,6 @@ public class HikariConnectionProvider implements ConnectionProvider {
         }
     }
 
-    @Override
     public void openConnection() {
        try {
         datasource.getConnection();

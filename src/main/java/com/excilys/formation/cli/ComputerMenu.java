@@ -14,14 +14,11 @@ import com.excilys.formation.util.MenuUtil;
  * allows to list computer , see specific computer, add/delete/update computer.
  * 
  * @author Euronia
- * @version 1.0
+ * 
  */
 
 public class ComputerMenu implements BaseMenu {
 
-    /**
-     * @
-     */
     Scanner scanner = MainMenu.getScanner();
     private Page<ComputerDto> pageComputer;
     private ComputerService computerService;
@@ -87,15 +84,15 @@ public class ComputerMenu implements BaseMenu {
         while (name.isEmpty()) {
             name = scanner.nextLine();
         }
-        computerDto.name = name;
+        computerDto.setName(name);
         System.out.println(
                 "Vous pouvez entrez une date de début de production au format aaaa-mm-jj (ou appuyer sur entrée pour passer)");
-        computerDto.introduced = MenuUtil.inputDate().toString();
+        computerDto.setIntroduced(MenuUtil.inputDate().toString());
         System.out.println(
                 "Vous pouvez entrez une date d'arrêt de production au format aaaa-mm-jj (ou appuyer sur entrée pour passer)");
-        computerDto.discontinued = MenuUtil.inputDate().toString();
+        computerDto.setDiscontinued(MenuUtil.inputDate().toString());
         System.out.println("Entrez l'id de la compagnie fabricant l'ordinateur : ");
-        computerDto.companyId = MenuUtil.waitForInt();
+        computerDto.setCompanyId(MenuUtil.waitForInt());
         try {
             computerService.create(computerDto);
         } catch (ServiceException e) {
@@ -132,10 +129,10 @@ public class ComputerMenu implements BaseMenu {
             try {
                 ComputerDto computer = computerService.getById(idToShow);
                 if (computer != null) {
-                    System.out.println(new StringBuilder().append("Nom : ").append(computer.name)
-                            .append("\nDate de début de production : ").append(computer.introduced)
-                            .append("\nDate de fin de production : ").append(computer.discontinued)
-                            .append("\nId de la compagnie : ").append(computer.companyId).toString());
+                    System.out.println(new StringBuilder().append("Nom : ").append(computer.getName())
+                            .append("\nDate de début de production : ").append(computer.getIntroduced())
+                            .append("\nDate de fin de production : ").append(computer.getDiscontinued())
+                            .append("\nId de la compagnie : ").append(computer.getCompanyId()).toString());
                 } else {
                     System.out.println("Aucun ordinateur trouvé");
                 }
@@ -160,26 +157,26 @@ public class ComputerMenu implements BaseMenu {
                 if (computerDto != null) {
                     // NAME
                     System.out.println(new StringBuilder().append("Entrez un nouveau nom si vous souhaitez le changer (")
-                          .append(computerDto.name).append(") :").toString());  
+                          .append(computerDto.getName()).append(") :").toString());  
                     String newName = scanner.nextLine();
                     if (!newName.isEmpty()) {
-                        computerDto.name = newName;
+                        computerDto.setName(newName);
                     }
                     // INTRODUCED
                     System.out.println(new StringBuilder().append("Entrez une nouvelle date de début de production (")
-                            .append(computerDto.introduced)
+                            .append(computerDto.getIntroduced())
                             .append(") au format aaaa-mm-jj (\"null\" pour retirer la date):").toString());
-                    computerDto.introduced = MenuUtil.inputNewDate(computerDto.introduced);
+                    computerDto.setIntroduced(MenuUtil.inputNewDate(computerDto.getIntroduced()));
                     // DISCONTINUED
                     System.out.println(new StringBuilder().append("Entrez une nouvelle date de fin de production (")
-                            .append(computerDto.discontinued)
+                            .append(computerDto.getDiscontinued())
                             .append(") au format aaaa-mm-jj (\"null\" pour retirer la date):").toString());
-                    computerDto.discontinued = MenuUtil.inputNewDate(computerDto.discontinued);
+                    computerDto.setDiscontinued(MenuUtil.inputNewDate(computerDto.getDiscontinued()));
                     // COMPANY ID
-                    System.out.println("Vous pouvez entrer un nouvel id de compagnie (" + computerDto.companyId + ") :");
+                    System.out.println("Vous pouvez entrer un nouvel id de compagnie (" + computerDto.getCompanyId() + ") :");
                     String newCompanyId = scanner.nextLine();
                     if (!newCompanyId.isEmpty() && MenuUtil.isInteger(newCompanyId)) {
-                        computerDto.companyId = Integer.parseInt(newCompanyId);
+                        computerDto.setCompanyId(Integer.parseInt(newCompanyId));
                     }
                     computerService.update(computerDto);
                 }

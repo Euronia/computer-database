@@ -2,7 +2,7 @@ package com.excilys.formation.entity;
 
 /**
  * @author Euronia
- * @version 1.0
+ * 
  */
 public final class Company {
 	

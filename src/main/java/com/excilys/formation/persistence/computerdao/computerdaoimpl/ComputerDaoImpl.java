@@ -16,7 +16,6 @@ import com.excilys.formation.exception.PersistenceException;
 import com.excilys.formation.mapper.PersistenceMapper;
 import com.excilys.formation.pagination.Page;
 import com.excilys.formation.persistence.computerdao.ComputerDao;
-import com.excilys.formation.persistence.connectionprovider.ConnectionProvider;
 import com.excilys.formation.persistence.connectionprovider.HikariConnectionProvider;
 
 /**
@@ -28,7 +27,7 @@ public class ComputerDaoImpl implements ComputerDao {
 
     ////////// Attributes //////////
 
-    ConnectionProvider connectionProvider;
+    private HikariConnectionProvider connectionProvider;
     private static ComputerDaoImpl computerDaoImpl = null;
     public static final String SELECT_JOIN_COMPUTER = "SELECT computer.id, computer.name, computer.introduced, computer.discontinued, company.id as companyId, company.name as companyName FROM computer LEFT JOIN company ON computer.company_id=company.id";
     public static final String CREATE_COMPUTER = "INSERT INTO computer (name, introduced, discontinued, company_id) VALUES(?,?,?,?)";
@@ -53,11 +52,11 @@ public class ComputerDaoImpl implements ComputerDao {
     }
     ////////// Getters and Setters //////////
 
-    public ConnectionProvider getConnectionProvider() {
+    public HikariConnectionProvider getConnectionProvider() {
         return connectionProvider;
     }
 
-    public void setConnectionProvider(ConnectionProvider connectionProvider) {
+    public void setConnectionProvider(HikariConnectionProvider connectionProvider) {
         this.connectionProvider = connectionProvider;
     }
 

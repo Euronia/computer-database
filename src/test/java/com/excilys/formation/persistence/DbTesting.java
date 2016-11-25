@@ -12,8 +12,7 @@ import org.h2.tools.RunScript;
 import org.junit.Before;
 import org.junit.BeforeClass;
 
-import com.excilys.formation.persistence.connectionprovider.JdbcConnectionProvider;
-
+import com.excilys.formation.persistence.connectionprovider.HikariConnectionProvider;
 /**
  * Initiate and populate the database for persistence tests
  * @author Euronia
@@ -21,7 +20,7 @@ import com.excilys.formation.persistence.connectionprovider.JdbcConnectionProvid
  */
 
 public class DbTesting {
-    protected final static JdbcConnectionProvider connectionTest = (JdbcConnectionProvider) JdbcConnectionProvider.getInstance();
+    protected final static HikariConnectionProvider connectionTest =  HikariConnectionProvider.getInstance();
 
     /**
      * returns a DataSet from an existing XML File representing our database
@@ -34,14 +33,15 @@ public class DbTesting {
     
     @BeforeClass
     public static void createSchema() throws Exception {
-        RunScript.execute(connectionTest.getUrl(), connectionTest.getUser(), connectionTest.getPwd(), "src/test/config/db-test/4-TESTSCHEMA.sql", Charset.forName("UTF8"), false);
+     //   RunScript.execute(connectionTest.getUrl(), connectionTest.getUser(), connectionTest.getPwd(), "src/test/config/db-test/4-TESTSCHEMA.sql", Charset.forName("UTF8"), false);
     } 
     
     public void cleanAndRepopulate(IDataSet dataSet) throws Exception {
-        IDatabaseTester databaseTester = new JdbcDatabaseTester(connectionTest.getDriver(), connectionTest.getUrl(), connectionTest.getUser(), connectionTest.getPwd());
+      /*  IDatabaseTester databaseTester = new JdbcDatabaseTester(connectionTest.getDriver(), connectionTest.getUrl(), connectionTest.getUser(), connectionTest.getPwd());
         databaseTester.setSetUpOperation(DatabaseOperation.CLEAN_INSERT);
         databaseTester.setDataSet(dataSet);
         databaseTester.onSetup();
+        */
     }
     
     @Before

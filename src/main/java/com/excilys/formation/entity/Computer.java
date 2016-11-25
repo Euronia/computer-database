@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.excilys.formation.entity;
 
 import java.time.LocalDate;
@@ -9,7 +6,7 @@ import java.time.LocalDate;
  * @author Euronia
  * 
  */
-public class Computer {
+public final class Computer {
 	
 	////////// Attributes //////////
 
@@ -19,49 +16,6 @@ public class Computer {
 	private LocalDate discontinued;
 	private Company manufacturer;
 	
-	////////// Builder //////////
-	
-	public static class ComputerBuilder {
-	    private long nestedId;
-		private String nestedName;
-		private LocalDate nestedIntroduced;
-		private LocalDate nestedDiscontinued;
-		private Company nestedManufacturer;
-		
-		public ComputerBuilder(String name, Company manufacturer) {
-			nestedName = name;
-			nestedManufacturer = manufacturer;
-		}
-		
-		public ComputerBuilder setId(long id) {
-		    nestedId = id;
-		    return this;
-		}
-		
-		public ComputerBuilder setName(String pname) {
-			nestedName = pname;
-			return this;
-		}
-		
-		public ComputerBuilder setIntroduced(LocalDate pdate) {
-			nestedIntroduced = pdate;
-			return this;
-		}
-		
-		public ComputerBuilder setDiscontinued(LocalDate pdate) {
-			nestedDiscontinued = pdate;
-			return this;
-		}
-		
-		public ComputerBuilder setCompany(Company pmanufacturer) {
-			nestedManufacturer = pmanufacturer;
-			return this;
-		}
-		
-		public Computer build() {
-			return new Computer(this);
-		}
-	}
 	////////// Constructors //////////
 	
 	public Computer (ComputerBuilder builder) {
@@ -70,7 +24,6 @@ public class Computer {
 		introduced = builder.nestedIntroduced;
 		discontinued = builder.nestedDiscontinued;
 		manufacturer = builder.nestedManufacturer;
-		
 	}
 	
 	////////// Getters and Setters //////////
@@ -124,17 +77,17 @@ public class Computer {
 	
 	@Override 
 	public String toString () {
-		String returnString;
-		returnString = "[" + this.getId() 
-		+ "]: " + this.getName() ;
+		StringBuilder returnString = new StringBuilder();
+		returnString.append("[").append(this.getId()) 
+		.append("]: ").append(this.getName()) ;
 		if (this.getIntroduced() != null) {
-			returnString =  returnString.concat(" Introduced : " + this.getIntroduced().toString());
+			returnString.append(" Introduced : ").append(this.getIntroduced().toString());
 		}
 		if (this.getDiscontinued() != null) {
-			returnString =  returnString.concat(" Discontinued : " + this.getDiscontinued().toString());
+			returnString.append(" Discontinued : ").append(this.getDiscontinued().toString());
 		}
-			returnString = returnString.concat(" owned by company [" + this.getManufacturer() + "]");
-		return returnString;
+			returnString .append(" owned by company [").append(this.getManufacturer()).append("]");
+		return returnString.toString();
 	}
 
 	
@@ -184,4 +137,46 @@ public class Computer {
         return true;
     }
 
+    //////////Builder //////////
+        
+    public static class ComputerBuilder {
+        private long nestedId;
+        private String nestedName;
+        private LocalDate nestedIntroduced;
+        private LocalDate nestedDiscontinued;
+        private Company nestedManufacturer;
+         
+        public ComputerBuilder(String name) {
+            nestedName = name;
+        }
+         
+        public ComputerBuilder id(long id) {
+            nestedId = id;
+            return this;
+        }
+         
+        public ComputerBuilder name(String pname) {
+            nestedName = pname;
+            return this;
+        }
+         
+        public ComputerBuilder introduced(LocalDate pdate) {
+            nestedIntroduced = pdate;
+            return this;
+        }
+         
+        public ComputerBuilder discontinued(LocalDate pdate) {
+            nestedDiscontinued = pdate;
+            return this;
+        }
+        
+        public ComputerBuilder manufacturer(Company pmanufacturer) {
+            nestedManufacturer = pmanufacturer;
+            return this;
+        }
+        
+        public Computer build() {
+            return new Computer(this);
+        }
+    }
 }

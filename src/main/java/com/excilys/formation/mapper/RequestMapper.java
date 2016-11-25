@@ -31,16 +31,16 @@ public class RequestMapper {
         String companyId = request.getParameter("companyId").trim();
         ComputerDto returnComputer = new ComputerDto();
         if (name != null) {
-            returnComputer.name = name;
+            returnComputer.setName(name);
         }
         if (introduced != null) {
-            returnComputer.introduced = introduced;
+            returnComputer.setIntroduced(introduced);
         }
         if (discontinued != null) {
-            returnComputer.discontinued = discontinued;
+            returnComputer.setDiscontinued(discontinued);
         }
         if (companyId != null && MenuUtil.isInteger(companyId)) {
-            returnComputer.companyId = Integer.parseInt(companyId);
+            returnComputer.setCompanyId(Integer.parseInt(companyId));
         }
         return returnComputer;
     }

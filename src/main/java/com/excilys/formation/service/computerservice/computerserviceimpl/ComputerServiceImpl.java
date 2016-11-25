@@ -49,13 +49,13 @@ public class ComputerServiceImpl implements ComputerService {
     @Override
     public ComputerDto create(ComputerDto pComputerDto) {
         try {
-            Company company = new Company(pComputerDto.companyName);
-            company.setId(pComputerDto.companyId);
-            Computer computer = new Computer.ComputerBuilder(pComputerDto.name, company).setDiscontinued(stringToLocalDate(pComputerDto.discontinued))
-                    .setIntroduced(stringToLocalDate(pComputerDto.introduced))     
+            Company company = new Company(pComputerDto.getCompanyName());
+            company.setId(pComputerDto.getCompanyId());
+            Computer computer = new Computer.ComputerBuilder(pComputerDto.getName()).manufacturer(company).discontinued(stringToLocalDate(pComputerDto.getDiscontinued()))
+                    .introduced(stringToLocalDate(pComputerDto.getIntroduced()))     
                     .build();
             computerDao.create(computer);
-            pComputerDto.id = computer.getId();
+            pComputerDto.setId(computer.getId());
             return pComputerDto;
         } catch (PersistenceException e) {
             e.printStackTrace();
@@ -81,13 +81,13 @@ public class ComputerServiceImpl implements ComputerService {
         ComputerDto computerDto = null;
         if (computer != null) {
             computerDto = new ComputerDto();
-            computerDto.id = computer.getId();
-            computerDto.name = computer.getName();
-            computerDto.introduced = localDateToString(computer.getIntroduced());
-            computerDto.discontinued = localDateToString(computer.getDiscontinued());
+            computerDto.setId(computer.getId());
+            computerDto.setName(computer.getName());
+            computerDto.setIntroduced(localDateToString(computer.getIntroduced()));
+            computerDto.setDiscontinued(localDateToString(computer.getDiscontinued()));
             Company company = computer.getManufacturer();
-            computerDto.companyId = company.getId();
-            computerDto.companyName = company.getName();
+            computerDto.setCompanyId(company.getId());
+            computerDto.setCompanyName(company.getName());
         }
         return computerDto;
     }
@@ -130,12 +130,11 @@ public class ComputerServiceImpl implements ComputerService {
 
     @Override
     public ComputerDto update(ComputerDto pComputerDto) {
-        Company company = new Company(pComputerDto.companyName);
-        company.setId(pComputerDto.companyId);
-        Computer computer = new Computer.ComputerBuilder(pComputerDto.name,company)
-                .setDiscontinued(stringToLocalDate(pComputerDto.discontinued)).setIntroduced(stringToLocalDate(pComputerDto.introduced))
-                .setId(pComputerDto.id).setCompany(new Company(pComputerDto.companyId,pComputerDto.companyName)).build();
-                //TODO set as CompanyBuilder
+        Company company = new Company(pComputerDto.getCompanyName());
+        company.setId(pComputerDto.getCompanyId());
+        Computer computer = new Computer.ComputerBuilder(pComputerDto.getName())
+                .discontinued(stringToLocalDate(pComputerDto.getDiscontinued())).introduced(stringToLocalDate(pComputerDto.getIntroduced()))
+                .id(pComputerDto.getId()).manufacturer(company).build();
         try {
             computerDao.update(computer);
             System.out.println("updated : " + computer);
@@ -155,10 +154,10 @@ public class ComputerServiceImpl implements ComputerService {
         if (listDto != null) {
             computers = new ArrayList<>();
             for (ComputerDto computer : listDto) {
-                Company company = new Company(computer.companyName); 
-                company.setId(computer.companyId);
-                computers.add(new Computer.ComputerBuilder(computer.name,company)
-                        .setIntroduced(stringToLocalDate(computer.introduced)).setDiscontinued(stringToLocalDate(computer.discontinued)).setId(computer.id)
+                Company company = new Company(computer.getCompanyName()); 
+                company.setId(computer.getCompanyId());
+                computers.add(new Computer.ComputerBuilder(computer.getName()).manufacturer(company)
+                        .introduced(stringToLocalDate(computer.getIntroduced())).discontinued(stringToLocalDate(computer.getDiscontinued())).id(computer.getId())
                         .build());
             }
         }
@@ -176,21 +175,21 @@ public class ComputerServiceImpl implements ComputerService {
             computersDto = new ArrayList<>();
             for (Computer computer : pList) {
                 ComputerDto computerDto = new ComputerDto();
-                computerDto.id = computer.getId();
-                computerDto.name = computer.getName();
+                computerDto.setId(computer.getId());
+                computerDto.setName(computer.getName());
                 if (computer.getIntroduced() != null) {
-                    computerDto.introduced = computer.getIntroduced().toString();
+                    computerDto.setIntroduced(computer.getIntroduced().toString());
                 } else {
-                    computerDto.introduced = null;
+                    computerDto.setIntroduced(null);
                 }
                 if (computer.getDiscontinued() != null) {
-                    computerDto.discontinued = computer.getDiscontinued().toString();
+                    computerDto.setDiscontinued(computer.getDiscontinued().toString());
                 } else {
-                    computerDto.discontinued = null;
+                    computerDto.setDiscontinued(null);
                 }
                 Company company = computer.getManufacturer();
-                computerDto.companyId = company.getId();
-                computerDto.companyName = company.getName();
+                computerDto.setCompanyId(company.getId());
+                computerDto.setCompanyName(company.getName());
                 computersDto.add(computerDto);
             }
         }
@@ -204,17 +203,17 @@ public class ComputerServiceImpl implements ComputerService {
      */
     private ComputerDto computerToDto(Computer pComp) {
         ComputerDto computerDto = new ComputerDto();
-        computerDto.id = pComp.getId();
-        computerDto.name = pComp.getName();
+        computerDto.setId(pComp.getId());
+        computerDto.setName(pComp.getName());
         if (pComp.getIntroduced() != null) { 
-            computerDto.introduced = pComp.getIntroduced().toString();
+            computerDto.setIntroduced(pComp.getIntroduced().toString());
         }
         if (pComp.getDiscontinued() != null) {
-            computerDto.discontinued = pComp.getDiscontinued().toString();
+            computerDto.setDiscontinued(pComp.getDiscontinued().toString());
         }        
         Company company = pComp.getManufacturer();
-        computerDto.companyId = company.getId();
-        computerDto.companyName = company.getName();
+        computerDto.setCompanyId(company.getId());
+        computerDto.setCompanyName(company.getName());
         return computerDto;
     }
 
