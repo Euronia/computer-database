@@ -7,6 +7,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.excilys.formation.dto.CompanyDto;
 import com.excilys.formation.dto.ComputerDto;
 import com.excilys.formation.exception.ServiceException;
@@ -24,7 +27,12 @@ public class AddComputerServlet extends HttpServlet {
 
     ////////// Parameters //////////
     
+    private static Logger logger;
     private static final long serialVersionUID = 1L;
+    
+    static{
+        logger = LoggerFactory.getLogger("cdbLogger");
+    }
 
     ////////// Methods //////////
     
@@ -40,13 +48,15 @@ public class AddComputerServlet extends HttpServlet {
         try {
             companyService.getPage(pageCompany);
         } catch (ServiceException e) {
-            e.printStackTrace();
+            logger.error("AddComputerServlet : doGet(HttpServletRequest, HttpServletRequest) catched ServiceException ");
+            logger.error(e.getStackTrace().toString());
         }
         pageCompany.setElementsByPage(pageCompany.getTotalElements());
         try {
             companyService.getPage(pageCompany);
         } catch (ServiceException e) {
-            e.printStackTrace();
+            logger.error("AddComputerServlet : doGet(HttpServletRequest, HttpServletRequest) catched ServiceException ");
+            logger.error(e.getStackTrace().toString());
         }
         this.getServletContext().setAttribute("pageCompany", pageCompany);
         this.getServletContext().getRequestDispatcher("/WEB-INF/views/addComputer.jsp").forward(request, response);
@@ -79,7 +89,8 @@ public class AddComputerServlet extends HttpServlet {
         try {
             computerService.create(computerDto);
         } catch (ServiceException e) {
-            e.printStackTrace();
+            logger.error("AddComputerServlet : doPost(HttpServletRequest, HttpServletRequest) catched ServiceException ");
+            logger.error(e.getStackTrace().toString());
         }
         if (!ComputerValidator.validate(computerDto).isEmpty()) {
             // TODO : remonter les erreurs de la validation

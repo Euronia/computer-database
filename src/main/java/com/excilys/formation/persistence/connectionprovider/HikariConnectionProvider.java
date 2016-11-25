@@ -6,6 +6,9 @@ import java.util.Properties;
 
 import javax.sql.DataSource;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.excilys.formation.util.PropertyReader;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
@@ -16,6 +19,7 @@ public class HikariConnectionProvider {
     
     private static final HikariConnectionProvider CONNECTION_PROVIDER_INSTANCE;
     private static final String PROPERTIES_ADRESS = "hikariConnection.properties";
+    private static Logger logger;
     private DataSource datasource ;
     
     public Connection getConnection() throws SQLException {
@@ -34,6 +38,7 @@ public class HikariConnectionProvider {
         }
         HikariConfig config = new HikariConfig(properties);
         HikariDataSource ds = new HikariDataSource(config);
+        logger = LoggerFactory.getLogger("cdbLogger");
         
         CONNECTION_PROVIDER_INSTANCE = new HikariConnectionProvider(ds);
     }
@@ -46,7 +51,8 @@ public class HikariConnectionProvider {
         try {
             datasource.getConnection().close();
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("HikariConnectionProvider : closeConnection() catched SQLException ");
+            logger.error(e.getStackTrace().toString());
         }
     }
 
@@ -54,7 +60,8 @@ public class HikariConnectionProvider {
        try {
         datasource.getConnection();
     } catch (SQLException e) {
-        e.printStackTrace();
+        logger.error("HikariConnectionProvider : openConnection() catched SQLException ");
+        logger.error(e.getStackTrace().toString());
     }
     }
 }

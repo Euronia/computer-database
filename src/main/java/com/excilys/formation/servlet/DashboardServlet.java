@@ -7,6 +7,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.excilys.formation.dto.ComputerDto;
 import com.excilys.formation.exception.ServiceException;
 import com.excilys.formation.mapper.RequestMapper;
@@ -21,7 +24,12 @@ public class DashboardServlet extends HttpServlet {
  
     ////////// Parameters //////////
     
+    private static Logger logger;
     private static final long serialVersionUID = 6163744348925320231L;
+    
+    static{
+        logger = LoggerFactory.getLogger("cdbLogger");
+    }
 
     ////////// Methods //////////
     
@@ -48,7 +56,8 @@ public class DashboardServlet extends HttpServlet {
             try {
                 computerService.getPage(pageComputer);
             } catch (ServiceException e) {
-                e.printStackTrace();
+                logger.error("DashboardServlet : doGet(HttpServletRequest, HttpServletRequest) catched ServiceException ");
+                logger.error(e.getStackTrace().toString());
             }
         }
         this.getServletContext().setAttribute("pageComputer", pageComputer);
@@ -64,9 +73,9 @@ public class DashboardServlet extends HttpServlet {
         ComputerService computerService = new ComputerServiceImpl();
         try {
             computerService.deleteMultiplesId(RequestMapper.toList(request));
-            System.out.println(RequestMapper.toList(request));
         } catch (ServiceException e) {
-            e.printStackTrace();
+            logger.error("DashboardServlet : doPost(HttpServletRequest, HttpServletRequest) catched ServiceException ");
+            logger.error(e.getStackTrace().toString());
         }
         doGet(request, response);
     }

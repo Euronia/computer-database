@@ -7,6 +7,10 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.excilys.formation.entity.Company;
 import com.excilys.formation.exception.PersistenceException;
 import com.excilys.formation.mapper.PersistenceMapper;
@@ -21,19 +25,20 @@ import com.excilys.formation.persistence.connectionprovider.HikariConnectionProv
  *
  */
 public class CompanyDaoImpl implements CompanyDao {
-    private HikariConnectionProvider connectionProvider;
-    private static CompanyDaoImpl companyDaoImpl = null;
+    private static HikariConnectionProvider connectionProvider;
+    private static final CompanyDaoImpl COMPANY_DAO_INSTANCE;
+    private static Logger logger; 
     private static final String SELECT_BY_NAME = "SELECT * FROM company WHERE id=?";
     private static final String SELECT_PAGE = "SELECT * FROM company LIMIT ? OFFSET ?";
     private static final String COUNT_ALL = "SELECT COUNT(*) as total FROM company";
     private static final String DELETE_COMPUTERS = "DELETE FROM computer WHERE computer.company_id = ?";
     private static final String DELETE_COMPANY = "DELETE FROM company WHERE company.id = ?";
-
-    /**
-     * CompanyDaoJdbc constructor. Initialize the connectionProvider.
-     */
-    private CompanyDaoImpl() {
+    
+    
+    static {
         connectionProvider = HikariConnectionProvider.getInstance();
+        logger = LoggerFactory.getLogger("cdbLogger");
+        COMPANY_DAO_INSTANCE = new CompanyDaoImpl();
     }
 
     /**
@@ -43,10 +48,7 @@ public class CompanyDaoImpl implements CompanyDao {
      * @return the instance of CompanyDaoJdbc
      */
     public static CompanyDaoImpl getInstance() {
-        if (companyDaoImpl == null) {
-            companyDaoImpl = new CompanyDaoImpl();
-        }
-        return companyDaoImpl;
+        return COMPANY_DAO_INSTANCE;
     }
 
     @Override
@@ -58,7 +60,8 @@ public class CompanyDaoImpl implements CompanyDao {
             ResultSet resultSet = preparedStatement.executeQuery();
             company = PersistenceMapper.mapResultToCompany(resultSet);
         } catch (SQLException e) {
-            throw new PersistenceException("Problème lors de la récupération de la compagnie");
+            logger.error("CompanyDAO : GetById() catched SQLException and throwed PersistenceException");
+            throw new PersistenceException("Problème lors de la récupération de la compagnie",e);
         }
         return company;
     }
@@ -76,7 +79,8 @@ public class CompanyDaoImpl implements CompanyDao {
             page.setTotalElements(count());
             resultSet.close();
         } catch (SQLException e) {
-            throw new PersistenceException("Problème lors de la récupération de la page de compagnies");
+            logger.error("CompanyDAO : GetPage() catched SQLException and throwed PersistenceException");
+            throw new PersistenceException("Problème lors de la récupération de la page de compagnies",e);
         }
         return page;
     }
@@ -98,7 +102,8 @@ public class CompanyDaoImpl implements CompanyDao {
             }
             resultSet.close();
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("CompanyDAO : count() catched SQLException ");
+            logger.error(e.getStackTrace().toString());
         }
         return total;
     }
@@ -115,11 +120,14 @@ public class CompanyDaoImpl implements CompanyDao {
                 preparedStatementDeleteCompany.setLong(1, id);
                 preparedStatementDeleteCompany.executeUpdate();
             } catch (SQLException e) {
+                logger.error("CompanyDAO : delete(long) catched SQLException and rollbacked");
+                logger.error(e.getStackTrace().toString());
                 connection.rollback();
             }
             connection.commit();
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("CompanyDAO : delete(long) catched SQLException ");
+            logger.error(e.getStackTrace().toString());
         }
     }
 }

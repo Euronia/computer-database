@@ -2,6 +2,9 @@ package com.excilys.formation.cli;
 
 import java.util.Scanner;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.excilys.formation.dto.ComputerDto;
 import com.excilys.formation.exception.ServiceException;
 import com.excilys.formation.pagination.Page;
@@ -19,9 +22,14 @@ import com.excilys.formation.util.MenuUtil;
 
 public class ComputerMenu implements BaseMenu {
 
-    Scanner scanner = MainMenu.getScanner();
+    private Scanner scanner = MainMenu.getScanner();
     private Page<ComputerDto> pageComputer;
     private ComputerService computerService;
+    private static Logger logger; 
+    
+    static{
+        logger = LoggerFactory.getLogger("cdbLogger");
+    }
 
     public ComputerMenu() {
         computerService = new ComputerServiceImpl();
@@ -96,7 +104,8 @@ public class ComputerMenu implements BaseMenu {
         try {
             computerService.create(computerDto);
         } catch (ServiceException e) {
-            e.printStackTrace();
+            logger.error("ComputerMenu : create() catched ServiceException ");
+            logger.error(e.getStackTrace().toString());
         }
         startMenu();
     }
@@ -112,7 +121,8 @@ public class ComputerMenu implements BaseMenu {
             .append("\nOptions :\n1 - Page Précédente\n2 - Page Suivante\n3 - Aller à la page\n4 - Quitter");
             System.out.println(stringBuilder.toString());
         } catch (ServiceException e) {
-            e.printStackTrace();
+            logger.error("ComputerMenu : showComputerPage() catched ServiceException ");
+            logger.error(e.getStackTrace().toString());
         }
         
     }
@@ -137,7 +147,8 @@ public class ComputerMenu implements BaseMenu {
                     System.out.println("Aucun ordinateur trouvé");
                 }
             } catch (ServiceException e) {
-                e.printStackTrace();
+                logger.error("ComputerMenu : info() catched ServiceException ");
+                logger.error(e.getStackTrace().toString());
             }
         }
         startMenu();
@@ -181,7 +192,8 @@ public class ComputerMenu implements BaseMenu {
                     computerService.update(computerDto);
                 }
             } catch (ServiceException e) {
-                e.printStackTrace();
+                logger.error("ComputerMenu : update() catched ServiceException ");
+                logger.error(e.getStackTrace().toString());
             }
         } else {
             System.out.println("Aucun ordinateur trouvé pour cet id");
@@ -202,7 +214,8 @@ public class ComputerMenu implements BaseMenu {
                 computerService.delete(idToDelete);
                 System.out.println("Ordinateur supprimé");
             } catch (ServiceException e) {
-                e.printStackTrace();
+                logger.error("ComputerMenu: delete() catched ServiceException ");
+                logger.error(e.getStackTrace().toString());
             }
         }
         startMenu();

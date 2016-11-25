@@ -2,6 +2,9 @@ package com.excilys.formation.cli;
 
 import java.util.Scanner;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.excilys.formation.dto.CompanyDto;
 import com.excilys.formation.exception.ServiceException;
 import com.excilys.formation.pagination.Page;
@@ -23,8 +26,19 @@ public class CompanyMenu implements BaseMenu {
 	
 	private static CompanyService companyService = new CompanyServiceImpl();
 	MainMenu main = new MainMenu();
-	Scanner scanner = MainMenu.getScanner();
+	private Scanner scanner = MainMenu.getScanner();
 	private Page<CompanyDto> pageCompany;
+	private static Logger logger;
+	
+	static {
+        logger = LoggerFactory.getLogger("cdbLogger");
+	}
+	
+	////////// Constructors //////////
+	
+	public CompanyMenu()
+	{
+	}
 	
 	////////// Methods //////////
 
@@ -66,7 +80,8 @@ public class CompanyMenu implements BaseMenu {
 			.append("\nOptions :\n1 - Page Précédente\n2 - Page Suivante\n3 - Aller à la page\n4 - Quitter");
 			System.out.println(stringBuilder.toString());
 		} catch (ServiceException e) {
-			e.printStackTrace();
+		    logger.error("ComputerMenu : showPage() catched ServiceException ");
+			logger.error(e.getStackTrace().toString());
 		}
 	}
 

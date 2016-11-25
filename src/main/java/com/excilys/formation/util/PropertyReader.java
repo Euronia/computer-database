@@ -4,11 +4,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
+import org.slf4j.Logger;
+
 public class PropertyReader {
 	
 	private static Properties properties;
 	static InputStream input ;
 	private static final PropertyReader PROPERTYREADER ;
+	private static Logger logger;
 	
 	static {
 	    PROPERTYREADER = new PropertyReader();
@@ -26,13 +29,15 @@ public class PropertyReader {
 	        try {
 	            properties.load(pInputStream);
 	        } catch (IOException e) {
-	            e.printStackTrace();
+	            logger.error("PropertyReader: readProperties(InputStream) catched IOException ");
+                logger.error(e.getStackTrace().toString());
 	        } finally {
 	            if (pInputStream != null) {
 	                try {
 	                    pInputStream.close();
 	                } catch (IOException e) {
-	                    e.printStackTrace();
+	                    logger.error("PropertyReader: readProperties(InputStream) catched IOException ");
+	                    logger.error(e.getStackTrace().toString());
 	                }
 	            }
 	        }
@@ -49,13 +54,15 @@ public class PropertyReader {
          try {
              properties.load(input);
          } catch (IOException e) {
-             e.printStackTrace();
+             logger.error("PropertyReader: readProperties(String) catched IOException ");
+             logger.error(e.getStackTrace().toString());
          } finally {
              if (pInputStream != null) {
                  try {
                      input.close();
                  } catch (IOException e) {
-                     e.printStackTrace();
+                     logger.error("PropertyReader: readProperties(String) catched IOException ");
+                     logger.error(e.getStackTrace().toString());
                  }
              }
          }

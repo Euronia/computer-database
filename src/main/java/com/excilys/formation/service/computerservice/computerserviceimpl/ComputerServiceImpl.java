@@ -4,6 +4,10 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.excilys.formation.dto.ComputerDto;
 import com.excilys.formation.entity.Company;
 import com.excilys.formation.entity.Computer;
@@ -20,8 +24,17 @@ import com.excilys.formation.util.ServiceUtil;
  *
  */
 public class ComputerServiceImpl implements ComputerService {
+    
+    ////////// Parameters //////////
+    
     private ComputerDao computerDao;
     private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    private static Logger logger;
+    
+    static{
+        logger = LoggerFactory.getLogger("cdbLogger");
+    }
+    
     /**
      * Constructor for ComputerServiceImpl.
      * Initializes computerDao.
@@ -58,7 +71,8 @@ public class ComputerServiceImpl implements ComputerService {
             pComputerDto.setId(computer.getId());
             return pComputerDto;
         } catch (PersistenceException e) {
-            e.printStackTrace();
+            logger.error("ComputerServiceImpl : create(ComputerDto) catched PersistenceException ");
+            logger.error(e.getStackTrace().toString());
         }
         return null;
     }
@@ -67,7 +81,8 @@ public class ComputerServiceImpl implements ComputerService {
         try {
             computerDao.delete(id);
         } catch (PersistenceException e) {
-            e.printStackTrace();
+            logger.error("ComputerServiceImpl : delete(long) catched PersistenceException ");
+            logger.error(e.getStackTrace().toString());
         }
     }
     @Override
@@ -76,7 +91,8 @@ public class ComputerServiceImpl implements ComputerService {
         try {
             computer = computerDao.getById(pId);
         } catch (PersistenceException e) {
-            e.printStackTrace();
+            logger.error("ComputerServiceImpl : getById(int) catched PersistenceException ");
+            logger.error(e.getStackTrace().toString());
         }
         ComputerDto computerDto = null;
         if (computer != null) {
@@ -91,6 +107,7 @@ public class ComputerServiceImpl implements ComputerService {
         }
         return computerDto;
     }
+
     @Override
     public Page<ComputerDto> getPage(Page<ComputerDto> page) {
         Page<Computer> pageCompany = new Page<Computer>(10);
@@ -99,13 +116,14 @@ public class ComputerServiceImpl implements ComputerService {
         try {
             pageCompany = computerDao.getPage(pageCompany);
         } catch (PersistenceException e) {
-            e.printStackTrace();
+            logger.error("ComputerServiceImpl : getPage(Page<ComputerDto>) catched PersistenceException ");
+            logger.error(e.getStackTrace().toString());
         }
         ServiceUtil.copyAttributes(pageCompany, page);
         page.elements = computerListToDtoList(pageCompany.elements);
         return page;
     }
-    
+
     /**
      * 
      * @param
@@ -116,15 +134,13 @@ public class ComputerServiceImpl implements ComputerService {
         ServiceUtil.copyAttributes(page, pageCompany);
         pageCompany.setElements(dtoListToComputerList(page.elements));
         try {
-            System.out.println(computerDao.getAllFilter(pageCompany,filter));
+            computerDao.getAllFilter(pageCompany,filter);
         } catch (PersistenceException e) {
-            e.printStackTrace();
+            logger.error("ComputerServiceImpl : getPageFilter(Page<ComputerDto>, String) catched PersistenceException ");
+            logger.error(e.getStackTrace().toString());
         }
-        
-        System.out.println(pageCompany.elements);
         ServiceUtil.copyAttributes(pageCompany, page);
-        page.elements = computerListToDtoList(pageCompany.elements);
-   
+        page.elements = computerListToDtoList(pageCompany.elements);   
         return page;    
     }
 
@@ -137,9 +153,9 @@ public class ComputerServiceImpl implements ComputerService {
                 .id(pComputerDto.getId()).manufacturer(company).build();
         try {
             computerDao.update(computer);
-            System.out.println("updated : " + computer);
         } catch (PersistenceException e) {
-            e.printStackTrace();
+            logger.error("ComputerServiceImpl : update(ComputerDto) catched PersistenceException ");
+            logger.error(e.getStackTrace().toString());
         }
         return computerToDto(computer);
     }

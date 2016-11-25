@@ -3,6 +3,9 @@ package com.excilys.formation.service.companyservice.companyserviceimpl;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.excilys.formation.dto.CompanyDto;
 import com.excilys.formation.entity.Company;
 import com.excilys.formation.exception.PersistenceException;
@@ -17,6 +20,11 @@ public class CompanyServiceImpl implements CompanyService {
     ////////// Parameters //////////
 
     private CompanyDao companyDao;
+    private static Logger logger;
+    
+    static{
+        logger = LoggerFactory.getLogger("cdbLogger");
+    }
 
     ////////// Constructors //////////
 
@@ -38,7 +46,8 @@ public class CompanyServiceImpl implements CompanyService {
         try {
             pageCompany = companyDao.getPage(pageCompany);
         } catch (PersistenceException e) {
-            e.printStackTrace();
+            logger.error("CompanyServiceImpl : getPage(Page<ComputerDto> catched PersistenceException ");
+            logger.error(e.getStackTrace().toString());
         }
         ServiceUtil.copyAttributes(pageCompany, page);
         page.elements = companyListToDtoList(pageCompany.elements);
