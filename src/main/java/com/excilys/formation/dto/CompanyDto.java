@@ -35,6 +35,4 @@ public class CompanyDto {
         return new StringBuilder().append("Company [id=").append(id).append(", name=").append(name).append("]")
                 .toString();
     }
-
-    
 }

@@ -2,6 +2,9 @@ package com.excilys.formation.entity;
 
 import java.time.LocalDate;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * @author Euronia
  * 
@@ -15,6 +18,11 @@ public final class Computer {
     private LocalDate introduced;
     private LocalDate discontinued;
     private Company manufacturer;
+    private static Logger logger;
+    
+    static {
+        logger = LoggerFactory.getLogger("cdbLogger");
+    }
 
     ////////// Constructors //////////
 
@@ -173,7 +181,11 @@ public final class Computer {
             return this;
         }
 
-        public Computer build() {
+        public Computer build() throws IllegalArgumentException {
+            if (nestedName.trim().length() < 3) {
+                logger.error("Computer: ComputerBuilder: build() throwed IllegalArgumentException");
+                throw new IllegalArgumentException("Invalid name");
+            }
             return new Computer(this);
         }
     }

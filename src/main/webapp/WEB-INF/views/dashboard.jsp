@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ page import="com.excilys.formation.pagination.Page" %>
+<%@ taglib uri="../mytags.tld" prefix="m" %>  
+<%@ taglib prefix="my" tagdir="/WEB-INF/tags" %>
 <html>
 <head>
 <title> Dashboard</title>
@@ -11,9 +14,7 @@
  <link href="/computerdatabase/css/bootstrap.min.css" rel="stylesheet" media="screen">
     <link href="/computerdatabase/css/font-awesome.css" rel="stylesheet" media="screen">
     <link href="/computerdatabase/css/main.css" rel="stylesheet" media="screen">
-<%@ page import="com.excilys.formation.pagination.Page" %>
-<%@ taglib uri="../mytags.tld" prefix="m" %>  
-<%@ taglib prefix="my" tagdir="/WEB-INF/tags" %>
+
 
 </head>
 <body>

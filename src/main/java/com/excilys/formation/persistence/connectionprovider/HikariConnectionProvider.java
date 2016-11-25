@@ -18,7 +18,7 @@ public class HikariConnectionProvider {
     ////////// Parameters //////////
     
     private static final HikariConnectionProvider CONNECTION_PROVIDER_INSTANCE;
-    private static final String PROPERTIES_ADRESS = "hikariConnection.properties";
+    private static final String PROPERTIES_ADRESS = "connection.properties";
     private static Logger logger;
     private DataSource datasource ;
     
