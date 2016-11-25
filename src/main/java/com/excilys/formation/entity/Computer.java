@@ -7,91 +7,89 @@ import java.time.LocalDate;
  * 
  */
 public final class Computer {
-	
-	////////// Attributes //////////
 
-	private long id; 
-	private String name;
-	private LocalDate introduced; 
-	private LocalDate discontinued;
-	private Company manufacturer;
-	
-	////////// Constructors //////////
-	
-	public Computer (ComputerBuilder builder) {
-	    id = builder.nestedId;
-		name = builder.nestedName;
-		introduced = builder.nestedIntroduced;
-		discontinued = builder.nestedDiscontinued;
-		manufacturer = builder.nestedManufacturer;
-	}
-	
-	////////// Getters and Setters //////////
+    ////////// Attributes //////////
 
-	public long getId() { 		
-		return id;
-	}
+    private long id;
+    private String name;
+    private LocalDate introduced;
+    private LocalDate discontinued;
+    private Company manufacturer;
 
-	public void setId(long id) {
-		this.id = id;
-	}
+    ////////// Constructors //////////
 
-	public String getName() {
-		return name;
-	}
+    public Computer(ComputerBuilder builder) {
+        id = builder.nestedId;
+        name = builder.nestedName;
+        introduced = builder.nestedIntroduced;
+        discontinued = builder.nestedDiscontinued;
+        manufacturer = builder.nestedManufacturer;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    ////////// Getters and Setters //////////
 
-	public LocalDate getIntroduced() {
-		return introduced;
-	}
+    public long getId() {
+        return id;
+    }
 
-	public void setIntroduced(LocalDate introduced) {
-		this.introduced = introduced;
-	}
+    public void setId(long id) {
+        this.id = id;
+    }
 
-	public LocalDate getDiscontinued() {
-		return discontinued;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public void setDiscontinued(LocalDate discontinued) {
-		this.discontinued = discontinued;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public Company getManufacturer() {
-		return manufacturer;
-	}
+    public LocalDate getIntroduced() {
+        return introduced;
+    }
 
-	public void setManufacturer(Company pmanufacturer) {	//TODO delete? 
-		this.manufacturer = pmanufacturer;
-	}
-	
-	////////// Methods //////////
-	
-	/**
-	 * return the computer following this format
-	 * [id] Name Introduced : (if!null) Discontinued : (if!null) owned by company company_id
-	 */
-	
-	@Override 
-	public String toString () {
-		StringBuilder returnString = new StringBuilder();
-		returnString.append("[").append(this.getId()) 
-		.append("]: ").append(this.getName()) ;
-		if (this.getIntroduced() != null) {
-			returnString.append(" Introduced : ").append(this.getIntroduced().toString());
-		}
-		if (this.getDiscontinued() != null) {
-			returnString.append(" Discontinued : ").append(this.getDiscontinued().toString());
-		}
-			returnString .append(" owned by company [").append(this.getManufacturer()).append("]");
-		return returnString.toString();
-	}
+    public void setIntroduced(LocalDate introduced) {
+        this.introduced = introduced;
+    }
 
-	
-	@Override
+    public LocalDate getDiscontinued() {
+        return discontinued;
+    }
+
+    public void setDiscontinued(LocalDate discontinued) {
+        this.discontinued = discontinued;
+    }
+
+    public Company getManufacturer() {
+        return manufacturer;
+    }
+
+    public void setManufacturer(Company pmanufacturer) { // TODO delete?
+        this.manufacturer = pmanufacturer;
+    }
+
+    ////////// Methods //////////
+
+    /**
+     * return the computer following this format [id] Name Introduced :
+     * (if!null) Discontinued : (if!null) owned by company company_id
+     */
+
+    @Override
+    public String toString() {
+        StringBuilder returnString = new StringBuilder();
+        returnString.append("[").append(this.getId()).append("]: ").append(this.getName());
+        if (this.getIntroduced() != null) {
+            returnString.append(" Introduced : ").append(this.getIntroduced().toString());
+        }
+        if (this.getDiscontinued() != null) {
+            returnString.append(" Discontinued : ").append(this.getDiscontinued().toString());
+        }
+        returnString.append(" owned by company [").append(this.getManufacturer()).append("]");
+        return returnString.toString();
+    }
+
+    @Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;
@@ -137,44 +135,44 @@ public final class Computer {
         return true;
     }
 
-    //////////Builder //////////
-        
+    ////////// Builder //////////
+
     public static class ComputerBuilder {
         private long nestedId;
         private String nestedName;
         private LocalDate nestedIntroduced;
         private LocalDate nestedDiscontinued;
         private Company nestedManufacturer;
-         
+
         public ComputerBuilder(String name) {
             nestedName = name;
         }
-         
+
         public ComputerBuilder id(long id) {
             nestedId = id;
             return this;
         }
-         
+
         public ComputerBuilder name(String pname) {
             nestedName = pname;
             return this;
         }
-         
+
         public ComputerBuilder introduced(LocalDate pdate) {
             nestedIntroduced = pdate;
             return this;
         }
-         
+
         public ComputerBuilder discontinued(LocalDate pdate) {
             nestedDiscontinued = pdate;
             return this;
         }
-        
+
         public ComputerBuilder manufacturer(Company pmanufacturer) {
             nestedManufacturer = pmanufacturer;
             return this;
         }
-        
+
         public Computer build() {
             return new Computer(this);
         }

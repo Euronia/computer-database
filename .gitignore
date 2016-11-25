@@ -1,5 +1,6 @@
 /target 
 /WebContent
+/src/main/resources/connection.properties
 
 # Created by https://www.gitignore.io/api/java,eclipse,windows,linux,intellij,netbeans,macos
 
