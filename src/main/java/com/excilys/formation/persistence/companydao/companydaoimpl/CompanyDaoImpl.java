@@ -52,7 +52,7 @@ public class CompanyDaoImpl implements CompanyDao {
     }
 
     @Override
-    public Company getById(int pId) throws PersistenceException {
+    public Company getById(int pId) throws PersistenceException {     
         Company company = null;
         try (Connection connection = connectionProvider.getConnection();
                 PreparedStatement preparedStatement = connection.prepareStatement(SELECT_BY_NAME)) {

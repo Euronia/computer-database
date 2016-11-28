@@ -14,10 +14,8 @@ public class PageConstraints {
 
     private int currentPage;
     private int perPage;
-    private Map<String, String> contraintes;
+    private Map<String, String> constraint;
     private String filter;
-
-    ///////// Constructors ///////////
 
     ////////// Getters And Setters //////////
 
@@ -45,12 +43,12 @@ public class PageConstraints {
         this.filter = filter;
     }
 
-    public Map<String, String> getContraintes() {
-        return contraintes;
+    public Map<String, String> getConstraint() {
+        return constraint;
     }
 
-    public void setContraintes(Map<String, String> contraintes) {
-        this.contraintes = contraintes;
+    public void setConstraint(Map<String, String> contraintes) {
+        this.constraint = contraintes;
     }
     
     ////////// Methods //////////
