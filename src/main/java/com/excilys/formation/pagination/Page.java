@@ -6,7 +6,7 @@ public class Page<T> {
 
     ////////// Attributes //////////
 
-    public int elementsByPage;
+    public int elementsPerPage;
     public int totalElements;
     public int currentPage;
     public int nbPages;
@@ -18,19 +18,22 @@ public class Page<T> {
         currentPage = 1;
     }
     
-    public Page(int pelementsByPage) {
+    public Page(int elementsPerPage) {
         currentPage = 1;
-        elementsByPage = pelementsByPage;
+        if (elementsPerPage == 0) {
+            throw new RuntimeException("fy");
+        }
+        this.elementsPerPage = elementsPerPage;
     }
     
     ////////// Getters & Setters //////////
 
     public int getElementsByPage() {
-        return elementsByPage;
+        return elementsPerPage;
     }
 
     public void setElementsByPage(int elementsByPage) {
-        this.elementsByPage = elementsByPage;
+        this.elementsPerPage = elementsByPage;
         calculateNbPages();
     }
 
@@ -96,8 +99,8 @@ public class Page<T> {
     }
     
     public void calculateNbPages() {
-        if (elementsByPage != 0) {
-        nbPages = (totalElements + elementsByPage - 1) / elementsByPage;
+        if (elementsPerPage != 0) {
+        nbPages = (totalElements + elementsPerPage - 1) / elementsPerPage;
         } else {
             nbPages = 1;
         }

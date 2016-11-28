@@ -17,7 +17,7 @@ public class PageTest {
         testPage = new Page<Object>();
         testPage.currentPage = 2;
         testPage.elements = null;
-        testPage.elementsByPage = 12;
+        testPage.elementsPerPage = 12;
         testPage.nbPages = 5 ;
         testPage.totalElements = 53 ;
     }
@@ -29,7 +29,7 @@ public class PageTest {
     @Test
     public void testPage() {
         testPage = new Page<>(10);
-        assertEquals(testPage.elementsByPage,10);
+        assertEquals(testPage.elementsPerPage,10);
         assertNotNull(testPage);
     }
 
@@ -46,7 +46,7 @@ public class PageTest {
     @Test
     public void testSetElementsByPage() {
         testPage.setElementsByPage(10);
-        assertEquals(testPage.elementsByPage,10);
+        assertEquals(testPage.elementsPerPage,10);
     }
 
     @Test

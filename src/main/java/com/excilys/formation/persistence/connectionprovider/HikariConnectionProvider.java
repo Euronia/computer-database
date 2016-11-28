@@ -6,7 +6,7 @@ import java.util.Properties;
 
 import javax.sql.DataSource;
 
-import org.slf4j.Logger;
+import ch.qos.logback.classic.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.excilys.formation.util.PropertyReader;
@@ -38,7 +38,7 @@ public class HikariConnectionProvider {
         }
         HikariConfig config = new HikariConfig(properties);
         HikariDataSource ds = new HikariDataSource(config);
-        logger = LoggerFactory.getLogger("cdbLogger");
+        logger = (Logger) LoggerFactory.getLogger("cdbLogger");
         
         CONNECTION_PROVIDER_INSTANCE = new HikariConnectionProvider(ds);
     }

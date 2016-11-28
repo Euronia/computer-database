@@ -2,14 +2,16 @@ package com.excilys.formation.service.computerservice.computerserviceimpl;
 
 import java.util.List;
 
-import org.slf4j.Logger;
+import ch.qos.logback.classic.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.excilys.formation.dto.ComputerDto;
+import com.excilys.formation.dto.PageConstraints;
 import com.excilys.formation.entity.Company;
 import com.excilys.formation.entity.Computer;
 import com.excilys.formation.exception.PersistenceException;
 import com.excilys.formation.mapper.ComputerAndDtoMapper;
+import com.excilys.formation.mapper.ConstraintMapper;
 import com.excilys.formation.pagination.Page;
 import com.excilys.formation.persistence.computerdao.ComputerDao;
 import com.excilys.formation.persistence.computerdao.computerdaoimpl.ComputerDaoImpl;
@@ -29,7 +31,7 @@ public class ComputerServiceImpl implements ComputerService {
     private static Logger logger;
     
     static{
-        logger = LoggerFactory.getLogger("cdbLogger");
+        logger = (Logger) LoggerFactory.getLogger("cdbLogger");
     }
     
     /**
@@ -90,14 +92,13 @@ public class ComputerServiceImpl implements ComputerService {
         }
         return computerDto;
     }
-
     @Override
     public Page<ComputerDto> getPage(Page<ComputerDto> page) {
         Page<Computer> pageCompany = new Page<Computer>(10);
         ServiceUtil.copyAttributes(page, pageCompany);
         pageCompany.setElements(ComputerAndDtoMapper.dtoListToComputerList(page.elements));
         try {
-            pageCompany = computerDao.getPage(pageCompany);
+        pageCompany = computerDao.getPage(pageCompany);
         } catch (PersistenceException e) {
             logger.error("ComputerServiceImpl : getPage(Page<ComputerDto>) catched PersistenceException ");
             logger.error(e.getStackTrace().toString());
@@ -108,23 +109,29 @@ public class ComputerServiceImpl implements ComputerService {
     }
 
     /**
-     * 
-     * @param
-     * @return 
+     * Returns a page of Computer respecting the constraints set in parameters.
+     * @param constraints all the constraints that our page must respects. 
+     * @return a page of Computer 
      */
-    public Page<ComputerDto> getPageFilter(Page<ComputerDto> page, String filter) {
-        Page<Computer> pageCompany = new Page<Computer>(10);
-        ServiceUtil.copyAttributes(page, pageCompany);
-        pageCompany.setElements(ComputerAndDtoMapper.dtoListToComputerList(page.elements));
-        try {
-            computerDao.getAllFilter(pageCompany,filter);
-        } catch (PersistenceException e) {
-            logger.error("ComputerServiceImpl : getPageFilter(Page<ComputerDto>, String) catched PersistenceException ");
-            logger.error(e.getStackTrace().toString());
+    public Page<Computer> getPage(PageConstraints constraints) {
+        Page<Computer> pageComputer = ConstraintMapper.contraintesToComputerPage(constraints);
+        if (constraints.hasFilter()) {
+            try {
+                System.out.println("Filter !");
+                computerDao.getAllFilter(pageComputer,constraints.getFilter());
+            } catch (PersistenceException e) {
+                logger.error("ComputerServiceImpl : getPageFilter(Page<ComputerDto>, String) catched PersistenceException ");
+                logger.error(e.getStackTrace().toString());
+            }
+        } else {
+            try {
+                pageComputer = computerDao.getPage(pageComputer);
+                } catch (PersistenceException e) {
+                    logger.error("ComputerServiceImpl : getPage(Page<ComputerDto>) catched PersistenceException ");
+                    logger.error(e.getMessage());
+                }
         }
-        ServiceUtil.copyAttributes(pageCompany, page);
-        page.elements = ComputerAndDtoMapper.computerListToDtoList(pageCompany.elements);   
-        return page;    
+        return pageComputer;    
     }
 
     @Override

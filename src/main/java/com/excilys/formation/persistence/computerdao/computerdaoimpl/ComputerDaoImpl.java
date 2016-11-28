@@ -8,7 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.slf4j.Logger;
+import ch.qos.logback.classic.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.excilys.formation.entity.Computer;
@@ -39,7 +39,7 @@ public class ComputerDaoImpl implements ComputerDao {
 
     static {
         connectionProvider = HikariConnectionProvider.getInstance();
-        logger = LoggerFactory.getLogger("cdbLogger");
+        logger = (Logger) LoggerFactory.getLogger("cdbLogger");
         COMPUTER_DAO_INSTANCE = new ComputerDaoImpl();
     }
 
@@ -81,9 +81,10 @@ public class ComputerDaoImpl implements ComputerDao {
         return page;
     }
 
-    public Page<Computer> getAllFilter(Page<Computer> page, String filter) throws PersistenceException {
+    public Page<Computer> getAllFilter(Page<Computer> page, String filterConstraint) throws PersistenceException {
         List<Computer> computers = new ArrayList<Computer>();
-        filter = "%" + filter + "%";
+        String filter = "%" + filterConstraint + "%";
+        System.out.println("Filter :" + filter);
         String query = SELECT_JOIN_COMPUTER + " WHERE computer.name LIKE ? OR company.name LIKE ? LIMIT ? OFFSET ? ";
         try (Connection connection = connectionProvider.getConnection();
                 PreparedStatement preparedStatement = connection.prepareStatement(query)) {

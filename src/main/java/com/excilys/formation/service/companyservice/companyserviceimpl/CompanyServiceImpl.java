@@ -1,9 +1,6 @@
 package com.excilys.formation.service.companyservice.companyserviceimpl;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.slf4j.Logger;
+import ch.qos.logback.classic.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.excilys.formation.dto.CompanyDto;
@@ -24,7 +21,7 @@ public class CompanyServiceImpl implements CompanyService {
     private static Logger logger;
     
     static{
-        logger = LoggerFactory.getLogger("cdbLogger");
+        logger = (Logger) LoggerFactory.getLogger("cdbLogger");
     }
 
     ////////// Constructors //////////

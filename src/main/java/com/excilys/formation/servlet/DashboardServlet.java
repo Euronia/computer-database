@@ -7,11 +7,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.slf4j.Logger;
+import ch.qos.logback.classic.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.excilys.formation.dto.ComputerDto;
+import com.excilys.formation.dto.PageConstraints;
+import com.excilys.formation.entity.Computer;
 import com.excilys.formation.exception.ServiceException;
+import com.excilys.formation.mapper.ComputerAndDtoMapper;
+import com.excilys.formation.mapper.ConstraintMapper;
 import com.excilys.formation.mapper.RequestMapper;
 import com.excilys.formation.pagination.Page;
 import com.excilys.formation.service.computerservice.ComputerService;
@@ -21,46 +24,32 @@ import com.excilys.formation.service.computerservice.computerserviceimpl.Compute
  * Servlet implementation class Dashboard
  */
 public class DashboardServlet extends HttpServlet {
- 
+
     ////////// Parameters //////////
-    
+
     private static Logger logger;
     private static final long serialVersionUID = 6163744348925320231L;
-    
-    static{
-        logger = LoggerFactory.getLogger("cdbLogger");
+
+    static {
+        logger = (Logger) LoggerFactory.getLogger(DashboardServlet.class);
     }
 
     ////////// Methods //////////
-    
+
     /**
      * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
      *      response)
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Page<ComputerDto> pageComputer = new Page<>(10);
+        Page<Computer> pageComputer = new Page<>(10);
         ComputerService computerService = new ComputerServiceImpl();
-        if (request.getParameter("page") == "") {
-            pageComputer.setCurrentPage(1); 
-        } else if (request.getParameter("page") != null) {
-            pageComputer.setCurrentPage(Integer.parseInt(request.getParameter("page")));
-        } 
-        if (request.getParameter("perPage") != null) {
-            pageComputer.setElementsByPage(Integer.parseInt(request.getParameter("perPage")));
+        PageConstraints constraints = ConstraintMapper.requestToContraintes(request);
+        if (constraints.getFilter() != null) {
+            this.getServletContext().setAttribute("filter", request.getParameter("search"));
         }
-        if (request.getParameter("search") != null) {
-                computerService.getPageFilter(pageComputer, request.getParameter("search"));     
-                this.getServletContext().setAttribute("filter", request.getParameter("search"));
-        } else {
-            try {
-                computerService.getPage(pageComputer);
-            } catch (ServiceException e) {
-                logger.error("DashboardServlet : doGet(HttpServletRequest, HttpServletRequest) catched ServiceException ");
-                logger.error(e.getStackTrace().toString());
-            }
-        }
-        this.getServletContext().setAttribute("pageComputer", pageComputer);
+        pageComputer = computerService.getPage(constraints);
+        this.getServletContext().setAttribute("pageComputer", ComputerAndDtoMapper.computerPageToDtoPage(pageComputer));
         this.getServletContext().getRequestDispatcher("/WEB-INF/views/dashboard.jsp").forward(request, response);
     }
 

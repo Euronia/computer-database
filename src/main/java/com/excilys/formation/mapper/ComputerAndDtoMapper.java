@@ -8,6 +8,8 @@ import java.util.List;
 import com.excilys.formation.dto.ComputerDto;
 import com.excilys.formation.entity.Company;
 import com.excilys.formation.entity.Computer;
+import com.excilys.formation.pagination.Page;
+import com.excilys.formation.util.ServiceUtil;
 
 public class ComputerAndDtoMapper {
     
@@ -29,6 +31,13 @@ public class ComputerAndDtoMapper {
         } else {
             return LocalDate.parse(date,formatter);
         }
+    }
+    
+    public static Page<ComputerDto> computerPageToDtoPage(Page<Computer> computerPage) {
+        Page<ComputerDto> returnPage = new Page<ComputerDto>(10);
+        ServiceUtil.copyAttributes(computerPage,returnPage);
+        returnPage.setElements(computerListToDtoList(computerPage.getElements()));
+        return returnPage;
     }
     
     /**

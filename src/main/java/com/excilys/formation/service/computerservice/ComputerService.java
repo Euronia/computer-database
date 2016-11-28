@@ -3,6 +3,8 @@ package com.excilys.formation.service.computerservice;
 import java.util.List;
 
 import com.excilys.formation.dto.ComputerDto;
+import com.excilys.formation.dto.PageConstraints;
+import com.excilys.formation.entity.Computer;
 import com.excilys.formation.exception.ServiceException;
 import com.excilys.formation.pagination.Page;
 import com.excilys.formation.service.BaseService;
@@ -21,7 +23,7 @@ public interface ComputerService extends BaseService<ComputerDto> {
         throw new UnsupportedOperationException("deleteMultiplesId() is not implemented");
     }
     
-    default public Page<ComputerDto> getPageFilter(Page<ComputerDto> page, String filter) {
-        throw new UnsupportedOperationException("getPageFilter() is not implemented");
+    default public Page<Computer> getPage(PageConstraints constraints) {
+        throw new UnsupportedOperationException("getPage() is not implemented");
     }
 }

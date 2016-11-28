@@ -8,7 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.slf4j.Logger;
+import ch.qos.logback.classic.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.excilys.formation.entity.Company;
@@ -37,7 +37,7 @@ public class CompanyDaoImpl implements CompanyDao {
     
     static {
         connectionProvider = HikariConnectionProvider.getInstance();
-        logger = LoggerFactory.getLogger("cdbLogger");
+        logger = (ch.qos.logback.classic.Logger) LoggerFactory.getLogger("cdbLogger");
         COMPANY_DAO_INSTANCE = new CompanyDaoImpl();
     }
 

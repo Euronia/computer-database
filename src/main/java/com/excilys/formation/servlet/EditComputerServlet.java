@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.slf4j.Logger;
+import ch.qos.logback.classic.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.excilys.formation.dto.CompanyDto;
@@ -27,7 +27,7 @@ public class EditComputerServlet extends HttpServlet {
     private static final long serialVersionUID = 5820010289218504083L;
     
     static {
-        logger = LoggerFactory.getLogger("cdbLogger");
+        logger = (Logger) LoggerFactory.getLogger("cdbLogger");
     }
 
     ////////// Methods //////////
