@@ -10,6 +10,7 @@ public class CompanyAndDtoMapper {
 
     /**
      * Converts a list from CompanyDto to Company.
+     * 
      * @param listDto the list to convert
      * @return a Company List
      */
@@ -25,9 +26,10 @@ public class CompanyAndDtoMapper {
         }
         return companies;
     }
-    
+
     /**
      * Convert a list from Company to CompanyDto.
+     * 
      * @param pList the list to convert
      * @return a CompanyDto List
      */

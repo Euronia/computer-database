@@ -5,6 +5,7 @@ import java.util.List;
 import com.excilys.formation.dto.ComputerDto;
 import com.excilys.formation.dto.PageConstraints;
 import com.excilys.formation.entity.Computer;
+import com.excilys.formation.exception.PersistenceException;
 import com.excilys.formation.exception.ServiceException;
 import com.excilys.formation.pagination.Page;
 import com.excilys.formation.service.BaseService;
