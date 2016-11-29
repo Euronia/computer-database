@@ -10,6 +10,9 @@ import com.excilys.formation.mapper.CompanyAndDtoMapper;
 import com.excilys.formation.pagination.Page;
 import com.excilys.formation.persistence.companydao.CompanyDao;
 import com.excilys.formation.persistence.companydao.companydaoimpl.CompanyDaoImpl;
+import com.excilys.formation.persistence.computerdao.ComputerDao;
+import com.excilys.formation.persistence.computerdao.computerdaoimpl.ComputerDaoImpl;
+import com.excilys.formation.persistence.connectionprovider.HikariConnectionProvider;
 import com.excilys.formation.service.companyservice.CompanyService;
 import com.excilys.formation.util.ServiceUtil;
 
@@ -50,6 +53,22 @@ public class CompanyServiceImpl implements CompanyService {
         ServiceUtil.copyAttributes(pageCompany, page);
         page.elements = CompanyAndDtoMapper.companyListToDtoList(pageCompany.elements);
         return page;
+    }
+    
+    @Override
+    public void deleteCompany (long companyId) {
+        HikariConnectionProvider connectionProvider = HikariConnectionProvider.getInstance();
+        try {
+            connectionProvider.beginTransaction();
+            ComputerDao computerDao = ComputerDaoImpl.getInstance();
+            computerDao.deleteFromCompany(companyId, connectionProvider.getTransactionConnection());
+            companyDao.delete(companyId, connectionProvider.getTransactionConnection());
+            connectionProvider.commitTransaction();
+        } catch (PersistenceException e) {
+            logger.error( "CompanyServiceImpl : deleteCompany() catched PersistenceException",e);
+            connectionProvider.rollbackTransaction();
+        }
+        
     }
     
   

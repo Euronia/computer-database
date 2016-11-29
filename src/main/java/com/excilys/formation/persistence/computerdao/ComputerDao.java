@@ -1,5 +1,7 @@
 package com.excilys.formation.persistence.computerdao;
 
+import java.sql.Connection;
+
 import com.excilys.formation.entity.Computer;
 import com.excilys.formation.exception.PersistenceException;
 import com.excilys.formation.pagination.Page;
@@ -11,7 +13,7 @@ public interface ComputerDao extends BaseDao<Computer> {
         throw new UnsupportedOperationException("getByName() is not implemented");
     }
     
-    public default Computer getById(int pId) throws PersistenceException {
+    public default Computer getById(long pId) throws PersistenceException {
         throw new UnsupportedOperationException("getById() is not implemented");
     }
 
@@ -25,5 +27,9 @@ public interface ComputerDao extends BaseDao<Computer> {
     
     public default Page<Computer> getAllFilter(Page<Computer> page,String filter) throws PersistenceException {
         throw new UnsupportedOperationException("getAllFilter() is not implemented");
+    }
+
+    public default void deleteFromCompany(Long companyId, Connection connection) {
+        throw new UnsupportedOperationException("deleteFromCompany() is not implemented");
     }
 }

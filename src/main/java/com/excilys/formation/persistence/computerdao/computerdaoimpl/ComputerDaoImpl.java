@@ -36,7 +36,7 @@ public class ComputerDaoImpl implements ComputerDao {
     public static final String DELETE_COMPUTER = "DELETE FROM computer WHERE id = ?";
     public static final String COUNT_ALL = "SELECT COUNT(*) as total FROM computer";
     public static final String COUNT_ALL_FILTERED = "SELECT COUNT(*) as total FROM ( SELECT computer.id, computer.name, computer.introduced, computer.discontinued, company.id as companyId, company.name as companyName FROM computer LEFT JOIN company ON computer.company_id=company.id WHERE computer.name LIKE ? OR company.name LIKE ? ) AS derivedTable";
-
+    public static final String DELETE_FROM_COMPANY_COMPUTER = "DELETE FROM computer WHERE computer.company_id = ?";
     static {
         connectionProvider = HikariConnectionProvider.getInstance();
         logger = (Logger) LoggerFactory.getLogger("cdbLogger");
@@ -147,12 +147,12 @@ public class ComputerDaoImpl implements ComputerDao {
      *         computer for a non valid requested id.
      */
 
-    public Computer getById(int pid) {
+    public Computer getById(long pid) {
         Computer returnComputer = null; // Initialization in case of Exception
         String query = SELECT_JOIN_COMPUTER + " WHERE computer.id=?";
         try (Connection connection = connectionProvider.getConnection();
                 PreparedStatement ps = connection.prepareStatement(query)) {
-            ps.setInt(1, pid);
+            ps.setLong(1, pid);
             ResultSet results;
             results = ps.executeQuery();
             returnComputer = PersistenceMapper.mapResultToComputer(results);
@@ -252,9 +252,8 @@ public class ComputerDaoImpl implements ComputerDao {
      *
      * @param id the id of the entry that we want to delete from our table
      */
-
+    @Override
     public void delete(long id) {
-
         try (Connection connection = connectionProvider.getConnection();
                 PreparedStatement ps = connection.prepareStatement(DELETE_COMPUTER)) {
             ps.setLong(1, id);
@@ -264,4 +263,19 @@ public class ComputerDaoImpl implements ComputerDao {
             logger.error(e.getStackTrace().toString());
         }
     }
+
+    /**
+     * 
+     * @param
+     */
+    @Override
+    public void deleteFromCompany(Long companyId, Connection connection) {
+        try (PreparedStatement ps = connection.prepareStatement(DELETE_FROM_COMPANY_COMPUTER)) {
+            ps.setLong(1, companyId);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            logger.error("ComputerDaoImpl : deleteFromCompany() catched SQLException", e);
+        }
+    }
+
 }

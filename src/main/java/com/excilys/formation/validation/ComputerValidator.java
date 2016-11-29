@@ -30,10 +30,10 @@ public class ComputerValidator {
         List<String> errors = new ArrayList<String>();
         if (date != null) {
             try {
-			LocalDate localDate = LocalDate.parse(date);
+            LocalDate localDate = LocalDate.parse(date);
             } catch (DateTimeParseException e) {
                 errors.add("Invalid date");
-            }
+            } //TODO : Lazy checking 
         }
         return errors;
     }   

@@ -108,26 +108,17 @@ public class CompanyDaoImpl implements CompanyDao {
         return total;
     }
 
-    public void delete(long id) {
-        try (Connection connection = connectionProvider.getConnection()) {
-            connection.setAutoCommit(false);
-
-            try (PreparedStatement preparedStatementDeleteComputers = connection.prepareStatement(DELETE_COMPUTERS);
+    public void delete(long id, Connection connection) throws PersistenceException {
+            try (
                     PreparedStatement preparedStatementDeleteCompany = connection.prepareStatement(DELETE_COMPANY);) {
-                preparedStatementDeleteComputers.setLong(1, id);
-                preparedStatementDeleteComputers.executeUpdate();
 
                 preparedStatementDeleteCompany.setLong(1, id);
                 preparedStatementDeleteCompany.executeUpdate();
             } catch (SQLException e) {
                 logger.error("CompanyDAO : delete(long) catched SQLException and rollbacked");
-                logger.error(e.getStackTrace().toString());
-                connection.rollback();
+                throw new PersistenceException(e);
             }
-            connection.commit();
-        } catch (SQLException e) {
-            logger.error("CompanyDAO : delete(long) catched SQLException ");
-            logger.error(e.getStackTrace().toString());
-        }
+            
+
     }
 }
