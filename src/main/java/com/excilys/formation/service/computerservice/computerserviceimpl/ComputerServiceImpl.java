@@ -20,38 +20,38 @@ import com.excilys.formation.util.ServiceUtil;
 
 /**
  * Service class for Computers.
+ * 
  * @author Euronia
  *
  */
 public class ComputerServiceImpl implements ComputerService {
-    
+
     ////////// Parameters //////////
-    
+
     private ComputerDao computerDao;
     private static Logger logger;
-    
-    static{
+
+    static {
         logger = (Logger) LoggerFactory.getLogger("cdbLogger");
     }
-    
+
     /**
-     * Constructor for ComputerServiceImpl.
-     * Initializes computerDao.
+     * Constructor for ComputerServiceImpl. Initializes computerDao.
      */
-    
+
     public ComputerServiceImpl() {
         computerDao = ComputerDaoImpl.getInstance();
     }
-    
 
     @Override
     public ComputerDto create(ComputerDto pComputerDto) {
         try {
+
             Company company = new Company(pComputerDto.getCompanyName());
             company.setId(pComputerDto.getCompanyId());
-            Computer computer = new Computer.ComputerBuilder(pComputerDto.getName()).manufacturer(company).discontinued(ComputerAndDtoMapper.stringToLocalDate(pComputerDto.getDiscontinued()))
-                    .introduced(ComputerAndDtoMapper.stringToLocalDate(pComputerDto.getIntroduced()))     
-                    .build();
+            Computer computer = new Computer.ComputerBuilder(pComputerDto.getName()).manufacturer(company)
+                    .discontinued(ComputerAndDtoMapper.stringToLocalDate(pComputerDto.getDiscontinued()))
+                    .introduced(ComputerAndDtoMapper.stringToLocalDate(pComputerDto.getIntroduced())).build();
             computerDao.create(computer);
             pComputerDto.setId(computer.getId());
             return pComputerDto;
@@ -61,6 +61,7 @@ public class ComputerServiceImpl implements ComputerService {
         }
         return null;
     }
+
     @Override
     public void delete(long id) {
         try {
@@ -70,6 +71,7 @@ public class ComputerServiceImpl implements ComputerService {
             logger.error(e.getStackTrace().toString());
         }
     }
+
     @Override
     public ComputerDto getById(int pId) {
         Computer computer = null;
@@ -92,13 +94,14 @@ public class ComputerServiceImpl implements ComputerService {
         }
         return computerDto;
     }
+
     @Override
     public Page<ComputerDto> getPage(Page<ComputerDto> page) {
         Page<Computer> pageCompany = new Page<Computer>(10);
         ServiceUtil.copyAttributes(page, pageCompany);
         pageCompany.setElements(ComputerAndDtoMapper.dtoListToComputerList(page.elements));
         try {
-        pageCompany = computerDao.getPage(pageCompany);
+            pageCompany = computerDao.getPage(pageCompany);
         } catch (PersistenceException e) {
             logger.error("ComputerServiceImpl : getPage(Page<ComputerDto>) catched PersistenceException ");
             logger.error(e.getStackTrace().toString());
@@ -110,28 +113,21 @@ public class ComputerServiceImpl implements ComputerService {
 
     /**
      * Returns a page of Computer respecting the constraints set in parameters.
-     * @param constraints all the constraints that our page must respects. 
-     * @return a page of Computer 
+     * 
+     * @param constraints all the constraints that our page must respects.
+     * @return a page of Computer
      */
     public Page<Computer> getPage(PageConstraints constraints) {
         Page<Computer> pageComputer = ConstraintMapper.contraintesToComputerPage(constraints);
-        if (constraints.hasFilter()) {
-            try {
-                System.out.println("Filter !");
-                computerDao.getAllFilter(pageComputer,constraints.getFilter());
-            } catch (PersistenceException e) {
-                logger.error("ComputerServiceImpl : getPageFilter(Page<ComputerDto>, String) catched PersistenceException ");
-                logger.error(e.getStackTrace().toString());
-            }
-        } else {
-            try {
-                pageComputer = computerDao.getPage(pageComputer);
-                } catch (PersistenceException e) {
-                    logger.error("ComputerServiceImpl : getPage(Page<ComputerDto>) catched PersistenceException ");
-                    logger.error(e.getMessage());
-                }
+
+        try {
+            pageComputer = computerDao.getPage(pageComputer);
+        } catch (PersistenceException e) {
+            logger.error("ComputerServiceImpl : getPage(Page<ComputerDto>) catched PersistenceException ");
+            logger.error(e.getMessage());
         }
-        return pageComputer;    
+
+        return pageComputer;
     }
 
     @Override
@@ -139,7 +135,8 @@ public class ComputerServiceImpl implements ComputerService {
         Company company = new Company(pComputerDto.getCompanyName());
         company.setId(pComputerDto.getCompanyId());
         Computer computer = new Computer.ComputerBuilder(pComputerDto.getName())
-                .discontinued(ComputerAndDtoMapper.stringToLocalDate(pComputerDto.getDiscontinued())).introduced(ComputerAndDtoMapper.stringToLocalDate(pComputerDto.getIntroduced()))
+                .discontinued(ComputerAndDtoMapper.stringToLocalDate(pComputerDto.getDiscontinued()))
+                .introduced(ComputerAndDtoMapper.stringToLocalDate(pComputerDto.getIntroduced()))
                 .id(pComputerDto.getId()).manufacturer(company).build();
         try {
             computerDao.update(computer);
@@ -152,6 +149,7 @@ public class ComputerServiceImpl implements ComputerService {
 
     /**
      * Calls the delete() method on all the ID in the parameter List.
+     * 
      * @param ids A list of integers representing the Ids to delete.
      */
     public void deleteMultiplesId(List<Integer> ids) {

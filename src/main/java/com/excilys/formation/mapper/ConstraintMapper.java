@@ -29,7 +29,9 @@ public class ConstraintMapper {
             constraints.setPerPage(Integer.parseInt(request.getParameter(PER_PAGE_PARAMETER)));
         }
         if (request.getParameter(SEARCH_PARAMETER) != null && !(request.getParameter(SEARCH_PARAMETER).trim().isEmpty())) {
+            constraints.addConstraint("filter", "%" + request.getParameter(SEARCH_PARAMETER) + "%");
             constraints.setFilter(request.getParameter(SEARCH_PARAMETER));
+            System.out.println("Ici" + constraints.getConstraint());
         }
         return constraints;
     }

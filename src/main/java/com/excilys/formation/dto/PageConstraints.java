@@ -1,5 +1,6 @@
 package com.excilys.formation.dto;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -14,7 +15,7 @@ public class PageConstraints {
 
     private int currentPage;
     private int perPage;
-    private Map<String, String> constraint;
+    private Map<String, String> constraint = new HashMap<String,String>();
     private String filter;
 
     ////////// Getters And Setters //////////
@@ -55,6 +56,10 @@ public class PageConstraints {
     
     public boolean hasFilter() {
         return (filter != null && !(filter.isEmpty()));
+    }
+    
+    public void addConstraint(String key, String value) {
+        this.constraint.put(key, value);
     }
 
 }
