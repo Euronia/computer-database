@@ -25,10 +25,6 @@ public interface ComputerDao extends BaseDao<Computer> {
     public default void delete(long id) throws PersistenceException {
         throw new UnsupportedOperationException("delete(long) is not implemented");
     }
-    
-    public default Page<Computer> getAllFilter(Page<Computer> page,String filter) throws PersistenceException {
-        throw new UnsupportedOperationException("getAllFilter() is not implemented");
-    }
 
     public default void deleteFromCompany(Long companyId, Connection connection) {
         throw new UnsupportedOperationException("deleteFromCompany() is not implemented");

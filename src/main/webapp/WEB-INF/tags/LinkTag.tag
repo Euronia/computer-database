@@ -29,7 +29,7 @@
 		            <li><a href="?page=${pageComputer.currentPage + 2}&perPage=${pageComputer.elementsByPage}&search='${filter}'">${pageComputer.currentPage + 2}</a></li>
 		            </c:if>
 		            <li>
-		            <c:if test= "${pageComputer.currentPage != pageComputer.nbPages}" > 
+		            <c:if test= "${pageComputer.currentPage != pageComputer.nbPages}"> 
 		              <a href="?page=${pageComputer.currentPage + 1}&perPage=${pageComputer.elementsByPage}&search='${filter}'" aria-label="Next">
 		                  <span aria-hidden="true">&raquo;</span>
 		              </a>

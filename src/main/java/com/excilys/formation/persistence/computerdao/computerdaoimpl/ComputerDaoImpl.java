@@ -56,99 +56,39 @@ public class ComputerDaoImpl implements ComputerDao {
 
     ////////// Methods //////////
 
-    /**
-     * A simple query select * on the computer table. This method uses
-     * getListFromResults() to turn the ResultSet into a List
-     *
-     * @return a List of all the entries in the computer table
-     */
-    @Override
-    public Page<Computer> getPage(Page<Computer> page) throws PersistenceException {
-        List<Computer> computers = new ArrayList<Computer>();
-        String query = SELECT_JOIN_COMPUTER + " LIMIT ? OFFSET ?";
-        try (Connection connection = connectionProvider.getConnection();
-                PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            preparedStatement.setInt(1, page.getElementsByPage());
-            preparedStatement.setInt(2, (page.getCurrentPage() - 1) * page.getElementsByPage());
-            ResultSet resultSet = preparedStatement.executeQuery();
-            computers = PersistenceMapper.mapResultsToComputerList(resultSet);
-            page.setElements(computers);
-            page.setTotalElements(count());
-            resultSet.close();
-        } catch (SQLException e) {
-            logger.error(
-                    "ComputerDaoImpl : getPage(Page<Computer>) catched SQLException and throwed PersistenceException ");
-            throw new PersistenceException("La requete getPage de DAOComputer a échouée", e);
-        }
-        return page;
-    }
-
-    public Page<Computer> getAllFilter(Page<Computer> page, String filterConstraint) throws PersistenceException {
-        List<Computer> computers = new ArrayList<Computer>();
-        String filter = "%" + filterConstraint + "%";
-        System.out.println("Filter :" + filter);
-        String query = SELECT_JOIN_COMPUTER + " WHERE computer.name LIKE ? OR company.name LIKE ? LIMIT ? OFFSET ? ";
-        try (Connection connection = connectionProvider.getConnection();
-                PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            preparedStatement.setString(1, filter);
-            preparedStatement.setString(2, filter);
-            preparedStatement.setInt(3, page.getElementsByPage());
-            preparedStatement.setInt(4, (page.getCurrentPage() - 1) * page.getElementsByPage());
-            ResultSet resultSet = preparedStatement.executeQuery();
-            computers = PersistenceMapper.mapResultsToComputerList(resultSet);
-            page.setElements(computers);
-            page.setTotalElements(count(filter));
-            resultSet.close();
-        } catch (SQLException e) {
-            logger.error(
-                    "ComputerDaoImpl : getAllFilter(Page<Computer>, String) catched SQLException and throwed PersistenceException ");
-            throw new PersistenceException("La requete getAllFilter de DAOComputer a échouée", e);
-        }
-        return page;
-    }
-
-    public Page<Computer> getAllFilterOrdered(Page<Computer> page, String filterConstraint)
-            throws PersistenceException {
-        List<Computer> computers = new ArrayList<Computer>();
-        String filter = "%" + filterConstraint + "%";
-        System.out.println("Filter :" + filter);
-        String query = SELECT_JOIN_COMPUTER
-                + " WHERE computer.name LIKE ? OR company.name LIKE ? ORDER BY ? ? LIMIT ? OFFSET ? ";
-        try (Connection connection = connectionProvider.getConnection();
-                PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            preparedStatement.setString(1, filter);
-            preparedStatement.setString(2, filter);
-            preparedStatement.setInt(3, page.getElementsByPage());
-            preparedStatement.setInt(4, (page.getCurrentPage() - 1) * page.getElementsByPage());
-            ResultSet resultSet = preparedStatement.executeQuery();
-            computers = PersistenceMapper.mapResultsToComputerList(resultSet);
-            page.setElements(computers);
-            page.setTotalElements(count(filter));
-            resultSet.close();
-        } catch (SQLException e) {
-            logger.error(
-                    "ComputerDaoImpl : getAllFilter(Page<Computer>, String) catched SQLException and throwed PersistenceException ");
-            throw new PersistenceException("La requete getAllFilter de DAOComputer a échouée", e);
-        }
-        return page;
-    }
-
     public Page<Computer> getPage(Page<Computer> page, PageConstraints constraints) throws PersistenceException {
         List<Computer> computers = new ArrayList<Computer>();
         String query = SELECT_JOIN_COMPUTER + getConstraintsString(constraints) + " LIMIT ? OFFSET ? ";
         try (Connection connection = connectionProvider.getConnection();
                 PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            preparedStatement.setInt(1, page.getElementsByPage());
-            preparedStatement.setInt(2, (page.getCurrentPage() - 1) * page.getElementsByPage());
+            if (constraints.getConstraint().containsKey("filter") && constraints.getConstraint().containsKey("orderBy")) {
+                preparedStatement.setString(1, constraints.getConstraint().get("filter"));
+                preparedStatement.setString(2, constraints.getConstraint().get("filter"));
+                preparedStatement.setString(3, constraints.getConstraint().get("orderBy"));
+                preparedStatement.setInt(4, page.getElementsByPage());
+                preparedStatement.setInt(5, (page.getCurrentPage() - 1) * page.getElementsByPage());
+            } else if (constraints.getConstraint().containsKey("orderBy")) {
+                preparedStatement.setString(1, constraints.getConstraint().get("orderBy"));
+                preparedStatement.setInt(2, page.getElementsByPage());
+                preparedStatement.setInt(3, (page.getCurrentPage() - 1) * page.getElementsByPage());
+            } else if (constraints.getConstraint().containsKey("filter")) {
+                preparedStatement.setString(1, constraints.getConstraint().get("filter"));
+                preparedStatement.setString(2, constraints.getConstraint().get("filter"));
+                preparedStatement.setInt(3, page.getElementsByPage());
+                preparedStatement.setInt(4, (page.getCurrentPage() - 1) * page.getElementsByPage());
+            } else {
+                preparedStatement.setInt(1, page.getElementsByPage());
+                preparedStatement.setInt(2, (page.getCurrentPage() - 1) * page.getElementsByPage());
+            } 
             ResultSet resultSet = preparedStatement.executeQuery();
             computers = PersistenceMapper.mapResultsToComputerList(resultSet);
             page.setElements(computers);
-            page.setTotalElements(count(SELECT_JOIN_COMPUTER + getConstraintsString(constraints)));
+            page.setTotalElements(count(constraints));
             resultSet.close();
         } catch (SQLException e) {
             logger.error(
-                    "ComputerDaoImpl : getAllFilter(Page<Computer>, String) catched SQLException and throwed PersistenceException ");
-            throw new PersistenceException("La requete getAllFilter de DAOComputer a échouée", e);
+                    "ComputerDaoImpl : getPage(Page<Computer>, PageConstraints) catched SQLException and throwed PersistenceException ");
+            throw new PersistenceException("La requete getPage() de DAOComputer a échouée", e);
         }
         return page;
     }
@@ -157,43 +97,29 @@ public class ComputerDaoImpl implements ComputerDao {
         Map<String, String> constraintsMap = constraints.getConstraint();
         StringBuilder returnString = new StringBuilder();
         if (constraintsMap.containsKey("filter")) {
-            returnString.append(" WHERE computer.name LIKE ").append(constraintsMap.get("filter"))
-                    .append(" OR company.name LIKE ").append(constraintsMap.get("filter")).append(" ");
-            System.out.println(returnString);
+            returnString.append(" WHERE computer.name LIKE ? OR company.name LIKE ? ");
         }
         if (constraintsMap.containsKey("orderBy")) {
-            returnString.append("ORDER BY ").append(constraintsMap.get("orderBy")).append(" ")
-                    .append(constraintsMap.get("orderOrder")).append(" ");
+            returnString.append(" ORDER BY ? ");
         }
         return returnString.toString();
     }
 
-    private int count() {
+    private int count(PageConstraints constraints) {
         int total = 0;
-        try (Connection connection = connectionProvider.getConnection();
-                Statement statement = connection.createStatement()) {
-            ResultSet resultSet = statement.executeQuery(COUNT_ALL);
-            resultSet.next();
-            total = resultSet.getInt("total");
-            resultSet.close();
-        } catch (SQLException e) {
-            logger.error("ComputerDaoImpl : count() catched SQLException");
-            logger.error(e.getStackTrace().toString());
-        }
-        return total;
-    }
-
-    private int count(String query) {
-        int total = 0;
-        String newQuery = "SELECT COUNT(*) as total FROM ( " + query + " AS derivedTable";
+        String newQuery = "SELECT COUNT(*) as total FROM ( " + SELECT_JOIN_COMPUTER + getConstraintsString(constraints) +  " ) AS derivedTable";
         try (Connection connection = connectionProvider.getConnection();
                 PreparedStatement preparedStatement = connection.prepareStatement(newQuery)) {
+            if (constraints.getConstraint().containsKey("filter")) {
+                preparedStatement.setString(1, constraints.getConstraint().get("filter"));
+                preparedStatement.setString(2, constraints.getConstraint().get("filter"));      
+            } 
             ResultSet resultSet = preparedStatement.executeQuery();
             resultSet.next();
             total = resultSet.getInt("total");
             resultSet.close();
         } catch (SQLException e) {
-            logger.error("ComputerDaoImpl : count(String) catched SQLException");
+            logger.error("ComputerDaoImpl : count(PageConstraints) catched SQLException");
             logger.error(e.getStackTrace().toString());
         }
         return total;
@@ -283,8 +209,7 @@ public class ComputerDaoImpl implements ComputerDao {
             ps.setLong(5, toUpdate.getId());
             ps.executeUpdate();
         } catch (SQLException e) {
-            logger.error("ComputerDaoImpl : update(Computer) catched SQLException and throwed PersistenceException ");
-            logger.error(e.getStackTrace().toString());
+            logger.error("ComputerDaoImpl : update(Computer) catched SQLException and throwed PersistenceException ", e);
         }
         return toUpdate;
     }

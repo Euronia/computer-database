@@ -1,15 +1,23 @@
 package com.excilys.formation.service;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.fail;
+import static org.mockito.Mockito.mock;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.excilys.formation.entity.Company;
+import com.excilys.formation.entity.Computer;
+import com.excilys.formation.mapper.ComputerAndDtoMapper;
+import com.excilys.formation.persistence.computerdao.computerdaoimpl.ComputerDaoImpl;
+
 public class ComputerServiceImplTest {
+    ComputerDaoImpl computerDao;
 
     @Before
     public void setUp() throws Exception {
+       computerDao = mock(ComputerDaoImpl.class);
     }
 
     @After
@@ -25,7 +33,13 @@ public class ComputerServiceImplTest {
 
     @Test
     public void testCreate() {
-        fail("Not yet implemented");
+        Company company = new Company("test");
+        company.setId(212);
+        /*
+        Computer computer = new Computer.ComputerBuilder(pComputerDto.getName()).manufacturer(company)
+                .discontinued(ComputerAndDtoMapper.stringToLocalDate(pComputerDto.getDiscontinued()))
+                .introduced(ComputerAndDtoMapper.stringToLocalDate(pComputerDto.getIntroduced())).build();
+        */
     }
 
     @Test
