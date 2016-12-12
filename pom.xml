@@ -6,7 +6,7 @@
 	<groupId>com.excilys.formation</groupId>
 	<artifactId>computerdatabase</artifactId>
 	<version>1.4-SNAPSHOT</version>
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 
 	<name>computer-database</name>
 	<url>http://maven.apache.org</url>
@@ -76,7 +76,6 @@
 			<groupId>ch.qos.logback</groupId>
 			<artifactId>logback-classic</artifactId>
 			<version>${logback.version}</version>
-			
 		</dependency>
 		
 		<!--  Testing dependencies -->
@@ -157,35 +156,6 @@
 					<failsOnError>true</failsOnError>
 					<linkXRef>false</linkXRef>
 				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.codehaus.cargo</groupId>
-				<artifactId>cargo-maven2-plugin</artifactId>
-				<version>${cargo.version}</version>
-				<configuration>
-					<wait>false</wait>
-					<container>
-						<type>installed</type>
-						<containerId>tomcat9x</containerId>
-						<home>${TOMCAT_HOME}</home>
-					</container>
-				</configuration>
-				<executions>
-					<execution>
-						<id>start_container</id>
-						<phase>pre-integration-test</phase>
-						<goals>
-							<goal>start</goal>
-						</goals>
-					</execution>
-					<execution>
-						<id>stop-container</id>
-						<phase>post-integration-test</phase>
-						<goals>
-							<goal>stop</goal>
-						</goals>
-					</execution>
-				</executions>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>

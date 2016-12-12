@@ -105,6 +105,21 @@ public class ComputerDaoImpl implements ComputerDao {
         return returnString.toString();
     }
 
+    private int count() {
+        int total = 0;
+        try (Connection connection = connectionProvider.getConnection();
+                Statement statement = connection.createStatement()) {
+            ResultSet resultSet = statement.executeQuery(COUNT_ALL);
+            resultSet.next();
+            total = resultSet.getInt("total");
+            resultSet.close();
+        } catch (SQLException e) {
+            logger.error("ComputerDaoImpl : count() catched SQLException");
+            logger.error(e.getStackTrace().toString());
+        }
+        return total;
+    }
+            
     private int count(PageConstraints constraints) {
         int total = 0;
         String newQuery = "SELECT COUNT(*) as total FROM ( " + SELECT_JOIN_COMPUTER + getConstraintsString(constraints) +  " ) AS derivedTable";
@@ -147,7 +162,7 @@ public class ComputerDaoImpl implements ComputerDao {
             logger.error(e.getStackTrace().toString());
         }
         return returnComputer;
-    }
+    } 
 
     @Override
     public Computer getByName(String pname) throws PersistenceException {

@@ -119,11 +119,15 @@ public class ComputerServiceImpl implements ComputerService {
      */
     public Page<Computer> getPage(PageConstraints constraints) {
         Page<Computer> pageComputer = ConstraintMapper.contraintesToComputerPage(constraints);
-
         try {
             pageComputer = computerDao.getPage(pageComputer, constraints);
         } catch (PersistenceException e) {
-            logger.error("ComputerServiceImpl : getPage(PageConstraints) catched PersistenceException ");
+            logger.error("ComputerServiceImpl : getPage(PageConstraints) catched PersistenceException ", e);
+        }
+        try {
+            pageComputer = computerDao.getPage(pageComputer, constraints);
+        } catch (PersistenceException e) {
+            logger.error("ComputerServiceImpl : getPage(Page<ComputerDto>) catched PersistenceException ");
             logger.error(e.getMessage());
         }
 
