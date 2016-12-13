@@ -1,0 +1,30 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+		
+		<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
+		    <constructor-arg ref="hikariConfig" />
+		</bean>
+		
+		
+		<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
+		    <property name="poolName" value="springHikariCP" />
+		    <property name="connectionTestQuery" value="SELECT 1" />
+		    <property name="dataSourceClassName"       value="com.mysql.cj.jdbc.MysqlDataSource" />
+		    <property name="dataSourceProperties">
+		        <props>
+		            <prop key="url">jdbc:mysql://localhost:3306/computer-database-db</prop>
+		            <prop key="user">admincdb</prop>
+		            <prop key="password">qwerty1234</prop>
+		        </props>
+		    </property>
+		</bean>
+		
+
+		</beans>
+		
+		
+		

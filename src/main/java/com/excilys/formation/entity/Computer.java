@@ -26,7 +26,7 @@ public final class Computer {
 
     ////////// Constructors //////////
 
-    public Computer(ComputerBuilder builder) {
+    private Computer(ComputerBuilder builder) {
         id = builder.nestedId;
         name = builder.nestedName;
         introduced = builder.nestedIntroduced;
