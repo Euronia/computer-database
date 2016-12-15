@@ -34,7 +34,7 @@ public class ComputerDaoSpringImpl implements ComputerDao {
     private DataSource dataSource;
     private static HikariConnectionProvider connectionProvider;
     private static Logger logger;
-    private static final ComputerDaoImpl COMPUTER_DAO_INSTANCE;
+    private static ComputerDaoSpringImpl COMPUTER_DAO_INSTANCE;
     public static final String SELECT_JOIN_COMPUTER = "SELECT computer.id, computer.name, computer.introduced, computer.discontinued, company.id as companyId, company.name as companyName FROM computer LEFT JOIN company ON computer.company_id=company.id";
     public static final String CREATE_COMPUTER = "INSERT INTO computer (name, introduced, discontinued, company_id) VALUES(?,?,?,?)";
     public static final String UPDATE_COMPUTER = "UPDATE computer SET name = ?, introduced = ?, discontinued = ?, company_id = ? WHERE id = ? ;";
@@ -45,14 +45,22 @@ public class ComputerDaoSpringImpl implements ComputerDao {
     static {
         connectionProvider = HikariConnectionProvider.getInstance();
         logger = (Logger) LoggerFactory.getLogger("cdbLogger");
-        COMPUTER_DAO_INSTANCE = new ComputerDaoImpl();
+        COMPUTER_DAO_INSTANCE = new ComputerDaoSpringImpl();
     }
 
-    public static ComputerDaoImpl getInstance() {
+    public static ComputerDaoSpringImpl getInstance() {
         return COMPUTER_DAO_INSTANCE;
     }
     ////////// Getters and Setters //////////
 
+    public ComputerDaoSpringImpl getComputerDao() {
+        return COMPUTER_DAO_INSTANCE;
+    }
+    
+    public void setComputerDao(ComputerDaoSpringImpl d) {
+        COMPUTER_DAO_INSTANCE = d;
+    }
+    
     public HikariConnectionProvider getConnectionProvider() {
         return connectionProvider;
     }

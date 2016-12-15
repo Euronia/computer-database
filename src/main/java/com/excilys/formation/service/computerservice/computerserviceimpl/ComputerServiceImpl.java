@@ -4,6 +4,7 @@ import java.util.List;
 
 import ch.qos.logback.classic.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.excilys.formation.dto.ComputerDto;
 import com.excilys.formation.dto.PageConstraints;
@@ -28,6 +29,7 @@ public class ComputerServiceImpl implements ComputerService {
 
     ////////// Parameters //////////
 
+    @Autowired
     private ComputerDao computerDao;
     private static Logger logger;
 
@@ -42,6 +44,8 @@ public class ComputerServiceImpl implements ComputerService {
     public ComputerServiceImpl() {
         computerDao = ComputerDaoImpl.getInstance();
     }
+    
+    ////////// Getters and Setters ////////// 
 
     @Override
     public ComputerDto create(ComputerDto pComputerDto) {

@@ -1,10 +1,41 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:aop="http://www.springframework.org/schema/aop"
+		xmlns:tx="http://www.springframework.org/schema/tx"
 		xsi:schemaLocation="http://www.springframework.org/schema/beans
-		http://www.springframework.org/schema/beans/spring-beans-4.3.xsd">
+		http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+		http://www.springframework.org/schema/tx
+		http://www.springframework.org/schema/tx/spring-tx-4.3.xsd
+		http://www.springframework.org/schema/aop
+		http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
 		
+		<!--  Transactional beans -->
+		<bean id="computerService" class="com.excilys.formation.service.computerservice.computerserviceimpl.ComputerServiceImpl">
+			<property name="computerDao" ref="computerDao" />
+		</bean>
+		
+		<!--  Non transactional beans -->
 		<import resource="database/Spring-Datasource.xml" />
 		<import resource="computer/Spring-Computer.xml" />
 		
+		<bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+			<property name="dataSource" ref="dataSource" />
+		</bean>
+		
+		<!--  Transaction advice -->
+		<tx:advice id="txAdvice" transaction-manager="txManager">
+			<!-- Transactionnal semantics  -->
+			<tx:attributes>
+				<!-- All methods starting with get are read only -->
+				<tx:method name="get*" read-only="true"/>
+				<!-- Other methods use the default transaction settings -->
+				<tx:method name="*"/>
+			</tx:attributes>
+		</tx:advice>
+		
+		<aop:config>
+			<aop:pointcut id="computerServiceOperation" expression="execution(* com.excilys.formation.service.computerservice.computerserviceimpl.ComputerServiceImpl.*(..))" />
+			<aop:advisor advice-ref="txAdvice" pointcut-ref="computerServiceOperation" />
+		</aop:config>
 		
 		</beans>

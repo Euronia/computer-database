@@ -2,6 +2,7 @@ package com.excilys.formation.service.companyservice.companyserviceimpl;
 
 import ch.qos.logback.classic.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.excilys.formation.dto.CompanyDto;
 import com.excilys.formation.entity.Company;
@@ -20,6 +21,7 @@ public class CompanyServiceImpl implements CompanyService {
 
     ////////// Parameters //////////
 
+    @Autowired
     private CompanyDao companyDao;
     private static Logger logger;
     
