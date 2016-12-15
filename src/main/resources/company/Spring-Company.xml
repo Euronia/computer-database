@@ -3,7 +3,7 @@
 		xsi:schemaLocation="http://www.springframework.org/schema/beans
 		http://www.springframework.org/schema/beans/spring-beans-4.3.xsd">
 	
-		<bean id="computerDao" class="com.excilys.formation.persistence.computerdao.computerdaoimpl.ComputerDaoImpl">
+		<bean id="companyDao" class="com.excilys.formation.persistence.companydao.companydaoimpl.CompanyDaoImpl">
 			<property name="dataSource" ref="dataSource" />
 		</bean>
 		

@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import ch.qos.logback.classic.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import com.excilys.formation.dto.CompanyDto;
 import com.excilys.formation.dto.ComputerDto;
@@ -25,12 +27,20 @@ public class EditComputerServlet extends HttpServlet {
     
     private static Logger logger;
     private static final long serialVersionUID = 5820010289218504083L;
+    private CompanyService companyService;
+    private ComputerService computerService;
     
     static {
         logger = (Logger) LoggerFactory.getLogger("cdbLogger");
     }
 
     ////////// Methods //////////
+    
+    public void init() {
+        WebApplicationContext applicationContext = WebApplicationContextUtils.getWebApplicationContext(getServletContext());
+        this.companyService = (CompanyService)applicationContext.getBean(CompanyService.class);
+        this.computerService = (ComputerService)applicationContext.getBean(ComputerService.class);
+    }
     
     /**
      * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
@@ -40,7 +50,6 @@ public class EditComputerServlet extends HttpServlet {
             throws ServletException, IOException {
         ComputerDto computer = null;
         if (request.getParameter("id") != null) {
-            ComputerService computerService = new ComputerServiceImpl();
             try {
                 computer = computerService.getById(Integer.parseInt(request.getParameter("id")));
             } catch (NumberFormatException | ServiceException e) {
@@ -51,7 +60,6 @@ public class EditComputerServlet extends HttpServlet {
             this.getServletContext().getRequestDispatcher("/WEB-INF/views/dashboard.jsp").forward(request, response);   
         }
         Page<CompanyDto> pageCompany = new Page<>(10);
-        CompanyService companyService = new CompanyServiceImpl();
         pageCompany.setElementsByPage(10);
         try {
             companyService.getPage(pageCompany);
@@ -77,7 +85,6 @@ public class EditComputerServlet extends HttpServlet {
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        ComputerService computerService = new ComputerServiceImpl();
         ComputerDto computerDto = new ComputerDto();
         computerDto.setId(Integer.parseInt(request.getParameter("id")));
         computerDto.setName(request.getParameter("name"));

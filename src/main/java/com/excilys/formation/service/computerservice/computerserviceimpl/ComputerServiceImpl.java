@@ -5,6 +5,7 @@ import java.util.List;
 import ch.qos.logback.classic.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.excilys.formation.dto.ComputerDto;
 import com.excilys.formation.dto.PageConstraints;
@@ -25,6 +26,7 @@ import com.excilys.formation.util.ServiceUtil;
  * @author Euronia
  *
  */
+@Service
 public class ComputerServiceImpl implements ComputerService {
 
     ////////// Parameters //////////
@@ -35,6 +37,11 @@ public class ComputerServiceImpl implements ComputerService {
 
     static {
         logger = (Logger) LoggerFactory.getLogger("cdbLogger");
+    }
+    
+    public void setComputerDao (ComputerDao comp)
+    {
+        computerDao = comp;
     }
 
     /**

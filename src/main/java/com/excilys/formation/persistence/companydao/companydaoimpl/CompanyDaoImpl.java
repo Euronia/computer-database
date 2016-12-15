@@ -8,8 +8,12 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.sql.DataSource;
+
 import ch.qos.logback.classic.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import com.excilys.formation.entity.Company;
 import com.excilys.formation.exception.PersistenceException;
@@ -24,7 +28,10 @@ import com.excilys.formation.persistence.connectionprovider.HikariConnectionProv
  * @author Euronia
  *
  */
+@Repository
 public class CompanyDaoImpl implements CompanyDao {
+
+    private DataSource dataSource;
     private static HikariConnectionProvider connectionProvider;
     private static final CompanyDaoImpl COMPANY_DAO_INSTANCE;
     private static Logger logger; 
@@ -50,11 +57,16 @@ public class CompanyDaoImpl implements CompanyDao {
     public static CompanyDaoImpl getInstance() {
         return COMPANY_DAO_INSTANCE;
     }
+    
+    public void setDataSource (DataSource data)
+    {
+        dataSource = data;
+    }
 
     @Override
     public Company getById(int pId) throws PersistenceException {     
         Company company = null;
-        try (Connection connection = connectionProvider.getConnection();
+        try (Connection connection = dataSource.getConnection();
                 PreparedStatement preparedStatement = connection.prepareStatement(SELECT_BY_NAME)) {
             preparedStatement.setInt(1, pId);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -69,7 +81,7 @@ public class CompanyDaoImpl implements CompanyDao {
     @Override
     public Page<Company> getPage(Page<Company> page) throws PersistenceException {
         List<Company> allCompanies = new ArrayList<>();
-        try (Connection connection = connectionProvider.getConnection();
+        try (Connection connection = dataSource.getConnection();
                 PreparedStatement preparedStatement = connection.prepareStatement(SELECT_PAGE);) {
             preparedStatement.setInt(1, page.getElementsByPage());
             preparedStatement.setInt(2, (page.getCurrentPage() - 1) * page.getElementsByPage());
@@ -93,7 +105,7 @@ public class CompanyDaoImpl implements CompanyDao {
 
     private int count() {
         int total = 0;
-        try (Connection connection = connectionProvider.getConnection();
+        try (Connection connection = dataSource.getConnection();
                 Statement statement = connection.createStatement()) {
 
             ResultSet resultSet = statement.executeQuery(COUNT_ALL);

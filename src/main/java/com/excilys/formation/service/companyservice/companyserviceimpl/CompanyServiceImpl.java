@@ -3,6 +3,7 @@ package com.excilys.formation.service.companyservice.companyserviceimpl;
 import ch.qos.logback.classic.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.excilys.formation.dto.CompanyDto;
 import com.excilys.formation.entity.Company;
@@ -17,12 +18,16 @@ import com.excilys.formation.persistence.connectionprovider.HikariConnectionProv
 import com.excilys.formation.service.companyservice.CompanyService;
 import com.excilys.formation.util.ServiceUtil;
 
+@Service
 public class CompanyServiceImpl implements CompanyService {
 
     ////////// Parameters //////////
 
     @Autowired
     private CompanyDao companyDao;
+    @Autowired
+    private ComputerDao computerDao;
+    
     private static Logger logger;
     
     static{
@@ -30,7 +35,7 @@ public class CompanyServiceImpl implements CompanyService {
     }
 
     ////////// Constructors //////////
-
+    
     /**
      * Constructor for CompanyServiceImpl.
      * Initializes the companyDao.
@@ -62,7 +67,6 @@ public class CompanyServiceImpl implements CompanyService {
         HikariConnectionProvider connectionProvider = HikariConnectionProvider.getInstance();
         try {
             connectionProvider.beginTransaction();
-            ComputerDao computerDao = ComputerDaoImpl.getInstance();
             computerDao.deleteFromCompany(companyId, connectionProvider.getTransactionConnection());
             companyDao.delete(companyId, connectionProvider.getTransactionConnection());
             connectionProvider.commitTransaction();
