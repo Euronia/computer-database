@@ -8,9 +8,9 @@ import com.excilys.formation.dto.PageConstraints;
 public class ConstraintsValidator {
 
     ////////// Methods //////////
-    
-    public static Map<String,String> validate(PageConstraints constraints) {
-        Map<String,String> errors = new HashMap<String,String>();
+
+    public static Map<String, String> validate(PageConstraints constraints) {
+        Map<String, String> errors = new HashMap<String, String>();
         String currentError = validateCurrentPage(constraints);
         if (currentError != null) {
             errors.put("currentPage", currentError);

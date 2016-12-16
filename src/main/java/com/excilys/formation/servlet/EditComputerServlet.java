@@ -24,24 +24,25 @@ import com.excilys.formation.service.computerservice.computerserviceimpl.Compute
 public class EditComputerServlet extends HttpServlet {
 
     ////////// Parameters //////////
-    
+
     private static Logger logger;
     private static final long serialVersionUID = 5820010289218504083L;
     private CompanyService companyService;
     private ComputerService computerService;
-    
+
     static {
         logger = (Logger) LoggerFactory.getLogger("cdbLogger");
     }
 
     ////////// Methods //////////
-    
+
     public void init() {
-        WebApplicationContext applicationContext = WebApplicationContextUtils.getWebApplicationContext(getServletContext());
-        this.companyService = (CompanyService)applicationContext.getBean(CompanyService.class);
-        this.computerService = (ComputerService)applicationContext.getBean(ComputerService.class);
+        WebApplicationContext applicationContext = WebApplicationContextUtils
+                .getWebApplicationContext(getServletContext());
+        this.companyService = (CompanyService) applicationContext.getBean(CompanyService.class);
+        this.computerService = (ComputerService) applicationContext.getBean(ComputerService.class);
     }
-    
+
     /**
      * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
      *      response)
@@ -53,32 +54,35 @@ public class EditComputerServlet extends HttpServlet {
             try {
                 computer = computerService.getById(Integer.parseInt(request.getParameter("id")));
             } catch (NumberFormatException | ServiceException e) {
-                logger.error("EditComputerServlet : doGet(HttpServletRequest,HttpServletRequest) catched " + e.getClass().toString());
+                logger.error("EditComputerServlet : doGet(HttpServletRequest,HttpServletRequest) catched "
+                        + e.getClass().toString());
                 logger.error(e.getStackTrace().toString());
-            } 
+            }
         } else {
-            this.getServletContext().getRequestDispatcher("/WEB-INF/views/dashboard.jsp").forward(request, response);   
+            this.getServletContext().getRequestDispatcher("/WEB-INF/views/dashboard.jsp").forward(request, response);
         }
         Page<CompanyDto> pageCompany = new Page<>(10);
         pageCompany.setElementsByPage(10);
         try {
             companyService.getPage(pageCompany);
         } catch (ServiceException e) {
-            logger.error("EditComputerServlet : doGet(HttpServletRequest,HttpServletRequest) catched ServiceException ");
+            logger.error(
+                    "EditComputerServlet : doGet(HttpServletRequest,HttpServletRequest) catched ServiceException ");
             logger.error(e.getStackTrace().toString());
         }
         pageCompany.setElementsByPage(pageCompany.getTotalElements());
         try {
             companyService.getPage(pageCompany);
         } catch (ServiceException e) {
-            logger.error("EditComputerServlet : doGet(HttpServletRequest,HttpServletRequest) catched ServiceException ");
+            logger.error(
+                    "EditComputerServlet : doGet(HttpServletRequest,HttpServletRequest) catched ServiceException ");
             logger.error(e.getStackTrace().toString());
         }
         this.getServletContext().setAttribute("pageCompany", pageCompany);
         this.getServletContext().setAttribute("computer", computer);
         this.getServletContext().getRequestDispatcher("/WEB-INF/views/editComputer.jsp").forward(request, response);
     }
-    
+
     /**
      * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
      *      response)
@@ -102,12 +106,13 @@ public class EditComputerServlet extends HttpServlet {
         }
         String company = request.getParameter("companyId");
         if (company != null) {
-        computerDto.setCompanyId(Integer.parseInt(company));
+            computerDto.setCompanyId(Integer.parseInt(company));
         }
         try {
             computerService.update(computerDto);
         } catch (ServiceException e) {
-            logger.error("EditComputerServlet : doPost(HttpServletRequest,HttpServletRequest) catched ServiceException ");
+            logger.error(
+                    "EditComputerServlet : doPost(HttpServletRequest,HttpServletRequest) catched ServiceException ");
             logger.error(e.getStackTrace().toString());
         }
         response.sendRedirect("/computerdatabase/dashboard");

@@ -15,6 +15,7 @@ public class Main {
 
     /**
      * The main function of our program. Creates a mainMenu and start its menu.
+     * 
      * @param args
      */
     public static void main(String[] args) {

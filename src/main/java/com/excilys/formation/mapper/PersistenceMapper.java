@@ -10,7 +10,7 @@ import com.excilys.formation.entity.Computer;
 import com.excilys.formation.util.DateConverter;
 
 public class PersistenceMapper {
-    
+
     public static List<Computer> mapResultsToComputerList(ResultSet resultSet) throws SQLException {
         List<Computer> computerList = null;
         if (resultSet != null) {
@@ -19,10 +19,10 @@ public class PersistenceMapper {
                 Computer computer = extractComputer(resultSet);
                 computerList.add(computer);
             }
-        } 
+        }
         return computerList;
     }
-    
+
     public static List<Company> mapResultsToCompanyList(ResultSet resultSet) throws SQLException {
         List<Company> companyList = null;
         if (resultSet != null) {
@@ -34,7 +34,7 @@ public class PersistenceMapper {
         }
         return companyList;
     }
-    
+
     public static Company mapResultToCompany(ResultSet resultSet) throws SQLException {
         Company company = null;
         if (resultSet != null) {
@@ -44,7 +44,7 @@ public class PersistenceMapper {
         }
         return company;
     }
-    
+
     public static Computer mapResultToComputer(ResultSet resultSet) throws SQLException {
         Computer computer = null;
         if (resultSet != null) {
@@ -54,19 +54,19 @@ public class PersistenceMapper {
         }
         return computer;
     }
-    
+
     private static Computer extractComputer(ResultSet resultSet) throws SQLException {
         Company company = new Company(resultSet.getString("companyName"));
         company.setId(resultSet.getInt("companyId"));
-        
+
         Computer computer = new Computer.Builder(resultSet.getString("name")).manufacturer(company)
-                 .id(resultSet.getInt("id"))
-                 .discontinued(DateConverter.fromTimestampToLocalDate(resultSet.getTimestamp("discontinued")))
-                 .introduced(DateConverter.fromTimestampToLocalDate(resultSet.getTimestamp("introduced"))).build();
-        return computer;            
+                .id(resultSet.getInt("id"))
+                .discontinued(DateConverter.fromTimestampToLocalDate(resultSet.getTimestamp("discontinued")))
+                .introduced(DateConverter.fromTimestampToLocalDate(resultSet.getTimestamp("introduced"))).build();
+        return computer;
     }
-    
-    private static Company extractCompany(ResultSet resultSet) throws SQLException { 
+
+    private static Company extractCompany(ResultSet resultSet) throws SQLException {
         Company company = new Company(resultSet.getString("name"));
         company.setId(resultSet.getLong("id"));
         return company;

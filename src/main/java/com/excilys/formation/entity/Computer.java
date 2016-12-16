@@ -7,7 +7,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  * @author Euronia
- * 
+ *
  */
 public final class Computer {
 
@@ -19,12 +19,15 @@ public final class Computer {
     private LocalDate discontinued;
     private Company manufacturer;
     private static Logger logger;
-    
+
     static {
         logger = LoggerFactory.getLogger("cdbLogger");
     }
 
     ////////// Constructors //////////
+
+    private Computer() {
+    }
 
     private Computer(Builder builder) {
         id = builder.nestedId;

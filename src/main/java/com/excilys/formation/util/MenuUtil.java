@@ -8,13 +8,16 @@ import com.excilys.formation.pagination.Page;
 
 /**
  * A utilitary class for menus.
+ * 
  * @author Euronia
  *
  */
 public class MenuUtil {
     private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("YYYY-MM-dd");
+
     /**
      * Wait until the scanner has a new line and returns it.
+     * 
      * @return the next line from the scanner
      */
     public static String waitForLine() {
@@ -23,8 +26,10 @@ public class MenuUtil {
         }
         return MainMenu.scanner.nextLine();
     }
+
     /**
      * Wait until the scanner has a new int and returns it.
+     * 
      * @return the next int from the scanner
      */
     public static int waitForInt() {
@@ -33,9 +38,11 @@ public class MenuUtil {
         }
         return MainMenu.scanner.nextInt();
     }
+
     /**
      * Gets a new line from the scanner until it's empty, "null" or a valid date
      * and returns the date.
+     * 
      * @return a LocalDate or null
      */
     public static LocalDate inputDate() {
@@ -55,8 +62,10 @@ public class MenuUtil {
         }
         return date;
     }
+
     /**
      * Asks for a new date but with the possibility to keep the old one.
+     * 
      * @param localDate the old date
      * @return a LocalDate or null
      */
@@ -80,8 +89,10 @@ public class MenuUtil {
         }
         return date;
     }
+
     /**
      * Checks if a string is an integer.
+     * 
      * @param pStringToCheck the String to check
      * @return a boolean
      */
@@ -110,8 +121,10 @@ public class MenuUtil {
         }
         return true;
     }
+
     /**
      * Manage the page navigation in the menus.
+     * 
      * @param page the Page on which to operate
      * @return a boolean indicating if the operation was successful
      */

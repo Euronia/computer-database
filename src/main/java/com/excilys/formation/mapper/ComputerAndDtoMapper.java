@@ -12,11 +12,11 @@ import com.excilys.formation.pagination.Page;
 import com.excilys.formation.util.ServiceUtil;
 
 public class ComputerAndDtoMapper {
-    
+
     private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     ////////// Methods //////////
-    
+
     public static String localDateToString(LocalDate date) {
         if (date == null) {
             return null;
@@ -24,24 +24,25 @@ public class ComputerAndDtoMapper {
             return date.toString();
         }
     }
-    
+
     public static LocalDate stringToLocalDate(String date) {
         if (date == null) {
             return null;
         } else {
-            return LocalDate.parse(date,formatter);
+            return LocalDate.parse(date, formatter);
         }
     }
-    
+
     public static Page<ComputerDto> computerPageToDtoPage(Page<Computer> computerPage) {
         Page<ComputerDto> returnPage = new Page<ComputerDto>(10);
-        ServiceUtil.copyAttributes(computerPage,returnPage);
+        ServiceUtil.copyAttributes(computerPage, returnPage);
         returnPage.setElements(computerListToDtoList(computerPage.getElements()));
         return returnPage;
     }
-    
+
     /**
      * Converts a list from ComputerDto to Computer.
+     * 
      * @param listDto the list to convert
      * @return a Computer List
      */
@@ -50,11 +51,11 @@ public class ComputerAndDtoMapper {
         if (listDto != null) {
             computers = new ArrayList<>();
             for (ComputerDto computer : listDto) {
-                Company company = new Company(computer.getCompanyName()); 
+                Company company = new Company(computer.getCompanyName());
                 company.setId(computer.getCompanyId());
                 computers.add(new Computer.Builder(computer.getName()).manufacturer(company)
-                        .introduced(stringToLocalDate(computer.getIntroduced())).discontinued(stringToLocalDate(computer.getDiscontinued())).id(computer.getId())
-                        .build());
+                        .introduced(stringToLocalDate(computer.getIntroduced()))
+                        .discontinued(stringToLocalDate(computer.getDiscontinued())).id(computer.getId()).build());
             }
         }
         return computers;
@@ -62,6 +63,7 @@ public class ComputerAndDtoMapper {
 
     /**
      * Converts a list from Computer to ComputerDto.
+     * 
      * @param pList the list to convert
      * @return a ComputerDto List
      */
@@ -91,9 +93,10 @@ public class ComputerAndDtoMapper {
         }
         return computersDto;
     }
-    
+
     /**
      * Transform a Computer into a ComputerDto.
+     * 
      * @param pComp the Computer we want to transform
      * @return the parameter computer transformed into a ComputerDto
      */
@@ -101,12 +104,12 @@ public class ComputerAndDtoMapper {
         ComputerDto computerDto = new ComputerDto();
         computerDto.setId(pComp.getId());
         computerDto.setName(pComp.getName());
-        if (pComp.getIntroduced() != null) { 
+        if (pComp.getIntroduced() != null) {
             computerDto.setIntroduced(pComp.getIntroduced().toString());
         }
         if (pComp.getDiscontinued() != null) {
             computerDto.setDiscontinued(pComp.getDiscontinued().toString());
-        }        
+        }
         Company company = pComp.getManufacturer();
         computerDto.setCompanyId(company.getId());
         computerDto.setCompanyName(company.getName());

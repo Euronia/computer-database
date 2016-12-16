@@ -25,15 +25,16 @@ public class ComputerMenu implements BaseMenu {
     private Scanner scanner = MainMenu.getScanner();
     private Page<ComputerDto> pageComputer;
     private ComputerService computerService;
-    private static Logger logger; 
-    
-    static{
+    private static Logger logger;
+
+    static {
         logger = LoggerFactory.getLogger("cdbLogger");
     }
 
     public ComputerMenu() {
         computerService = new ComputerServiceImpl();
     }
+
     /**
      * Starts the Menu for the Computer part Allows an user to
      * list/delete/create/update computers
@@ -74,7 +75,7 @@ public class ComputerMenu implements BaseMenu {
             break;
         }
     }
-    
+
     public void list() {
         boolean continueLoop = true;
         pageComputer = new Page<>(10);
@@ -84,7 +85,7 @@ public class ComputerMenu implements BaseMenu {
         }
         startMenu();
     }
-    
+
     public void create() {
         ComputerDto computerDto = new ComputerDto();
         System.out.println("Entrez le nom de l'ordinateur");
@@ -109,7 +110,7 @@ public class ComputerMenu implements BaseMenu {
         }
         startMenu();
     }
-    
+
     private void showComputerPage() {
         try {
             computerService.getPage(pageComputer);
@@ -117,16 +118,17 @@ public class ComputerMenu implements BaseMenu {
             for (ComputerDto computer : pageComputer.elements) {
                 stringBuilder.append(computer.toString()).append("\n");
             }
-            stringBuilder.append("Page : ").append(pageComputer.getCurrentPage()).append(" / ").append(pageComputer.nbPages)
-            .append("\nOptions :\n1 - Page Précédente\n2 - Page Suivante\n3 - Aller à la page\n4 - Quitter");
+            stringBuilder.append("Page : ").append(pageComputer.getCurrentPage()).append(" / ")
+                    .append(pageComputer.nbPages)
+                    .append("\nOptions :\n1 - Page Précédente\n2 - Page Suivante\n3 - Aller à la page\n4 - Quitter");
             System.out.println(stringBuilder.toString());
         } catch (ServiceException e) {
             logger.error("ComputerMenu : showComputerPage() catched ServiceException ");
             logger.error(e.getStackTrace().toString());
         }
-        
+
     }
-    
+
     public void info() {
         System.out.println("Quelle est l'id de l'ordinateur auquel vous souhaitez acceder ?");
         scanner.nextLine();
@@ -153,7 +155,7 @@ public class ComputerMenu implements BaseMenu {
         }
         startMenu();
     }
-    
+
     public void update() {
         System.out.println("Quelle est l'id de l'ordinateur que vous souhaitez modifier ?");
         scanner.nextLine();
@@ -167,8 +169,9 @@ public class ComputerMenu implements BaseMenu {
                 ComputerDto computerDto = computerService.getById(idToUpdate);
                 if (computerDto != null) {
                     // NAME
-                    System.out.println(new StringBuilder().append("Entrez un nouveau nom si vous souhaitez le changer (")
-                          .append(computerDto.getName()).append(") :").toString());  
+                    System.out
+                            .println(new StringBuilder().append("Entrez un nouveau nom si vous souhaitez le changer (")
+                                    .append(computerDto.getName()).append(") :").toString());
                     String newName = scanner.nextLine();
                     if (!newName.isEmpty()) {
                         computerDto.setName(newName);
@@ -184,7 +187,8 @@ public class ComputerMenu implements BaseMenu {
                             .append(") au format aaaa-mm-jj (\"null\" pour retirer la date):").toString());
                     computerDto.setDiscontinued(MenuUtil.inputNewDate(computerDto.getDiscontinued()));
                     // COMPANY ID
-                    System.out.println("Vous pouvez entrer un nouvel id de compagnie (" + computerDto.getCompanyId() + ") :");
+                    System.out.println(
+                            "Vous pouvez entrer un nouvel id de compagnie (" + computerDto.getCompanyId() + ") :");
                     String newCompanyId = scanner.nextLine();
                     if (!newCompanyId.isEmpty() && MenuUtil.isInteger(newCompanyId)) {
                         computerDto.setCompanyId(Integer.parseInt(newCompanyId));
@@ -220,7 +224,7 @@ public class ComputerMenu implements BaseMenu {
         }
         startMenu();
     }
-    
+
     @Override
     public void exitMenu() {
 

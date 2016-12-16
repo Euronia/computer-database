@@ -28,24 +28,25 @@ import com.excilys.formation.validation.ComputerValidator;
 public class AddComputerServlet extends HttpServlet {
 
     ////////// Parameters //////////
-    
+
     private static Logger logger;
     private static final long serialVersionUID = 1L;
     private CompanyService companyService;
     private ComputerService computerService;
-    
-    static{
+
+    static {
         logger = (Logger) LoggerFactory.getLogger("cdbLogger");
     }
 
     ////////// Methods //////////
-    
+
     public void init() {
-        WebApplicationContext applicationContext = WebApplicationContextUtils.getWebApplicationContext(getServletContext());
-        this.companyService = (CompanyService)applicationContext.getBean(CompanyService.class);
-        this.computerService = (ComputerService)applicationContext.getBean(ComputerService.class);
+        WebApplicationContext applicationContext = WebApplicationContextUtils
+                .getWebApplicationContext(getServletContext());
+        this.companyService = (CompanyService) applicationContext.getBean(CompanyService.class);
+        this.computerService = (ComputerService) applicationContext.getBean(ComputerService.class);
     }
-    
+
     /**
      * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
      *      response)
@@ -57,14 +58,16 @@ public class AddComputerServlet extends HttpServlet {
         try {
             companyService.getPage(pageCompany);
         } catch (ServiceException e) {
-            logger.error("AddComputerServlet : doGet(HttpServletRequest, HttpServletRequest) catched ServiceException ");
+            logger.error(
+                    "AddComputerServlet : doGet(HttpServletRequest, HttpServletRequest) catched ServiceException ");
             logger.error(e.getStackTrace().toString());
         }
         pageCompany.setElementsByPage(pageCompany.getTotalElements());
         try {
             companyService.getPage(pageCompany);
         } catch (ServiceException e) {
-            logger.error("AddComputerServlet : doGet(HttpServletRequest, HttpServletRequest) catched ServiceException ");
+            logger.error(
+                    "AddComputerServlet : doGet(HttpServletRequest, HttpServletRequest) catched ServiceException ");
             logger.error(e.getStackTrace().toString());
         }
         this.getServletContext().setAttribute("pageCompany", pageCompany);
@@ -75,7 +78,7 @@ public class AddComputerServlet extends HttpServlet {
      * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
      *      response)
      */
-    
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         ComputerDto computerDto = new ComputerDto();
@@ -97,7 +100,8 @@ public class AddComputerServlet extends HttpServlet {
         try {
             computerService.create(computerDto);
         } catch (ServiceException e) {
-            logger.error("AddComputerServlet : doPost(HttpServletRequest, HttpServletRequest) catched ServiceException ");
+            logger.error(
+                    "AddComputerServlet : doPost(HttpServletRequest, HttpServletRequest) catched ServiceException ");
             logger.error(e.getStackTrace().toString());
         }
         if (!ComputerValidator.validate(computerDto).isEmpty()) {

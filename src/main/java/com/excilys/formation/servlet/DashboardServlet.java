@@ -34,17 +34,18 @@ public class DashboardServlet extends HttpServlet {
     private static final long serialVersionUID = 6163744348925320231L;
     private CompanyService companyService;
     private ComputerService computerService;
-    
+
     static {
         logger = (Logger) LoggerFactory.getLogger(DashboardServlet.class);
     }
 
     ////////// Methods //////////
-    
+
     public void init() {
-        WebApplicationContext applicationContext = WebApplicationContextUtils.getWebApplicationContext(getServletContext());
-        this.companyService = (CompanyService)applicationContext.getBean(CompanyService.class);
-        this.computerService = (ComputerService)applicationContext.getBean(ComputerService.class);
+        WebApplicationContext applicationContext = WebApplicationContextUtils
+                .getWebApplicationContext(getServletContext());
+        this.companyService = (CompanyService) applicationContext.getBean(CompanyService.class);
+        this.computerService = (ComputerService) applicationContext.getBean(ComputerService.class);
     }
 
     /**
