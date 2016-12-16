@@ -38,9 +38,8 @@ public class ComputerServiceImpl implements ComputerService {
     static {
         logger = (Logger) LoggerFactory.getLogger("cdbLogger");
     }
-    
-    public void setComputerDao (ComputerDao comp)
-    {
+
+    public void setComputerDao(ComputerDao comp) {
         computerDao = comp;
     }
 
@@ -51,8 +50,8 @@ public class ComputerServiceImpl implements ComputerService {
     public ComputerServiceImpl() {
         computerDao = ComputerDaoImpl.getInstance();
     }
-    
-    ////////// Getters and Setters ////////// 
+
+    ////////// Getters and Setters //////////
 
     @Override
     public ComputerDto create(ComputerDto pComputerDto) {
