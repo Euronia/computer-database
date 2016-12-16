@@ -5,6 +5,7 @@
 	
 		<bean id="companyDao" class="com.excilys.formation.persistence.companydao.companydaoimpl.CompanyDaoImpl">
 			<property name="dataSource" ref="dataSource" />
+			<property name="jdbcTemplate" ref="jdbcTemplate" />
 		</bean>
 		
 		</beans>

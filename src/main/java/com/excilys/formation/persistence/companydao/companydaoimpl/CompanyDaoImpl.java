@@ -13,6 +13,7 @@ import javax.sql.DataSource;
 import ch.qos.logback.classic.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.excilys.formation.entity.Company;
@@ -32,6 +33,7 @@ import com.excilys.formation.persistence.connectionprovider.HikariConnectionProv
 public class CompanyDaoImpl implements CompanyDao {
 
     private DataSource dataSource;
+    private JdbcTemplate jdbcTemplate;
     private static HikariConnectionProvider connectionProvider;
     private static final CompanyDaoImpl COMPANY_DAO_INSTANCE;
     private static Logger logger; 
@@ -48,9 +50,10 @@ public class CompanyDaoImpl implements CompanyDao {
         COMPANY_DAO_INSTANCE = new CompanyDaoImpl();
     }
 
+    //////////  Getters & Setters //////////
+    
     /**
-     * Getter for the instance of CompanyDaoJdbc. If the instance is null,
-     * initializes it.
+     * Getter for the instance of CompanyDaoJdbc.
      * 
      * @return the instance of CompanyDaoJdbc
      */
@@ -62,6 +65,13 @@ public class CompanyDaoImpl implements CompanyDao {
     {
         dataSource = data;
     }
+    
+    public void setJdbcTemplate (JdbcTemplate jdbcTemplate)
+    {
+        this.jdbcTemplate = jdbcTemplate;
+    }
+    
+    ////////// Methods //////////
 
     @Override
     public Company getById(int pId) throws PersistenceException {     

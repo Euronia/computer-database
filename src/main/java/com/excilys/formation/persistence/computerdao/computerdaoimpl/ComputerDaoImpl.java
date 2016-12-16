@@ -14,6 +14,7 @@ import javax.sql.DataSource;
 import ch.qos.logback.classic.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.excilys.formation.dto.PageConstraints;
@@ -36,6 +37,7 @@ public class ComputerDaoImpl implements ComputerDao {
 
     
     private DataSource dataSource;
+    private JdbcTemplate jdbcTemplate;
     private static HikariConnectionProvider connectionProvider;
     private static Logger logger;
     private static ComputerDaoImpl COMPUTER_DAO_INSTANCE;
@@ -71,6 +73,10 @@ public class ComputerDaoImpl implements ComputerDao {
     
     public void setDataSource(DataSource dataSource) {
         this.dataSource = dataSource;
+    }
+    
+    public void setJdbcTemplate (JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
     }
 
     ////////// Methods //////////
@@ -211,17 +217,9 @@ public class ComputerDaoImpl implements ComputerDao {
      */
     @Override
     public Computer create(Computer toCreate) {
-        try (Connection connection = dataSource.getConnection();
-                PreparedStatement ps = connection.prepareStatement(CREATE_COMPUTER)) {
-            ps.setString(1, toCreate.getName());
-            ps.setObject(2, toCreate.getIntroduced());
-            ps.setObject(3, toCreate.getDiscontinued());
-            ps.setLong(4, toCreate.getManufacturer().getId());
-            ps.executeUpdate();
-        } catch (SQLException e) {
-            logger.error("ComputerDaoImpl : create(String) catched SQLException and throwed PersistenceException ");
-            logger.error(e.getStackTrace().toString());
-        }
+        jdbcTemplate.update(CREATE_COMPUTER, new Object[] {toCreate.getName(),
+            toCreate.getIntroduced(), toCreate.getDiscontinued(), 
+            toCreate.getManufacturer().getId()});           
         return toCreate;
     }
 
@@ -234,17 +232,9 @@ public class ComputerDaoImpl implements ComputerDao {
 
     @Override
     public Computer update(Computer toUpdate) {
-        try (Connection connection = dataSource.getConnection();
-                PreparedStatement ps = connection.prepareStatement(UPDATE_COMPUTER)) {
-            ps.setString(1, toUpdate.getName());
-            ps.setObject(2, toUpdate.getIntroduced());
-            ps.setObject(3, toUpdate.getDiscontinued());
-            ps.setLong(4, toUpdate.getManufacturer().getId());
-            ps.setLong(5, toUpdate.getId());
-            ps.executeUpdate();
-        } catch (SQLException e) {
-            logger.error("ComputerDaoImpl : update(Computer) catched SQLException and throwed PersistenceException ", e);
-        }
+        jdbcTemplate.update(UPDATE_COMPUTER, new Object[] {toUpdate.getName(),
+                 toUpdate.getIntroduced(), toUpdate.getDiscontinued(),
+                 toUpdate.getManufacturer().getId(), toUpdate.getId()});
         return toUpdate;
     }
 
@@ -255,15 +245,9 @@ public class ComputerDaoImpl implements ComputerDao {
      *            table. The only used parameter from it is its id.
      */
     @Override
-    public void delete(Computer pcomputer) {
-        try (Connection connection = dataSource.getConnection();
-                PreparedStatement ps = connection.prepareStatement(DELETE_COMPUTER)) {
-            ps.setLong(1, pcomputer.getId());
-            ps.executeUpdate();
-        } catch (Exception e) {
-            logger.error("ComputerDaoImpl : delete(Computer) catched SQLException and throwed PersistenceException ");
-            logger.error(e.getStackTrace().toString());
-        }
+    public void delete(Computer toDelete) {
+            jdbcTemplate.update(DELETE_COMPUTER, 
+                    new Object[] {toDelete.getId()});
     }
 
     /**
@@ -273,14 +257,8 @@ public class ComputerDaoImpl implements ComputerDao {
      */
     @Override
     public void delete(long id) {
-        try (Connection connection = dataSource.getConnection();
-                PreparedStatement ps = connection.prepareStatement(DELETE_COMPUTER)) {
-            ps.setLong(1, id);
-            ps.executeUpdate();
-        } catch (Exception e) {
-            logger.error("ComputerDaoImpl : delete(long) catched SQLException and throwed PersistenceException ");
-            logger.error(e.getStackTrace().toString());
-        }
+        jdbcTemplate.update(DELETE_COMPUTER,
+                new Object[] {id});
     }
 
     /**
@@ -289,12 +267,8 @@ public class ComputerDaoImpl implements ComputerDao {
      */
     @Override
     public void deleteFromCompany(Long companyId, Connection connection) {
-        try (PreparedStatement ps = connection.prepareStatement(DELETE_FROM_COMPANY_COMPUTER)) {
-            ps.setLong(1, companyId);
-            ps.executeUpdate();
-        } catch (SQLException e) {
-            logger.error("ComputerDaoImpl : deleteFromCompany() catched SQLException", e);
-        }
+            jdbcTemplate.update(DELETE_FROM_COMPANY_COMPUTER, 
+                    new Object[] {companyId});
     }
 
 }
