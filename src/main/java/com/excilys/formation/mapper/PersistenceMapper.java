@@ -59,7 +59,7 @@ public class PersistenceMapper {
         Company company = new Company(resultSet.getString("companyName"));
         company.setId(resultSet.getInt("companyId"));
         
-        Computer computer = new Computer.ComputerBuilder(resultSet.getString("name")).manufacturer(company)
+        Computer computer = new Computer.Builder(resultSet.getString("name")).manufacturer(company)
                  .id(resultSet.getInt("id"))
                  .discontinued(DateConverter.fromTimestampToLocalDate(resultSet.getTimestamp("discontinued")))
                  .introduced(DateConverter.fromTimestampToLocalDate(resultSet.getTimestamp("introduced"))).build();

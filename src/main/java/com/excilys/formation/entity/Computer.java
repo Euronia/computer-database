@@ -26,7 +26,7 @@ public final class Computer {
 
     ////////// Constructors //////////
 
-    private Computer(ComputerBuilder builder) {
+    private Computer(Builder builder) {
         id = builder.nestedId;
         name = builder.nestedName;
         introduced = builder.nestedIntroduced;
@@ -145,38 +145,38 @@ public final class Computer {
 
     ////////// Builder //////////
 
-    public static class ComputerBuilder {
+    public static class Builder {
         private long nestedId;
         private String nestedName;
         private LocalDate nestedIntroduced;
         private LocalDate nestedDiscontinued;
         private Company nestedManufacturer;
 
-        public ComputerBuilder(String name) {
+        public Builder(String name) {
             nestedName = name;
         }
 
-        public ComputerBuilder id(long id) {
+        public Builder id(long id) {
             nestedId = id;
             return this;
         }
 
-        public ComputerBuilder name(String pname) {
+        public Builder name(String pname) {
             nestedName = pname;
             return this;
         }
 
-        public ComputerBuilder introduced(LocalDate pdate) {
+        public Builder introduced(LocalDate pdate) {
             nestedIntroduced = pdate;
             return this;
         }
 
-        public ComputerBuilder discontinued(LocalDate pdate) {
+        public Builder discontinued(LocalDate pdate) {
             nestedDiscontinued = pdate;
             return this;
         }
 
-        public ComputerBuilder manufacturer(Company pmanufacturer) {
+        public Builder manufacturer(Company pmanufacturer) {
             nestedManufacturer = pmanufacturer;
             return this;
         }

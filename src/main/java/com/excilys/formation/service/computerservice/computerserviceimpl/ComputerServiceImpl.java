@@ -60,7 +60,7 @@ public class ComputerServiceImpl implements ComputerService {
 
             Company company = new Company(pComputerDto.getCompanyName());
             company.setId(pComputerDto.getCompanyId());
-            Computer computer = new Computer.ComputerBuilder(pComputerDto.getName()).manufacturer(company)
+            Computer computer = new Computer.Builder(pComputerDto.getName()).manufacturer(company)
                     .discontinued(ComputerAndDtoMapper.stringToLocalDate(pComputerDto.getDiscontinued()))
                     .introduced(ComputerAndDtoMapper.stringToLocalDate(pComputerDto.getIntroduced())).build();
             computerDao.create(computer);
@@ -149,7 +149,7 @@ public class ComputerServiceImpl implements ComputerService {
     public ComputerDto update(ComputerDto pComputerDto) {
         Company company = new Company(pComputerDto.getCompanyName());
         company.setId(pComputerDto.getCompanyId());
-        Computer computer = new Computer.ComputerBuilder(pComputerDto.getName())
+        Computer computer = new Computer.Builder(pComputerDto.getName())
                 .discontinued(ComputerAndDtoMapper.stringToLocalDate(pComputerDto.getDiscontinued()))
                 .introduced(ComputerAndDtoMapper.stringToLocalDate(pComputerDto.getIntroduced()))
                 .id(pComputerDto.getId()).manufacturer(company).build();

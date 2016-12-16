@@ -52,7 +52,7 @@ public class ComputerAndDtoMapper {
             for (ComputerDto computer : listDto) {
                 Company company = new Company(computer.getCompanyName()); 
                 company.setId(computer.getCompanyId());
-                computers.add(new Computer.ComputerBuilder(computer.getName()).manufacturer(company)
+                computers.add(new Computer.Builder(computer.getName()).manufacturer(company)
                         .introduced(stringToLocalDate(computer.getIntroduced())).discontinued(stringToLocalDate(computer.getDiscontinued())).id(computer.getId())
                         .build());
             }
