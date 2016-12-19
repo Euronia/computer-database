@@ -15,8 +15,6 @@
 <script src="../computerdatabase/js/jquery.min.js"></script>
 <script src="../computerdatabase/js/jquery.validate.min.js"></script>
 <script src="../computerdatabase/js/validation/addcomputer-validation.js"></script>
-<jsp:useBean id="computer" type="com.excilys.formation.dto.ComputerDto" scope="application" />
-<jsp:useBean id="pageCompany" type="com.excilys.formation.pagination.Page" scope="application" />
 <body>
     <header class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">

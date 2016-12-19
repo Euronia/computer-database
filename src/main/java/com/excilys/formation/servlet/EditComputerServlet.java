@@ -17,9 +17,7 @@ import com.excilys.formation.dto.ComputerDto;
 import com.excilys.formation.exception.ServiceException;
 import com.excilys.formation.pagination.Page;
 import com.excilys.formation.service.companyservice.CompanyService;
-import com.excilys.formation.service.companyservice.companyserviceimpl.CompanyServiceImpl;
 import com.excilys.formation.service.computerservice.ComputerService;
-import com.excilys.formation.service.computerservice.computerserviceimpl.ComputerServiceImpl;
 
 public class EditComputerServlet extends HttpServlet {
 

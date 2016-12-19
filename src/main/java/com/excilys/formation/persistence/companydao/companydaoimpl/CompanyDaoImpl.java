@@ -14,10 +14,13 @@ import ch.qos.logback.classic.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.stereotype.Repository;
 
 import com.excilys.formation.entity.Company;
 import com.excilys.formation.exception.PersistenceException;
+import com.excilys.formation.mapper.CustomResultSetExtractor;
+import com.excilys.formation.mapper.CustomRowMapper;
 import com.excilys.formation.mapper.PersistenceMapper;
 import com.excilys.formation.pagination.Page;
 import com.excilys.formation.persistence.companydao.CompanyDao;
@@ -40,7 +43,9 @@ public class CompanyDaoImpl implements CompanyDao {
     private static final String COUNT_ALL = "SELECT COUNT(*) as total FROM company";
     private static final String DELETE_COMPUTERS = "DELETE FROM computer WHERE computer.company_id = ?";
     private static final String DELETE_COMPANY = "DELETE FROM company WHERE company.id = ?";
-
+    private static final ResultSetExtractor<Company> EXTRACTOR_COMPANY = CustomResultSetExtractor.singletonExtractor(CustomRowMapper.MAPPER_COMPANY);
+    
+    
     static {
         logger = (ch.qos.logback.classic.Logger) LoggerFactory.getLogger("cdbLogger");
         COMPANY_DAO_INSTANCE = new CompanyDaoImpl();
@@ -69,17 +74,7 @@ public class CompanyDaoImpl implements CompanyDao {
 
     @Override
     public Company getById(int pId) throws PersistenceException {
-        Company company = null;
-        try (Connection connection = dataSource.getConnection();
-                PreparedStatement preparedStatement = connection.prepareStatement(SELECT_BY_NAME)) {
-            preparedStatement.setInt(1, pId);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            company = PersistenceMapper.mapResultToCompany(resultSet);
-        } catch (SQLException e) {
-            logger.error("CompanyDAO : GetById() catched SQLException and throwed PersistenceException");
-            throw new PersistenceException("Problème lors de la récupération de la compagnie", e);
-        }
-        return company;
+        return jdbcTemplate.query(SELECT_BY_NAME, EXTRACTOR_COMPANY, pId);
     }
 
     @Override

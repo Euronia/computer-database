@@ -105,22 +105,6 @@ public class ComputerServiceImpl implements ComputerService {
         return computerDto;
     }
 
-    @Override
-    public Page<ComputerDto> getPage(Page<ComputerDto> page) {
-        Page<Computer> pageCompany = new Page<Computer>(10);
-        ServiceUtil.copyAttributes(page, pageCompany);
-        pageCompany.setElements(ComputerAndDtoMapper.dtoListToComputerList(page.elements));
-        try {
-            pageCompany = computerDao.getPage(pageCompany);
-        } catch (PersistenceException e) {
-            logger.error("ComputerServiceImpl : getPage(Page<ComputerDto>) catched PersistenceException ");
-            logger.error(e.getStackTrace().toString());
-        }
-        ServiceUtil.copyAttributes(pageCompany, page);
-        page.elements = ComputerAndDtoMapper.computerListToDtoList(pageCompany.elements);
-        return page;
-    }
-
     /**
      * Returns a page of Computer respecting the constraints set in parameters.
      * 
@@ -132,15 +116,8 @@ public class ComputerServiceImpl implements ComputerService {
         try {
             pageComputer = computerDao.getPage(pageComputer, constraints);
         } catch (PersistenceException e) {
-            logger.error("ComputerServiceImpl : getPage(PageConstraints) catched PersistenceException ", e);
+            logger.error("ComputerServiceImpl : getPage(Page<ComputerDto>) catched PersistenceException ",e);
         }
-        try {
-            pageComputer = computerDao.getPage(pageComputer, constraints);
-        } catch (PersistenceException e) {
-            logger.error("ComputerServiceImpl : getPage(Page<ComputerDto>) catched PersistenceException ");
-            logger.error(e.getMessage());
-        }
-
         return pageComputer;
     }
 
