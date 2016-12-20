@@ -32,6 +32,8 @@
 		<cargo.version>1.6.1</cargo.version>
 		<spring.version>4.3.4.RELEASE</spring.version>
 		<surefire.version>2.19</surefire.version>
+		<validation.version>1.1.0.Final</validation.version>
+		<hibernate.version>5.3.4.Final</hibernate.version>
 	</properties>
 
 	<dependencies>
@@ -120,6 +122,18 @@
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-web</artifactId>
 			<version>${spring.version}</version>
+		</dependency>
+		
+		<!-- Validation dependencies -->
+		<dependency>
+			<groupId>javax.validation</groupId>
+			<artifactId>validation-api</artifactId>
+			<version>${validation.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<version>${hibernate.version}</version>
 		</dependency>
 
 		<!-- Testing dependencies -->

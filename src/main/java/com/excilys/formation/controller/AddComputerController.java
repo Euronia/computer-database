@@ -2,10 +2,13 @@ package com.excilys.formation.controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -49,22 +52,28 @@ public class AddComputerController {
     ////////// Methods //////////
 
     @RequestMapping(method = RequestMethod.GET)
-    public ModelAndView dashboardGet(HttpServletRequest request, HttpServletResponse response) {
+    public ModelAndView addComputerGet( HttpServletRequest request, HttpServletResponse response) {
         ModelAndView model = new ModelAndView("/WEB-INF/pages/addComputer.jsp");
         Page<CompanyDto> pageCompany = companyService.getAll();
+        model.addObject("computerDto",new ComputerDto());
         model.addObject("pageCompany",pageCompany);
         return model;
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ModelAndView dashboardPost(HttpServletRequest request, HttpServletResponse response) {
-        ComputerDto computerDto = RequestMapper.toComputer(request);
-        try {
-            computerService.create(computerDto);
-        } catch (ServiceException e) {
-            LOGGER.error( "EditComputerController : dashboardPost() catched ServiceException",e);
+    public ModelAndView addComputerPost(@Valid @ModelAttribute("computerDto")ComputerDto computerDto, BindingResult bindingResult, HttpServletRequest request, HttpServletResponse response) {    
+        ModelAndView model;
+        if (!bindingResult.hasErrors()) {
+            model = new ModelAndView("redirect:dashboard");
+            try {
+                computerService.create(computerDto);
+            } catch (ServiceException e) {
+                LOGGER.error( "EditComputerController : dashboardPost() catched ServiceException",e);
+            }
+        } else {
+            model = new ModelAndView("/WEB-INF/pages/addComputer.jsp");
         }
-        return new ModelAndView("redirect:/dashboard");
+        return model;
     }
 
     ////////// Builder //////////

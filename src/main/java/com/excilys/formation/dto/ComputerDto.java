@@ -1,5 +1,8 @@
 package com.excilys.formation.dto;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 /**
  * DTO class for computers.
  * 
@@ -11,6 +14,8 @@ public class ComputerDto {
     ////////// Parameters //////////
 
     private long id;
+    @NotNull
+    @Size(min=3)
     private String name;
     private String introduced;
     private String discontinued;

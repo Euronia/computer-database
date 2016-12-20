@@ -49,7 +49,7 @@ public class EditComputerController {
     ////////// Methods //////////
 
     @RequestMapping(method = RequestMethod.GET)
-    public ModelAndView dashboardGet(HttpServletRequest request, HttpServletResponse response) {
+    public ModelAndView editComputerGet(HttpServletRequest request, HttpServletResponse response) {
         ModelAndView model = new ModelAndView("/WEB-INF/pages/editComputer.jsp");
         if (request.getParameter("id") != null) {
             try {
@@ -67,8 +67,7 @@ public class EditComputerController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ModelAndView dashboardPost(HttpServletRequest request, HttpServletResponse response) {
-        ModelAndView model = new ModelAndView("/WEB-INF/pages/editComputer.jsp");
+    public ModelAndView editComputerPost(HttpServletRequest request, HttpServletResponse response) {
         ComputerDto computerDto = RequestMapper.toComputer(request);
         
         try {

@@ -8,6 +8,7 @@
 <title>Add computer</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!-- Bootstrap -->
+<%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form"%>
 <link href="/computerdatabase/css/bootstrap.min.css" rel="stylesheet" media="screen">
     <link href="/computerdatabase/css/font-awesome.css" rel="stylesheet" media="screen">
     <link href="/computerdatabase/css/main.css" rel="stylesheet" media="screen">
@@ -27,28 +28,32 @@
             <div class="row">
                 <div class="col-xs-8 col-xs-offset-2 box">
                     <h1>Add Computer</h1>
-                    <form action="addComputer" method="POST" id="addComputer">
+                    <sf:form action="addComputer" method="POST" id="addComputer" modelAttribute="computerDto">
                         <fieldset>
                             <div class="form-group">
-                                <label for="computerName">Computer name</label>
-                                <input type="text" class="form-control" name="name" id="computerName" placeholder="Computer name">
+                                <sf:label path="name">Computer name</sf:label>
+                                <sf:input type="text" class="form-control" path="name" id="computerName" placeholder="Computer name"/>
+                            	<sf:errors path="name" cssClass="alert alert-danger" element="div"/>
                             </div>
                             <div class="form-group">
-                                <label for="introduced">Introduced date</label>
-                                <input type="date" class="form-control" name="introduced" id="introduced" placeholder="Introduced date">
+                                <sf:label path="introduced">Introduced date</sf:label>
+                                <sf:input type="date" class="form-control" path="introduced" id="introduced" placeholder="Introduced date"/>
+                           		<sf:errors path="introduced" cssClass="alert alert-danger" element="div" />
                             </div>
                             <div class="form-group">
-                                <label for="discontinued">Discontinued date</label>
-                                <input type="date" class="form-control" name="discontinued" id="discontinued" placeholder="Discontinued date">
+                                <sf:label path="discontinued">Discontinued date</sf:label>
+                                <sf:input type="date" class="form-control" path="discontinued" id="discontinued" placeholder="Discontinued date"/>
+                            	<sf:errors path="discontinued" cssClass="alert alert-danger" element="div" />
                             </div>
                             <div class="form-group">
-                                <label for="companyId">Company</label>
-                                <select class="form-control" name="companyId" id="companyId" >
-                                	<option value="0" > - - - - -</option>
+                                <sf:label path="companyId">Company</sf:label>
+                                <sf:select class="form-control" path="companyId" id="companyId" >
+                                	<sf:option value="0" > - - - - -</sf:option>
                                 	<c:forEach items="${pageCompany.elements}" var="company">
-                                    	<option value="${company.id}">${company.name}</option>
+                                    	<sf:option value="${company.id}">${company.name}</sf:option>
                                 	</c:forEach>
-                                </select>
+                                </sf:select>
+                                <sf:errors path="companyId" cssClass="alert alert-danger" element="div" />
                             </div>                  
                         </fieldset>
                         <div class="actions pull-right">
@@ -56,7 +61,7 @@
                             or
                             <a href="/computerdatabase/dashboard" class="btn btn-default">Cancel</a>
                         </div>
-                    </form>
+                    </sf:form>
                 </div>
             </div>
         </div>
