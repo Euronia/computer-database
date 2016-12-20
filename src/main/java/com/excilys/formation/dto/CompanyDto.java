@@ -9,7 +9,7 @@ package com.excilys.formation.dto;
  */
 public class CompanyDto {
 
-    ////////// Attributes //////////
+    ////////// Fields //////////
 
     public long id;
     public String name;

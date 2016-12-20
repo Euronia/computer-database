@@ -59,6 +59,15 @@ public class CompanyServiceImpl implements CompanyService {
         page.elements = CompanyAndDtoMapper.companyListToDtoList(pageCompany.elements);
         return page;
     }
+    
+    @Override
+    public Page<CompanyDto> getAll() {
+        Page<CompanyDto> returnPage = new Page<>(10);
+        returnPage.setElementsByPage(10);
+        getPage(returnPage);
+        returnPage.setElementsByPage(returnPage.getTotalElements());
+        return getPage(returnPage);
+    }
 
     @Override
     public void deleteCompany(long companyId) {

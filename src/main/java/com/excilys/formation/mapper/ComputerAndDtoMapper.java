@@ -26,7 +26,7 @@ public class ComputerAndDtoMapper {
     }
 
     public static LocalDate stringToLocalDate(String date) {
-        if (date == null) {
+        if (date == null | date.isEmpty()) {
             return null;
         } else {
             return LocalDate.parse(date, formatter);

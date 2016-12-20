@@ -26,6 +26,7 @@ import com.excilys.formation.util.ServiceUtil;
  * @author Euronia
  *
  */
+
 @Service
 public class ComputerServiceImpl implements ComputerService {
 
@@ -83,10 +84,12 @@ public class ComputerServiceImpl implements ComputerService {
     }
 
     @Override
-    public ComputerDto getById(int pId) {
+    public ComputerDto getById(long pId) {
         Computer computer = null;
         try {
+            System.out.println(pId);
             computer = computerDao.getById(pId);
+            System.out.println(computer);
         } catch (PersistenceException e) {
             logger.error("ComputerServiceImpl : getById(int) catched PersistenceException ");
             logger.error(e.getStackTrace().toString());
@@ -130,6 +133,7 @@ public class ComputerServiceImpl implements ComputerService {
                 .introduced(ComputerAndDtoMapper.stringToLocalDate(pComputerDto.getIntroduced()))
                 .id(pComputerDto.getId()).manufacturer(company).build();
         try {
+            System.out.println(computer);
             computerDao.update(computer);
         } catch (PersistenceException e) {
             logger.error("ComputerServiceImpl : update(ComputerDto) catched PersistenceException ");

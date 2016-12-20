@@ -89,19 +89,19 @@ public class ComputerDaoImpl implements ComputerDao {
             statementFields.add(constraints.getConstraint().get("filter"));
             statementFields.add(constraints.getConstraint().get("filter"));
             statementFields.add(constraints.getConstraint().get("orderBy"));
-            statementFields.add(page.getElementsByPage()*2);
+            statementFields.add(page.getElementsByPage());
             statementFields.add((page.getCurrentPage() - 1) * page.getElementsByPage());
         } else if (constraints.getConstraint().containsKey("orderBy")) {
             statementFields.add(constraints.getConstraint().get("orderBy"));
-            statementFields.add(page.getElementsByPage()*2);
+            statementFields.add(page.getElementsByPage());
             statementFields.add((page.getCurrentPage() - 1) * page.getElementsByPage());
         } else if (constraints.getConstraint().containsKey("filter")) {
             statementFields.add(constraints.getConstraint().get("filter"));
             statementFields.add(constraints.getConstraint().get("filter"));
-            statementFields.add(page.getElementsByPage()*2);
+            statementFields.add(page.getElementsByPage());
             statementFields.add((page.getCurrentPage() - 1) * page.getElementsByPage());
         } else {
-            statementFields.add(page.getElementsByPage()*2);
+            statementFields.add(page.getElementsByPage());
             statementFields.add((page.getCurrentPage() - 1) * page.getElementsByPage());
         }
         computers = jdbcTemplate.query(query,
@@ -154,12 +154,12 @@ public class ComputerDaoImpl implements ComputerDao {
      *         computer for a non valid requested id.
      */
     public Computer getById(long id) {
-        return jdbcTemplate.query(SELECT_JOIN_COMPUTER + " WHERE computer.id=?", EXTRACTOR_COMPUTER, id);
+        return jdbcTemplate.query(SELECT_JOIN_COMPUTER + " WHERE computer.id=?", new Object[] {id}, EXTRACTOR_COMPUTER);
     }
 
     @Override
     public Computer getByName(String name) throws PersistenceException {
-        return jdbcTemplate.query(SELECT_JOIN_COMPUTER + " WHERE computer.name=?", EXTRACTOR_COMPUTER, name);
+        return jdbcTemplate.query(SELECT_JOIN_COMPUTER + " WHERE computer.name=?", new Object[] {name}, EXTRACTOR_COMPUTER);
     }
 
     /**

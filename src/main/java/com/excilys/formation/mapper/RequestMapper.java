@@ -23,13 +23,17 @@ public class RequestMapper {
      * @param request A request form a servlet, it must contain a computer.
      * @return A ComputerDto based on the parameters contained in the request
      */
-    public ComputerDto toComputer(HttpServletRequest request) {
+    public static ComputerDto toComputer(HttpServletRequest request) {
         // getParameter returns an empty Enum if the parameter is not found
+        String id = request.getParameter("id");
         String name = request.getParameter("name").trim();
         String introduced = request.getParameter("introduced").trim();
         String discontinued = request.getParameter("discontinued").trim();
         String companyId = request.getParameter("companyId").trim();
         ComputerDto returnComputer = new ComputerDto();
+        if (id != null) {
+            returnComputer.setId(Long.parseLong(id));
+        }
         if (name != null) {
             returnComputer.setName(name);
         }

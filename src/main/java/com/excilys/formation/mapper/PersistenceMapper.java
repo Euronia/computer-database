@@ -55,7 +55,7 @@ public class PersistenceMapper {
         return computer;
     }
 
-    private static Computer extractComputer(ResultSet resultSet) throws SQLException {
+    public static Computer extractComputer(ResultSet resultSet) throws SQLException {
         Company company = new Company(resultSet.getString("companyName"));
         company.setId(resultSet.getInt("companyId"));
 
@@ -66,7 +66,7 @@ public class PersistenceMapper {
         return computer;
     }
 
-    private static Company extractCompany(ResultSet resultSet) throws SQLException {
+    public static Company extractCompany(ResultSet resultSet) throws SQLException {
         Company company = new Company(resultSet.getString("name"));
         company.setId(resultSet.getLong("id"));
         return company;
