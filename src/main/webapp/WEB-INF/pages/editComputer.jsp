@@ -19,6 +19,7 @@
     <header class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <a class="navbar-brand" href="dashboard"> Application - Computer Database </a>
+             <span style="float: right"> <a href="?locale=en">en</a> | <a href="?locale=fr">fr</a>
         </div>
     </header>
     <section id="main">

@@ -2,13 +2,14 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form"%>
 <%@ page import="com.excilys.formation.pagination.Page" %>
 <html>
 <head>
-<title>Add computer</title>
+<title><spring:message code="addComputer.title"/></title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!-- Bootstrap -->
-<%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form"%>
 <link href="/computerdatabase/css/bootstrap.min.css" rel="stylesheet" media="screen">
     <link href="/computerdatabase/css/font-awesome.css" rel="stylesheet" media="screen">
     <link href="/computerdatabase/css/main.css" rel="stylesheet" media="screen">
@@ -20,6 +21,7 @@
     <header class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <a class="navbar-brand" href="dashboard"> Application - Computer Database </a>
+             <span style="float: right"> <a href="?locale=en">en</a> | <a href="?locale=fr">fr</a>
         </div>
     </header>
 
@@ -27,7 +29,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-xs-8 col-xs-offset-2 box">
-                    <h1>Add Computer</h1>
+                    <h1><spring:message code="addComputer.title"/></h1>
                     <sf:form action="addComputer" method="POST" id="addComputer" modelAttribute="computerDto">
                         <fieldset>
                             <div class="form-group">
