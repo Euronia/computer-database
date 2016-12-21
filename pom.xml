@@ -34,6 +34,7 @@
 		<surefire.version>2.19</surefire.version>
 		<validation.version>1.1.0.Final</validation.version>
 		<hibernate.version>5.3.4.Final</hibernate.version>
+		<commonsvalidation.version>1.5.1</commonsvalidation.version>
 	</properties>
 
 	<dependencies>
@@ -129,6 +130,11 @@
 			<groupId>javax.validation</groupId>
 			<artifactId>validation-api</artifactId>
 			<version>${validation.version}</version>
+		</dependency>
+		<dependency>
+		    <groupId>commons-validator</groupId>
+		    <artifactId>commons-validator</artifactId>
+		    <version>${commonsvalidation.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.hibernate</groupId>
