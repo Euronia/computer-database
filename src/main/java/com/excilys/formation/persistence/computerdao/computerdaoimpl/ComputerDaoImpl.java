@@ -12,6 +12,8 @@ import java.util.Map;
 import javax.sql.DataSource;
 
 import ch.qos.logback.classic.Logger;
+
+import org.openxmlformats.schemas.spreadsheetml.x2006.main.STSourceType;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -40,7 +42,9 @@ public class ComputerDaoImpl implements ComputerDao {
 
     ////////// Attributes //////////
 
+    @Autowired
     private DataSource dataSource;
+    @Autowired
     private JdbcTemplate jdbcTemplate;
     private static Logger logger;
     private static ComputerDaoImpl COMPUTER_DAO_INSTANCE;

@@ -35,8 +35,8 @@
                 <div class="pull-left">
                     <form id="searchForm" action="#" method="GET" class="form-inline">
 
-                        <input type="search" id="searchbox" name="search" class="form-control" placeholder="Search name" />
-                        <input type="submit" id="searchsubmit" value="Filter by name"
+                        <input type="search" id="searchbox" name="search" class="form-control" placeholder=<spring:message code="dashboard.search.placeholder" /> />
+                        <input type="submit" id="searchsubmit" value=<spring:message code="dashboard.search.filter" />
                         class="btn btn-primary" />
                     </form>
                 </div>
@@ -64,12 +64,12 @@
 	                                    class="fa fa-trash-o fa-lg"></i>
 	                            </a>
 	                        </span></th>
-	                        <th>Computer name</th>
-	                        <th>Introduced date</th>
+	                        <th><spring:message code="computer.name"/></th>
+	                        <th><spring:message code="computer.introduced"/></th>
 	                        <!-- Table header for Discontinued Date -->
-	                        <th>Discontinued date</th>
+	                        <th><spring:message code="computer.discontinued"/></th>
 	                        <!-- Table header for Company -->
-	                        <th>Company</th>
+	                        <th><spring:message code="computer.company"/></th>
 	                    </tr>
 	                </thead>
 	                <!-- Browse attribute computers -->
@@ -82,6 +82,7 @@
 
 	<my:LinkTag/>
     
+<script src="/computerdatabase/dashboard/strings.js"></script>
 <script src="/computerdatabase/js/jquery.min.js"></script>
 <script src="/computerdatabase/js/bootstrap.min.js"></script>
 <script src="/computerdatabase/js/dashboard.js"></script>

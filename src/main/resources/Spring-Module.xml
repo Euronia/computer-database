@@ -50,7 +50,6 @@
 		<!--  Non transactional beans -->
 		<import resource="database/Spring-Datasource.xml" />
 		<import resource="database/Spring-JDBCTemplate.xml" />
-		<import resource="computer/Spring-Computer.xml" />
 		<import resource="company/Spring-Company.xml" />
 		
 		

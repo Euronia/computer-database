@@ -5,31 +5,48 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
+import org.springframework.stereotype.Component;
+
 import com.excilys.formation.dto.ComputerDto;
 import com.excilys.formation.entity.Company;
 import com.excilys.formation.entity.Computer;
 import com.excilys.formation.pagination.Page;
 import com.excilys.formation.util.ServiceUtil;
 
+@Component
 public class ComputerAndDtoMapper {
 
-    private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-
+    @Autowired
+    private MessageSource messageSource;
+    
+    ////////// Getters & Setters //////////
+    
+    public  void setMessageSource(MessageSource messageSource) {
+        this.messageSource = messageSource;
+    }
+    
+    
     ////////// Methods //////////
 
-    public static String localDateToString(LocalDate date) {
+    public String localDateToString(LocalDate date) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(messageSource.getMessage("date.format",null ,LocaleContextHolder.getLocale()));
         if (date == null) {
             return null;
         } else {
-            return date.toString();
+            return date.format(formatter);
         }
     }
 
-    public static LocalDate stringToLocalDate(String date) {
+    public LocalDate stringToLocalDate(String date) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(messageSource.getMessage("date.format",null ,LocaleContextHolder.getLocale()));
         if (date == null | date.isEmpty()) {
             return null;
         } else {
-            return LocalDate.parse(date, formatter);
+            LocalDate returnDate = LocalDate.parse(date);
+            return LocalDate.parse(returnDate.format(formatter),formatter);
         }
     }
 
@@ -46,7 +63,7 @@ public class ComputerAndDtoMapper {
      * @param listDto the list to convert
      * @return a Computer List
      */
-    public static List<Computer> dtoListToComputerList(List<ComputerDto> listDto) {
+    public List<Computer> dtoListToComputerList(List<ComputerDto> listDto) {
         List<Computer> computers = null;
         if (listDto != null) {
             computers = new ArrayList<>();
@@ -59,6 +76,16 @@ public class ComputerAndDtoMapper {
             }
         }
         return computers;
+    }
+    
+    public Page<ComputerDto> dtoPagetoComputerPage(Page<Computer> pageComputer) {
+        Page<ComputerDto> returnPage = new Page<>(10);
+        returnPage.setPage(pageComputer.getCurrentPage());
+        returnPage.setElementsByPage(pageComputer.getElementsByPage());
+        returnPage.setNbPages(pageComputer.getNbPages());
+        returnPage.setTotalElements(pageComputer.getTotalElements());
+        returnPage.setElements(computerListToDtoList(pageComputer.getElements()));
+        return returnPage;
     }
 
     /**

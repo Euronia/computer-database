@@ -69,7 +69,7 @@ public class EditComputerController {
     @RequestMapping(method = RequestMethod.POST)
     public ModelAndView editComputerPost(HttpServletRequest request, HttpServletResponse response) {
         ComputerDto computerDto = RequestMapper.toComputer(request);
-        
+        System.out.println("Controller" + computerDto);
         try {
             computerService.update(computerDto);
         } catch (ServiceException e) {
