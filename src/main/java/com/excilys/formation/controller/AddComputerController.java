@@ -52,7 +52,7 @@ public class AddComputerController {
     ////////// Methods //////////
 
     @RequestMapping(method = RequestMethod.GET)
-    public ModelAndView addComputerGet( HttpServletRequest request, HttpServletResponse response) {
+    public ModelAndView addComputerGet() {
         ModelAndView model = new ModelAndView("/WEB-INF/pages/addComputer.jsp");
         Page<CompanyDto> pageCompany = companyService.getAll();
         model.addObject("computerDto",new ComputerDto());
@@ -61,7 +61,7 @@ public class AddComputerController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ModelAndView addComputerPost(@Valid @ModelAttribute("computerDto")ComputerDto computerDto, BindingResult bindingResult, HttpServletRequest request, HttpServletResponse response) {    
+    public ModelAndView addComputerPost(@Valid @ModelAttribute("computerDto")ComputerDto computerDto, BindingResult bindingResult) {    
         ModelAndView model;
         if (!bindingResult.hasErrors()) {
             model = new ModelAndView("redirect:dashboard");

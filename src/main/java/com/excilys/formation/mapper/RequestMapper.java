@@ -40,9 +40,7 @@ public class RequestMapper {
         if (introduced != null) {
             returnComputer.setIntroduced(introduced);
         }
-        if (discontinued != null) {
             returnComputer.setDiscontinued(discontinued);
-        }
         if (companyId != null && MenuUtil.isInteger(companyId)) {
             returnComputer.setCompanyId(Integer.parseInt(companyId));
         }
@@ -55,12 +53,12 @@ public class RequestMapper {
      * @param request A request from a Servlet
      * @return A List of all the integers contained in the request
      */
-    public static List<Integer> toList(HttpServletRequest request) {
-        List<Integer> returnList = new ArrayList<Integer>();
+    public static List<Long> toList(HttpServletRequest request) {
+        List<Long> returnList = new ArrayList<Long>();
         String[] idArray = request.getParameter("selection").trim().split(",");
         for (String id : idArray) {
             if (MenuUtil.isInteger(id)) {
-                returnList.add(Integer.parseInt(id));
+                returnList.add(Long.parseLong(id));
             }
         }
         return returnList;
