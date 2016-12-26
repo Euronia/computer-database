@@ -9,15 +9,14 @@ import com.excilys.formation.dto.ComputerDto;
 
 public class ComputerValidator {
 
-	//TODO replace List with a Map 
     public static List<String> validate(ComputerDto pcomputer) {
         List<String> errors = new ArrayList<String>();
         errors.addAll(nameIsValid(pcomputer.getName()));
-        errors.addAll(dateIsValid(pcomputer.getIntroduced(),null));
-        errors.addAll(dateIsValid(pcomputer.getDiscontinued(),pcomputer.getIntroduced()));
+        errors.addAll(dateIsValid(pcomputer.getIntroduced(), null));
+        errors.addAll(dateIsValid(pcomputer.getDiscontinued(), pcomputer.getIntroduced()));
         return errors;
     }
-    
+
     private static List<String> nameIsValid(String pname) {
         List<String> errors = new ArrayList<String>();
         if (pname.trim().length() >= 3) {
@@ -25,16 +24,16 @@ public class ComputerValidator {
         }
         return errors;
     }
-    
-    private static List<String> dateIsValid(String date, String beforeDate ) {
+
+    private static List<String> dateIsValid(String date, String beforeDate) {
         List<String> errors = new ArrayList<String>();
         if (date != null) {
             try {
-            LocalDate localDate = LocalDate.parse(date);
+                LocalDate localDate = LocalDate.parse(date);
             } catch (DateTimeParseException e) {
                 errors.add("Invalid date");
-            } //TODO : Lazy checking 
+            }
         }
         return errors;
-    }   
+    }
 }

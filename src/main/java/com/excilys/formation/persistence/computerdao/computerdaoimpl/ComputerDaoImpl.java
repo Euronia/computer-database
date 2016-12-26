@@ -9,29 +9,41 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.sql.DataSource;
+
 import ch.qos.logback.classic.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.ResultSetExtractor;
+import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Repository;
 
 import com.excilys.formation.dto.PageConstraints;
+import com.excilys.formation.entity.Company;
 import com.excilys.formation.entity.Computer;
 import com.excilys.formation.exception.PersistenceException;
+import com.excilys.formation.mapper.CustomResultSetExtractor;
+import com.excilys.formation.mapper.CustomRowMapper;
 import com.excilys.formation.mapper.PersistenceMapper;
 import com.excilys.formation.pagination.Page;
 import com.excilys.formation.persistence.computerdao.ComputerDao;
-import com.excilys.formation.persistence.connectionprovider.HikariConnectionProvider;
 
 /**
  * @author Euronia
  * 
  */
 
+@Repository
 public class ComputerDaoImpl implements ComputerDao {
 
     ////////// Attributes //////////
 
-    private static HikariConnectionProvider connectionProvider;
+    private DataSource dataSource;
+    private JdbcTemplate jdbcTemplate;
     private static Logger logger;
-    private static final ComputerDaoImpl COMPUTER_DAO_INSTANCE;
+    private static ComputerDaoImpl COMPUTER_DAO_INSTANCE;
     public static final String SELECT_JOIN_COMPUTER = "SELECT computer.id, computer.name, computer.introduced, computer.discontinued, company.id as companyId, company.name as companyName FROM computer LEFT JOIN company ON computer.company_id=company.id";
     public static final String CREATE_COMPUTER = "INSERT INTO computer (name, introduced, discontinued, company_id) VALUES(?,?,?,?)";
     public static final String UPDATE_COMPUTER = "UPDATE computer SET name = ?, introduced = ?, discontinued = ?, company_id = ? WHERE id = ? ;";
@@ -39,8 +51,9 @@ public class ComputerDaoImpl implements ComputerDao {
     public static final String COUNT_ALL = "SELECT COUNT(*) as total FROM computer";
     public static final String COUNT_ALL_FILTERED = "SELECT COUNT(*) as total FROM ( SELECT computer.id, computer.name, computer.introduced, computer.discontinued, company.id as companyId, company.name as companyName FROM computer LEFT JOIN company ON computer.company_id=company.id WHERE computer.name LIKE ? OR company.name LIKE ? ) AS derivedTable";
     public static final String DELETE_FROM_COMPANY_COMPUTER = "DELETE FROM computer WHERE computer.company_id = ?";
+    private static final ResultSetExtractor<Computer> EXTRACTOR_COMPUTER = CustomResultSetExtractor.singletonExtractor(CustomRowMapper.MAPPER_COMPUTER);
+    
     static {
-        connectionProvider = HikariConnectionProvider.getInstance();
         logger = (Logger) LoggerFactory.getLogger("cdbLogger");
         COMPUTER_DAO_INSTANCE = new ComputerDaoImpl();
     }
@@ -50,46 +63,52 @@ public class ComputerDaoImpl implements ComputerDao {
     }
     ////////// Getters and Setters //////////
 
-    public HikariConnectionProvider getConnectionProvider() {
-        return connectionProvider;
+    public ComputerDaoImpl getComputerDao() {
+        return COMPUTER_DAO_INSTANCE;
+    }
+
+    public void setComputerDao(ComputerDaoImpl d) {
+        COMPUTER_DAO_INSTANCE = d;
+    }
+
+    public void setDataSource(DataSource dataSource) {
+        this.dataSource = dataSource;
+    }
+
+    public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
     }
 
     ////////// Methods //////////
 
     public Page<Computer> getPage(Page<Computer> page, PageConstraints constraints) throws PersistenceException {
         List<Computer> computers = new ArrayList<Computer>();
+        ArrayList<Object> statementFields = new ArrayList<Object>();
         String query = SELECT_JOIN_COMPUTER + getConstraintsString(constraints) + " LIMIT ? OFFSET ? ";
-        try (Connection connection = connectionProvider.getConnection();
-                PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            if (constraints.getConstraint().containsKey("filter") && constraints.getConstraint().containsKey("orderBy")) {
-                preparedStatement.setString(1, constraints.getConstraint().get("filter"));
-                preparedStatement.setString(2, constraints.getConstraint().get("filter"));
-                preparedStatement.setString(3, constraints.getConstraint().get("orderBy"));
-                preparedStatement.setInt(4, page.getElementsByPage());
-                preparedStatement.setInt(5, (page.getCurrentPage() - 1) * page.getElementsByPage());
-            } else if (constraints.getConstraint().containsKey("orderBy")) {
-                preparedStatement.setString(1, constraints.getConstraint().get("orderBy"));
-                preparedStatement.setInt(2, page.getElementsByPage());
-                preparedStatement.setInt(3, (page.getCurrentPage() - 1) * page.getElementsByPage());
-            } else if (constraints.getConstraint().containsKey("filter")) {
-                preparedStatement.setString(1, constraints.getConstraint().get("filter"));
-                preparedStatement.setString(2, constraints.getConstraint().get("filter"));
-                preparedStatement.setInt(3, page.getElementsByPage());
-                preparedStatement.setInt(4, (page.getCurrentPage() - 1) * page.getElementsByPage());
-            } else {
-                preparedStatement.setInt(1, page.getElementsByPage());
-                preparedStatement.setInt(2, (page.getCurrentPage() - 1) * page.getElementsByPage());
-            } 
-            ResultSet resultSet = preparedStatement.executeQuery();
-            computers = PersistenceMapper.mapResultsToComputerList(resultSet);
-            page.setElements(computers);
-            page.setTotalElements(count(constraints));
-            resultSet.close();
-        } catch (SQLException e) {
-            logger.error(
-                    "ComputerDaoImpl : getPage(Page<Computer>, PageConstraints) catched SQLException and throwed PersistenceException ");
-            throw new PersistenceException("La requete getPage() de DAOComputer a échouée", e);
+        if (constraints.getConstraint().containsKey("filter") && constraints.getConstraint().containsKey("orderBy")) {
+            statementFields.add(constraints.getConstraint().get("filter"));
+            statementFields.add(constraints.getConstraint().get("filter"));
+            statementFields.add(constraints.getConstraint().get("orderBy"));
+            statementFields.add(page.getElementsByPage());
+            statementFields.add((page.getCurrentPage() - 1) * page.getElementsByPage());
+        } else if (constraints.getConstraint().containsKey("orderBy")) {
+            statementFields.add(constraints.getConstraint().get("orderBy"));
+            statementFields.add(page.getElementsByPage());
+            statementFields.add((page.getCurrentPage() - 1) * page.getElementsByPage());
+        } else if (constraints.getConstraint().containsKey("filter")) {
+            statementFields.add(constraints.getConstraint().get("filter"));
+            statementFields.add(constraints.getConstraint().get("filter"));
+            statementFields.add(page.getElementsByPage());
+            statementFields.add((page.getCurrentPage() - 1) * page.getElementsByPage());
+        } else {
+            statementFields.add(page.getElementsByPage());
+            statementFields.add((page.getCurrentPage() - 1) * page.getElementsByPage());
         }
+        computers = jdbcTemplate.query(query,
+                            statementFields.toArray(),
+                            CustomRowMapper.MAPPER_COMPUTER);
+        page.setElements(computers);
+        page.setTotalElements(count(constraints));
         return page;
     }
 
@@ -105,30 +124,16 @@ public class ComputerDaoImpl implements ComputerDao {
         return returnString.toString();
     }
 
-    private int count() {
-        int total = 0;
-        try (Connection connection = connectionProvider.getConnection();
-                Statement statement = connection.createStatement()) {
-            ResultSet resultSet = statement.executeQuery(COUNT_ALL);
-            resultSet.next();
-            total = resultSet.getInt("total");
-            resultSet.close();
-        } catch (SQLException e) {
-            logger.error("ComputerDaoImpl : count() catched SQLException");
-            logger.error(e.getStackTrace().toString());
-        }
-        return total;
-    }
-            
     private int count(PageConstraints constraints) {
         int total = 0;
-        String newQuery = "SELECT COUNT(*) as total FROM ( " + SELECT_JOIN_COMPUTER + getConstraintsString(constraints) +  " ) AS derivedTable";
-        try (Connection connection = connectionProvider.getConnection();
+        String newQuery = "SELECT COUNT(*) as total FROM ( " + SELECT_JOIN_COMPUTER + getConstraintsString(constraints)
+                + " ) AS derivedTable";
+        try (Connection connection = dataSource.getConnection();
                 PreparedStatement preparedStatement = connection.prepareStatement(newQuery)) {
             if (constraints.getConstraint().containsKey("filter")) {
                 preparedStatement.setString(1, constraints.getConstraint().get("filter"));
-                preparedStatement.setString(2, constraints.getConstraint().get("filter"));      
-            } 
+                preparedStatement.setString(2, constraints.getConstraint().get("filter"));
+            }
             ResultSet resultSet = preparedStatement.executeQuery();
             resultSet.next();
             total = resultSet.getInt("total");
@@ -148,39 +153,13 @@ public class ComputerDaoImpl implements ComputerDao {
      * @return the wanted entry on our computer table, can return a null
      *         computer for a non valid requested id.
      */
-    public Computer getById(long pid) {
-        Computer returnComputer = null; // Initialization in case of Exception
-        String query = SELECT_JOIN_COMPUTER + " WHERE computer.id=?";
-        try (Connection connection = connectionProvider.getConnection();
-                PreparedStatement ps = connection.prepareStatement(query)) {
-            ps.setLong(1, pid);
-            ResultSet results;
-            results = ps.executeQuery();
-            returnComputer = PersistenceMapper.mapResultToComputer(results);
-        } catch (SQLException e) {
-            logger.error("ComputerDaoImpl : getById(int) catched SQLException");
-            logger.error(e.getStackTrace().toString());
-        }
-        return returnComputer;
-    } 
+    public Computer getById(long id) {
+        return jdbcTemplate.query(SELECT_JOIN_COMPUTER + " WHERE computer.id=?", new Object[] {id}, EXTRACTOR_COMPUTER);
+    }
 
     @Override
-    public Computer getByName(String pname) throws PersistenceException {
-        Computer returnComputer = null;
-        String query = SELECT_JOIN_COMPUTER + " WHERE computer.name=?";
-        try (Connection connection = connectionProvider.getConnection();
-                PreparedStatement ps = connection.prepareStatement(query)) {
-            ps.setString(1, pname);
-            ResultSet results;
-            results = ps.executeQuery();
-            returnComputer = PersistenceMapper.mapResultToComputer(results);
-            ;
-            results.close();
-        } catch (SQLException e) {
-            logger.error("ComputerDaoImpl : getByName(String) catched SQLException and throwed PersistenceException ");
-            logger.error(e.getStackTrace().toString());
-        }
-        return returnComputer;
+    public Computer getByName(String name) throws PersistenceException {
+        return jdbcTemplate.query(SELECT_JOIN_COMPUTER + " WHERE computer.name=?", new Object[] {name}, EXTRACTOR_COMPUTER);
     }
 
     /**
@@ -192,17 +171,8 @@ public class ComputerDaoImpl implements ComputerDao {
      */
     @Override
     public Computer create(Computer toCreate) {
-        try (Connection connection = connectionProvider.getConnection();
-                PreparedStatement ps = connection.prepareStatement(CREATE_COMPUTER)) {
-            ps.setString(1, toCreate.getName());
-            ps.setObject(2, toCreate.getIntroduced());
-            ps.setObject(3, toCreate.getDiscontinued());
-            ps.setLong(4, toCreate.getManufacturer().getId());
-            ps.executeUpdate();
-        } catch (SQLException e) {
-            logger.error("ComputerDaoImpl : count(String) catched SQLException and throwed PersistenceException ");
-            logger.error(e.getStackTrace().toString());
-        }
+        jdbcTemplate.update(CREATE_COMPUTER, new Object[] { toCreate.getName(), toCreate.getIntroduced(),
+                toCreate.getDiscontinued(), toCreate.getManufacturer().getId() });
         return toCreate;
     }
 
@@ -215,17 +185,8 @@ public class ComputerDaoImpl implements ComputerDao {
 
     @Override
     public Computer update(Computer toUpdate) {
-        try (Connection connection = connectionProvider.getConnection();
-                PreparedStatement ps = connection.prepareStatement(UPDATE_COMPUTER)) {
-            ps.setString(1, toUpdate.getName());
-            ps.setObject(2, toUpdate.getIntroduced());
-            ps.setObject(3, toUpdate.getDiscontinued());
-            ps.setLong(4, toUpdate.getManufacturer().getId());
-            ps.setLong(5, toUpdate.getId());
-            ps.executeUpdate();
-        } catch (SQLException e) {
-            logger.error("ComputerDaoImpl : update(Computer) catched SQLException and throwed PersistenceException ", e);
-        }
+        jdbcTemplate.update(UPDATE_COMPUTER, new Object[] { toUpdate.getName(), toUpdate.getIntroduced(),
+                toUpdate.getDiscontinued(), toUpdate.getManufacturer().getId(), toUpdate.getId() });
         return toUpdate;
     }
 
@@ -236,15 +197,8 @@ public class ComputerDaoImpl implements ComputerDao {
      *            table. The only used parameter from it is its id.
      */
     @Override
-    public void delete(Computer pcomputer) {
-        try (Connection connection = connectionProvider.getConnection();
-                PreparedStatement ps = connection.prepareStatement(DELETE_COMPUTER)) {
-            ps.setLong(1, pcomputer.getId());
-            ps.executeUpdate();
-        } catch (Exception e) {
-            logger.error("ComputerDaoImpl : delete(Computer) catched SQLException and throwed PersistenceException ");
-            logger.error(e.getStackTrace().toString());
-        }
+    public void delete(Computer toDelete) {
+        jdbcTemplate.update(DELETE_COMPUTER, new Object[] { toDelete.getId() });
     }
 
     /**
@@ -254,14 +208,7 @@ public class ComputerDaoImpl implements ComputerDao {
      */
     @Override
     public void delete(long id) {
-        try (Connection connection = connectionProvider.getConnection();
-                PreparedStatement ps = connection.prepareStatement(DELETE_COMPUTER)) {
-            ps.setLong(1, id);
-            ps.executeUpdate();
-        } catch (Exception e) {
-            logger.error("ComputerDaoImpl : delete(long) catched SQLException and throwed PersistenceException ");
-            logger.error(e.getStackTrace().toString());
-        }
+        jdbcTemplate.update(DELETE_COMPUTER, new Object[] { id });
     }
 
     /**
@@ -269,13 +216,8 @@ public class ComputerDaoImpl implements ComputerDao {
      * @param
      */
     @Override
-    public void deleteFromCompany(Long companyId, Connection connection) {
-        try (PreparedStatement ps = connection.prepareStatement(DELETE_FROM_COMPANY_COMPUTER)) {
-            ps.setLong(1, companyId);
-            ps.executeUpdate();
-        } catch (SQLException e) {
-            logger.error("ComputerDaoImpl : deleteFromCompany() catched SQLException", e);
-        }
+    public void deleteFromCompany(Long companyId) {
+        jdbcTemplate.update(DELETE_FROM_COMPANY_COMPUTER, new Object[] { companyId });
     }
 
 }

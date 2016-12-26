@@ -15,7 +15,7 @@ public class PageConstraints {
 
     private int currentPage;
     private int perPage;
-    private Map<String, String> constraint = new HashMap<String,String>();
+    private Map<String, String> constraint = new HashMap<String, String>();
     private String filter;
 
     ////////// Getters And Setters //////////
@@ -51,13 +51,13 @@ public class PageConstraints {
     public void setConstraint(Map<String, String> contraintes) {
         this.constraint = contraintes;
     }
-    
+
     ////////// Methods //////////
-    
+
     public boolean hasFilter() {
         return (filter != null && !(filter.isEmpty()));
     }
-    
+
     public void addConstraint(String key, String value) {
         this.constraint.put(key, value);
     }

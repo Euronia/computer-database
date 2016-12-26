@@ -11,13 +11,13 @@ public class Page<T> {
     public int currentPage;
     public int nbPages;
     public List<T> elements;
-    
+
     ////////// Constructors //////////
-    
+
     public Page() {
         currentPage = 1;
     }
-    
+
     public Page(int elementsPerPage) {
         currentPage = 1;
         if (elementsPerPage == 0) {
@@ -25,7 +25,7 @@ public class Page<T> {
         }
         this.elementsPerPage = elementsPerPage;
     }
-    
+
     ////////// Getters & Setters //////////
 
     public int getElementsByPage() {
@@ -53,7 +53,7 @@ public class Page<T> {
     public void setCurrentPage(int currentPage) {
         this.currentPage = currentPage;
     }
-    
+
     public int getNbPages() {
         return nbPages;
     }
@@ -61,17 +61,17 @@ public class Page<T> {
     public void setNbPages(int nbPages) {
         this.nbPages = nbPages;
     }
-    
+
     public void setElements(List<T> elements) {
-        this.elements = elements ;
+        this.elements = elements;
     }
-    
+
     public List<T> getElements() {
         return elements;
     }
 
     ////////// Methods //////////
-    
+
     public boolean nextPage() {
         if (currentPage < nbPages) {
             currentPage++;
@@ -79,16 +79,16 @@ public class Page<T> {
         }
         return false;
     }
-    
+
     public boolean prevPage() {
         if (currentPage > 1) {
             currentPage--;
             return true;
-        } else { 
+        } else {
             return false;
         }
     }
-    
+
     public boolean setPage(int page) {
         if (page >= 1 && page <= nbPages) {
             currentPage = page;
@@ -97,10 +97,10 @@ public class Page<T> {
             return false;
         }
     }
-    
+
     public void calculateNbPages() {
         if (elementsPerPage != 0) {
-        nbPages = (totalElements + elementsPerPage - 1) / elementsPerPage;
+            nbPages = (totalElements + elementsPerPage - 1) / elementsPerPage;
         } else {
             nbPages = 1;
         }
