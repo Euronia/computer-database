@@ -7,7 +7,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  * @author Euronia
- * 
+ *
  */
 public final class Computer {
 
@@ -19,14 +19,17 @@ public final class Computer {
     private LocalDate discontinued;
     private Company manufacturer;
     private static Logger logger;
-    
+
     static {
         logger = LoggerFactory.getLogger("cdbLogger");
     }
 
     ////////// Constructors //////////
 
-    public Computer(ComputerBuilder builder) {
+    private Computer() {
+    }
+
+    private Computer(Builder builder) {
         id = builder.nestedId;
         name = builder.nestedName;
         introduced = builder.nestedIntroduced;
@@ -111,33 +114,42 @@ public final class Computer {
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null) {
             return false;
-        if (getClass() != obj.getClass())
+        }
+        if (getClass() != obj.getClass()) {
             return false;
+        }
         Computer other = (Computer) obj;
         if (discontinued == null) {
-            if (other.discontinued != null)
+            if (other.discontinued != null) {
                 return false;
-        } else if (!discontinued.equals(other.discontinued))
+            }
+        } else if (!discontinued.equals(other.discontinued)) {
             return false;
-        if (id != other.id)
+        }
+        if (id != other.id) {
             return false;
+        }
         if (introduced == null) {
-            if (other.introduced != null)
+            if (other.introduced != null) {
                 return false;
+            }
         } else if (!introduced.equals(other.introduced))
             return false;
         if (manufacturer == null) {
-            if (other.manufacturer != null)
+            if (other.manufacturer != null) {
                 return false;
+            }
         } else if (!manufacturer.equals(other.manufacturer))
             return false;
         if (name == null) {
-            if (other.name != null)
+            if (other.name != null) {
                 return false;
+            }
         } else if (!name.equals(other.name))
             return false;
         return true;
@@ -145,38 +157,38 @@ public final class Computer {
 
     ////////// Builder //////////
 
-    public static class ComputerBuilder {
+    public static class Builder {
         private long nestedId;
         private String nestedName;
         private LocalDate nestedIntroduced;
         private LocalDate nestedDiscontinued;
         private Company nestedManufacturer;
 
-        public ComputerBuilder(String name) {
+        public Builder(String name) {
             nestedName = name;
         }
 
-        public ComputerBuilder id(long id) {
+        public Builder id(long id) {
             nestedId = id;
             return this;
         }
 
-        public ComputerBuilder name(String pname) {
+        public Builder name(String pname) {
             nestedName = pname;
             return this;
         }
 
-        public ComputerBuilder introduced(LocalDate pdate) {
+        public Builder introduced(LocalDate pdate) {
             nestedIntroduced = pdate;
             return this;
         }
 
-        public ComputerBuilder discontinued(LocalDate pdate) {
+        public Builder discontinued(LocalDate pdate) {
             nestedDiscontinued = pdate;
             return this;
         }
 
-        public ComputerBuilder manufacturer(Company pmanufacturer) {
+        public Builder manufacturer(Company pmanufacturer) {
             nestedManufacturer = pmanufacturer;
             return this;
         }

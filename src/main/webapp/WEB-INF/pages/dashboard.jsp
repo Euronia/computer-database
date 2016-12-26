@@ -3,6 +3,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%@ page import="com.excilys.formation.pagination.Page" %>
 <%@ taglib uri="../mytags.tld" prefix="m" %>  
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib prefix="my" tagdir="/WEB-INF/tags" %>
 <html>
 <head>
@@ -20,15 +21,15 @@
 <body>
     <header class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
-            <a class="navbar-brand" href="dashboard"> Application - Computer Database </a>
+            <a class="navbar-brand" href="dashboard"> Application - Computer Database </a> 
+            <span style="float: right"> <a href="?locale=en">en</a> | <a href="?locale=fr">fr</a>
         </div>
     </header>
-    <jsp:useBean id="pageComputer" type="com.excilys.formation.pagination.Page" scope="application" />
 
     <section id="main">
         <div class="container">
             <h1 id="homeTitle">
-                ${pageComputer.totalElements} Computers found
+                ${pageComputer.totalElements} <spring:message code="dashboard.title"/>
             </h1>
             <div id="actions" class="form-horizontal">
                 <div class="pull-left">
@@ -40,8 +41,8 @@
                     </form>
                 </div>
                 <div class="pull-right">
-                    <a class="btn btn-success" id="addComputer" href="/computerdatabase/addComputer">Add Computer</a> 
-                    <a class="btn btn-default" id="editComputer" href="#" onclick="$.fn.toggleEditMode();">Edit</a>
+                    <a class="btn btn-success" id="addComputer" href="/computerdatabase/addComputer"><spring:message code="dashboard.add"/></a> 
+                    <a class="btn btn-default" id="editComputer" href="#" onclick="$.fn.toggleEditMode();"><spring:message code="dashboard.edit"/></a>
                 </div>
             </div>
         </div>
@@ -49,32 +50,34 @@
         <form id="deleteForm" action="#" method="POST">
             <input type="hidden" name="selection" value="">
         </form>
-        <table class="table table-striped table-bordered">
-                <thead>
-                    <tr>
-                        <!-- Variable declarations for passing labels as parameters -->
-                        <!-- Table header for Computer Name -->
-
-                        <th class="editMode" style="width: 60px; height: 22px;"><input
-                            type="checkbox" id="selectall" /> <span
-                            style="vertical-align: top;"> - <a href="#"
-                                id="deleteSelected" onclick="$.fn.deleteSelected();"> <i
-                                    class="fa fa-trash-o fa-lg"></i>
-                            </a>
-                        </span></th>
-                        <th>Computer name</th>
-                        <th>Introduced date</th>
-                        <!-- Table header for Discontinued Date -->
-                        <th>Discontinued date</th>
-                        <!-- Table header for Company -->
-                        <th>Company</th>
-                    </tr>
-                </thead>
-                <!-- Browse attribute computers -->
-                <tbody id="results">
-                <my:PaginationTag/>
-                </tbody>
-            </table>
+        <div class="container" style="margin-top: 10px;">
+	        <table class="table table-striped table-bordered">
+	                <thead>
+	                    <tr>
+	                        <!-- Variable declarations for passing labels as parameters -->
+	                        <!-- Table header for Computer Name -->
+	
+	                        <th class="editMode" style="width: 60px; height: 22px;"><input
+	                            type="checkbox" id="selectall" /> <span
+	                            style="vertical-align: top;"> - <a href="#"
+	                                id="deleteSelected" onclick="$.fn.deleteSelected();"> <i
+	                                    class="fa fa-trash-o fa-lg"></i>
+	                            </a>
+	                        </span></th>
+	                        <th>Computer name</th>
+	                        <th>Introduced date</th>
+	                        <!-- Table header for Discontinued Date -->
+	                        <th>Discontinued date</th>
+	                        <!-- Table header for Company -->
+	                        <th>Company</th>
+	                    </tr>
+	                </thead>
+	                <!-- Browse attribute computers -->
+	                <tbody id="results">
+	                <my:PaginationTag/>
+	                </tbody>
+	            </table>
+            </div>
     </section>
 
 	<my:LinkTag/>

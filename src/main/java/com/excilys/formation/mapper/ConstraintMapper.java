@@ -10,10 +10,10 @@ public class ConstraintMapper {
 
     ////////// Constants //////////
 
-    private final static String PAGE_PARAMETER = "page";
-    private final static String PER_PAGE_PARAMETER = "perPage";
-    private final static String SEARCH_PARAMETER = "search";
-    private final static String ORDER_PARAMETER = "orderBy";
+    private static final String PAGE_PARAMETER = "page";
+    private static final String PER_PAGE_PARAMETER = "perPage";
+    private static final String SEARCH_PARAMETER = "search";
+    private static final String ORDER_PARAMETER = "orderBy";
 
     ////////// Methods //////////
 

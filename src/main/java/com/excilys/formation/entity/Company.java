@@ -5,48 +5,44 @@ package com.excilys.formation.entity;
  * 
  */
 public final class Company {
-	
-	////////// Parameters //////////
-	
 
-	private long id;
-	private String name;
-	
-	////////// Constructors //////////
-	
-	public Company (String cname) {
-		this.name = cname;
-	}
-	
-	public Company (long id, String name) {
-	    this.id = id;
-	    this.name = name;
-	}
+    ////////// Parameters //////////
 
-	
-	////////// Getters and Setters //////////
-	
-	public long getId() {
-		return id;
-	}
+    private long id;
+    private String name;
 
-	public void setId(long id) {
-		this.id = id;
-	}
+    ////////// Constructors //////////
 
-	public String getName() {
-		return name;
-	}
+    public Company(String cname) {
+        this.name = cname;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public Company(long id, String name) {
+        this.id = id;
+        this.name = name;
+    }
 
-	////////// Methods //////////
+    ////////// Getters and Setters //////////
 
-	
+    public long getId() {
+        return id;
+    }
 
-	@Override
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    ////////// Methods //////////
+
+    @Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;

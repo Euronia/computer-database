@@ -2,6 +2,8 @@ package com.excilys.formation.service.companyservice.companyserviceimpl;
 
 import ch.qos.logback.classic.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.excilys.formation.dto.CompanyDto;
 import com.excilys.formation.entity.Company;
@@ -12,28 +14,31 @@ import com.excilys.formation.persistence.companydao.CompanyDao;
 import com.excilys.formation.persistence.companydao.companydaoimpl.CompanyDaoImpl;
 import com.excilys.formation.persistence.computerdao.ComputerDao;
 import com.excilys.formation.persistence.computerdao.computerdaoimpl.ComputerDaoImpl;
-import com.excilys.formation.persistence.connectionprovider.HikariConnectionProvider;
 import com.excilys.formation.service.companyservice.CompanyService;
 import com.excilys.formation.util.ServiceUtil;
 
+@Service
 public class CompanyServiceImpl implements CompanyService {
 
     ////////// Parameters //////////
 
+    @Autowired
     private CompanyDao companyDao;
+    @Autowired
+    private ComputerDao computerDao;
+
     private static Logger logger;
-    
-    static{
+
+    static {
         logger = (Logger) LoggerFactory.getLogger("cdbLogger");
     }
 
     ////////// Constructors //////////
 
     /**
-     * Constructor for CompanyServiceImpl.
-     * Initializes the companyDao.
+     * Constructor for CompanyServiceImpl. Initializes the companyDao.
      */
-     public CompanyServiceImpl() {
+    public CompanyServiceImpl() {
         companyDao = CompanyDaoImpl.getInstance();
     }
 
@@ -56,20 +61,23 @@ public class CompanyServiceImpl implements CompanyService {
     }
     
     @Override
-    public void deleteCompany (long companyId) {
-        HikariConnectionProvider connectionProvider = HikariConnectionProvider.getInstance();
-        try {
-            connectionProvider.beginTransaction();
-            ComputerDao computerDao = ComputerDaoImpl.getInstance();
-            computerDao.deleteFromCompany(companyId, connectionProvider.getTransactionConnection());
-            companyDao.delete(companyId, connectionProvider.getTransactionConnection());
-            connectionProvider.commitTransaction();
-        } catch (PersistenceException e) {
-            logger.error( "CompanyServiceImpl : deleteCompany() catched PersistenceException",e);
-            connectionProvider.rollbackTransaction();
-        }
-        
+    public Page<CompanyDto> getAll() {
+        Page<CompanyDto> returnPage = new Page<>(10);
+        returnPage.setElementsByPage(10);
+        getPage(returnPage);
+        returnPage.setElementsByPage(returnPage.getTotalElements());
+        return getPage(returnPage);
     }
-    
-  
+
+    @Override
+    public void deleteCompany(long companyId) {
+        try {
+            computerDao.deleteFromCompany(companyId);
+            companyDao.delete(companyId);
+        } catch (PersistenceException e) {
+            logger.error("CompanyServiceImpl : deleteCompany() catched PersistenceException", e);
+        }
+
+    }
+
 }
