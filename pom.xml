@@ -5,7 +5,7 @@
 
 	<groupId>com.excilys.formation</groupId>
 	<artifactId>computerdatabase</artifactId>
-	<version>1.6-SNAPSHOT</version>
+	<version>1.6-RELEASE</version>
 	<packaging>jar</packaging>
 
 	<name>computer-database</name>
