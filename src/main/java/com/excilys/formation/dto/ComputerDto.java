@@ -88,7 +88,7 @@ public class ComputerDto {
         if (discontinued != null) {
             stringBuilder.append(", discontinued=").append(discontinued);
         }
-        if (companyId != 0 && companyName != null) {
+        if (companyId != 0 | companyName != null) {
             stringBuilder.append(", Company : [companyId=").append(companyId).append(", companyName=")
                     .append(companyName).append("]]");
         }

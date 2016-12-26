@@ -20,11 +20,11 @@ public interface ComputerService extends BaseService<ComputerDto> {
         throw new UnsupportedOperationException("getById() is not implemented");
     }
 
-    public default void deleteMultiplesId(List<Integer> ids) throws ServiceException {
+    public default void deleteMultiplesId(List<Long> ids) throws ServiceException {
         throw new UnsupportedOperationException("deleteMultiplesId() is not implemented");
     }
 
-    public default Page<Computer> getPage(PageConstraints constraints) {
+    public default Page<ComputerDto> getPage(PageConstraints constraints) {
         throw new UnsupportedOperationException("getPage() is not implemented");
     }
 }

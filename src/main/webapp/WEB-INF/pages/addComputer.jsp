@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form"%>
 <%@ page import="com.excilys.formation.pagination.Page" %>
 <html>
@@ -33,22 +33,22 @@
                     <sf:form action="addComputer" method="POST" id="addComputer" modelAttribute="computerDto">
                         <fieldset>
                             <div class="form-group">
-                                <sf:label path="name">Computer name</sf:label>
+                                <sf:label path="name"><spring:message code="computer.name"/></sf:label>
                                 <sf:input type="text" class="form-control" path="name" id="computerName" placeholder="Computer name"/>
                             	<sf:errors path="name" cssClass="alert alert-danger" element="div"/>
                             </div>
                             <div class="form-group">
-                                <sf:label path="introduced">Introduced date</sf:label>
+                                <sf:label path="introduced"><spring:message code="computer.introduced"/></sf:label>
                                 <sf:input type="date" class="form-control" path="introduced" id="introduced" placeholder="Introduced date"/>
                            		<sf:errors path="introduced" cssClass="alert alert-danger" element="div" />
                             </div>
                             <div class="form-group">
-                                <sf:label path="discontinued">Discontinued date</sf:label>
+                                <sf:label path="discontinued"><spring:message code="computer.discontinued"/></sf:label>
                                 <sf:input type="date" class="form-control" path="discontinued" id="discontinued" placeholder="Discontinued date"/>
                             	<sf:errors path="discontinued" cssClass="alert alert-danger" element="div" />
                             </div>
                             <div class="form-group">
-                                <sf:label path="companyId">Company</sf:label>
+                                <sf:label path="companyId"><spring:message code="computer.company"/></sf:label>
                                 <sf:select class="form-control" path="companyId" id="companyId" >
                                 	<sf:option value="0" > - - - - -</sf:option>
                                 	<c:forEach items="${pageCompany.elements}" var="company">
@@ -59,9 +59,9 @@
                             </div>                  
                         </fieldset>
                         <div class="actions pull-right">
-                            <input type="submit" value="Add" class="btn btn-primary">
+                            <input type="submit" value=<spring:message code="addComputer.add"/> class="btn btn-primary">
                             or
-                            <a href="/computerdatabase/dashboard" class="btn btn-default">Cancel</a>
+                            <a href="/computerdatabase/dashboard" class="btn btn-default"><spring:message code="addComputer.cancel"/></a>
                         </div>
                     </sf:form>
                 </div>

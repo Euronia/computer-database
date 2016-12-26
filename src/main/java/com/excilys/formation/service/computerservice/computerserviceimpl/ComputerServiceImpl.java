@@ -18,7 +18,6 @@ import com.excilys.formation.pagination.Page;
 import com.excilys.formation.persistence.computerdao.ComputerDao;
 import com.excilys.formation.persistence.computerdao.computerdaoimpl.ComputerDaoImpl;
 import com.excilys.formation.service.computerservice.ComputerService;
-import com.excilys.formation.util.ServiceUtil;
 
 /**
  * Service class for Computers.
@@ -34,6 +33,9 @@ public class ComputerServiceImpl implements ComputerService {
 
     @Autowired
     private ComputerDao computerDao;
+    @Autowired
+    private ComputerAndDtoMapper computerMapper;
+    
     private static Logger logger;
 
     static {
@@ -61,8 +63,8 @@ public class ComputerServiceImpl implements ComputerService {
             Company company = new Company(pComputerDto.getCompanyName());
             company.setId(pComputerDto.getCompanyId());
             Computer computer = new Computer.Builder(pComputerDto.getName()).manufacturer(company)
-                    .discontinued(ComputerAndDtoMapper.stringToLocalDate(pComputerDto.getDiscontinued()))
-                    .introduced(ComputerAndDtoMapper.stringToLocalDate(pComputerDto.getIntroduced())).build();
+                    .discontinued(computerMapper.stringToLocalDate(pComputerDto.getDiscontinued()))
+                    .introduced(computerMapper.stringToLocalDate(pComputerDto.getIntroduced())).build();
             computerDao.create(computer);
             pComputerDto.setId(computer.getId());
             return pComputerDto;
@@ -99,8 +101,8 @@ public class ComputerServiceImpl implements ComputerService {
             computerDto = new ComputerDto();
             computerDto.setId(computer.getId());
             computerDto.setName(computer.getName());
-            computerDto.setIntroduced(ComputerAndDtoMapper.localDateToString(computer.getIntroduced()));
-            computerDto.setDiscontinued(ComputerAndDtoMapper.localDateToString(computer.getDiscontinued()));
+            computerDto.setIntroduced(computerMapper.localDateToString(computer.getIntroduced()));
+            computerDto.setDiscontinued(computerMapper.localDateToString(computer.getDiscontinued()));
             Company company = computer.getManufacturer();
             computerDto.setCompanyId(company.getId());
             computerDto.setCompanyName(company.getName());
@@ -114,26 +116,25 @@ public class ComputerServiceImpl implements ComputerService {
      * @param constraints all the constraints that our page must respects.
      * @return a page of Computer
      */
-    public Page<Computer> getPage(PageConstraints constraints) {
+    public Page<ComputerDto> getPage(PageConstraints constraints) {
         Page<Computer> pageComputer = ConstraintMapper.contraintesToComputerPage(constraints);
         try {
             pageComputer = computerDao.getPage(pageComputer, constraints);
         } catch (PersistenceException e) {
             logger.error("ComputerServiceImpl : getPage(Page<ComputerDto>) catched PersistenceException ",e);
         }
-        return pageComputer;
+        Page<ComputerDto> returnPage = computerMapper.dtoPagetoComputerPage(pageComputer);
+        return returnPage;
     }
 
     @Override
     public ComputerDto update(ComputerDto pComputerDto) {
-        Company company = new Company(pComputerDto.getCompanyName());
-        company.setId(pComputerDto.getCompanyId());
+        Company company = new Company(pComputerDto.getCompanyId(), pComputerDto.getCompanyName());
         Computer computer = new Computer.Builder(pComputerDto.getName())
-                .discontinued(ComputerAndDtoMapper.stringToLocalDate(pComputerDto.getDiscontinued()))
-                .introduced(ComputerAndDtoMapper.stringToLocalDate(pComputerDto.getIntroduced()))
+                .discontinued(computerMapper.stringToLocalDate(pComputerDto.getDiscontinued()))
+                .introduced(computerMapper.stringToLocalDate(pComputerDto.getIntroduced()))
                 .id(pComputerDto.getId()).manufacturer(company).build();
         try {
-            System.out.println(computer);
             computerDao.update(computer);
         } catch (PersistenceException e) {
             logger.error("ComputerServiceImpl : update(ComputerDto) catched PersistenceException ");
@@ -147,8 +148,8 @@ public class ComputerServiceImpl implements ComputerService {
      * 
      * @param ids A list of integers representing the Ids to delete.
      */
-    public void deleteMultiplesId(List<Integer> ids) {
-        for (int id : ids) {
+    public void deleteMultiplesId(List<Long> ids) {
+        for (Long id : ids) {
             delete(id);
         }
     }
