@@ -2,22 +2,42 @@ package com.excilys.formation.entity;
 
 import java.time.LocalDate;
 
+import javax.persistence.AssociationOverride;
+import javax.persistence.AssociationOverrides;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.Id;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 
 /**
  * @author Euronia
  *
  */
+@Entity
+@Table(name="computer")
 public final class Computer {
 
     ////////// Attributes //////////
 
+
     private long id;
+
     private String name;
+   
     private LocalDate introduced;
+
     private LocalDate discontinued;
-    private Company manufacturer;
+    
+    private Company company;
     private static Logger logger;
 
     static {
@@ -34,11 +54,14 @@ public final class Computer {
         name = builder.nestedName;
         introduced = builder.nestedIntroduced;
         discontinued = builder.nestedDiscontinued;
-        manufacturer = builder.nestedManufacturer;
+        company = builder.nestedManufacturer;
     }
 
     ////////// Getters and Setters //////////
 
+    @Id
+    @Column
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public long getId() {
         return id;
     }
@@ -47,6 +70,7 @@ public final class Computer {
         this.id = id;
     }
 
+    @Column
     public String getName() {
         return name;
     }
@@ -55,6 +79,7 @@ public final class Computer {
         this.name = name;
     }
 
+    @Column
     public LocalDate getIntroduced() {
         return introduced;
     }
@@ -63,6 +88,7 @@ public final class Computer {
         this.introduced = introduced;
     }
 
+    @Column
     public LocalDate getDiscontinued() {
         return discontinued;
     }
@@ -70,13 +96,14 @@ public final class Computer {
     public void setDiscontinued(LocalDate discontinued) {
         this.discontinued = discontinued;
     }
-
-    public Company getManufacturer() {
-        return manufacturer;
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name="company_id")
+    public Company getCompany() {
+        return company;
     }
 
-    public void setManufacturer(Company pmanufacturer) { // TODO delete?
-        this.manufacturer = pmanufacturer;
+    public void setCompany(Company company) { 
+        this.company = company;
     }
 
     ////////// Methods //////////
@@ -96,7 +123,7 @@ public final class Computer {
         if (this.getDiscontinued() != null) {
             returnString.append(" Discontinued : ").append(this.getDiscontinued().toString());
         }
-        returnString.append(" owned by company [").append(this.getManufacturer()).append("]");
+        returnString.append(" owned by company [").append(this.getCompany()).append("]");
         return returnString.toString();
     }
 
@@ -107,7 +134,7 @@ public final class Computer {
         result = prime * result + ((discontinued == null) ? 0 : discontinued.hashCode());
         result = prime * result + (int) (id ^ (id >>> 32));
         result = prime * result + ((introduced == null) ? 0 : introduced.hashCode());
-        result = prime * result + ((manufacturer == null) ? 0 : manufacturer.hashCode());
+        result = prime * result + ((company == null) ? 0 : company.hashCode());
         result = prime * result + ((name == null) ? 0 : name.hashCode());
         return result;
     }
@@ -140,11 +167,11 @@ public final class Computer {
             }
         } else if (!introduced.equals(other.introduced))
             return false;
-        if (manufacturer == null) {
-            if (other.manufacturer != null) {
+        if (company == null) {
+            if (other.company != null) {
                 return false;
             }
-        } else if (!manufacturer.equals(other.manufacturer))
+        } else if (!company.equals(other.company))
             return false;
         if (name == null) {
             if (other.name != null) {

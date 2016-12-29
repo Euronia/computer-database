@@ -1,7 +1,5 @@
 package com.excilys.formation.persistence.computerdao;
 
-import java.sql.Connection;
-
 import com.excilys.formation.dto.PageConstraints;
 import com.excilys.formation.entity.Computer;
 import com.excilys.formation.exception.PersistenceException;
@@ -18,11 +16,11 @@ public interface ComputerDao extends BaseDao<Computer> {
         throw new UnsupportedOperationException("getById() is not implemented");
     }
 
-    public default void delete(Computer pcomputer) throws PersistenceException {
+    public default void deleteById(Computer pcomputer) throws PersistenceException {
         throw new UnsupportedOperationException("delete(Computer) is not implemented");
     }
 
-    public default void delete(long id) throws PersistenceException {
+    public default void deleteById(long id) throws PersistenceException {
         throw new UnsupportedOperationException("delete(long) is not implemented");
     }
 

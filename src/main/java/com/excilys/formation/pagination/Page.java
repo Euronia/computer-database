@@ -6,10 +6,10 @@ public class Page<T> {
 
     ////////// Attributes //////////
 
-    public int elementsPerPage;
-    public int totalElements;
+    public long elementsPerPage;
+    public long totalElements;
     public int currentPage;
-    public int nbPages;
+    public long nbPages;
     public List<T> elements;
 
     ////////// Constructors //////////
@@ -28,21 +28,21 @@ public class Page<T> {
 
     ////////// Getters & Setters //////////
 
-    public int getElementsByPage() {
+    public long getElementsByPage() {
         return elementsPerPage;
     }
 
-    public void setElementsByPage(int elementsByPage) {
-        this.elementsPerPage = elementsByPage;
+    public void setElementsByPage(long l) {
+        this.elementsPerPage = l;
         calculateNbPages();
     }
 
-    public int getTotalElements() {
+    public long getTotalElements() {
         return totalElements;
     }
 
-    public void setTotalElements(int totalElements) {
-        this.totalElements = totalElements;
+    public void setTotalElements(long l) {
+        this.totalElements = l;
         calculateNbPages();
     }
 
@@ -54,12 +54,12 @@ public class Page<T> {
         this.currentPage = currentPage;
     }
 
-    public int getNbPages() {
+    public long getNbPages() {
         return nbPages;
     }
 
-    public void setNbPages(int nbPages) {
-        this.nbPages = nbPages;
+    public void setNbPages(long l) {
+        this.nbPages = l;
     }
 
     public void setElements(List<T> elements) {

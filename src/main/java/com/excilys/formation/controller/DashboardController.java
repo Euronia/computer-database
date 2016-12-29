@@ -25,7 +25,6 @@ import com.excilys.formation.mapper.ConstraintMapper;
 import com.excilys.formation.mapper.RequestMapper;
 import com.excilys.formation.pagination.Page;
 import com.excilys.formation.service.computerservice.ComputerService;
-import com.excilys.formation.service.computerservice.computerserviceimpl.ComputerServiceImpl;
 
 import ch.qos.logback.classic.Logger;
 

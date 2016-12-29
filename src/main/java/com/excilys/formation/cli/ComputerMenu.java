@@ -4,12 +4,12 @@ import java.util.Scanner;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.excilys.formation.dto.ComputerDto;
 import com.excilys.formation.exception.ServiceException;
 import com.excilys.formation.pagination.Page;
 import com.excilys.formation.service.computerservice.ComputerService;
-import com.excilys.formation.service.computerservice.computerserviceimpl.ComputerServiceImpl;
 import com.excilys.formation.util.MenuUtil;
 
 /**
@@ -24,6 +24,7 @@ public class ComputerMenu implements BaseMenu {
 
     private Scanner scanner = MainMenu.getScanner();
     private Page<ComputerDto> pageComputer;
+    @Autowired
     private ComputerService computerService;
     private static Logger logger;
 
@@ -32,7 +33,6 @@ public class ComputerMenu implements BaseMenu {
     }
 
     public ComputerMenu() {
-        computerService = new ComputerServiceImpl();
     }
 
     /**

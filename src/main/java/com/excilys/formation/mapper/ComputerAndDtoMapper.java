@@ -112,7 +112,7 @@ public class ComputerAndDtoMapper {
                 } else {
                     computerDto.setDiscontinued(null);
                 }
-                Company company = computer.getManufacturer();
+                Company company = computer.getCompany();
                 computerDto.setCompanyId(company.getId());
                 computerDto.setCompanyName(company.getName());
                 computersDto.add(computerDto);
@@ -137,7 +137,7 @@ public class ComputerAndDtoMapper {
         if (pComp.getDiscontinued() != null) {
             computerDto.setDiscontinued(pComp.getDiscontinued().toString());
         }
-        Company company = pComp.getManufacturer();
+        Company company = pComp.getCompany();
         computerDto.setCompanyId(company.getId());
         computerDto.setCompanyName(company.getName());
         return computerDto;

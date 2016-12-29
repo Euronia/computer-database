@@ -30,11 +30,12 @@
 		<h2database.version>1.4.193</h2database.version>
 		<hikaricp.version>2.5.1</hikaricp.version>
 		<cargo.version>1.6.1</cargo.version>
-		<spring.version>4.3.4.RELEASE</spring.version>
+		<spring.version>4.3.5.RELEASE</spring.version>
 		<surefire.version>2.19</surefire.version>
 		<validation.version>1.1.0.Final</validation.version>
 		<hibernate.version>5.3.4.Final</hibernate.version>
 		<commonsvalidation.version>1.5.1</commonsvalidation.version>
+		<springdata.version>1.10.6.RELEASE</springdata.version>
 	</properties>
 
 	<dependencies>
@@ -123,6 +124,30 @@
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-web</artifactId>
 			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-orm</artifactId>
+		    <version>${spring.version}</version>
+		</dependency>
+		
+			<!-- Spring Data dependencies -->
+		<dependency>
+		  <groupId>org.springframework.data</groupId>
+		  <artifactId>spring-data-jpa</artifactId>
+		  <version>${springdata.version}</version>
+		</dependency>
+		  
+		<dependency>
+		    <groupId>org.eclipse.persistence</groupId>
+		    <artifactId>javax.persistence</artifactId>
+		    <version>2.1.1</version>
+		</dependency>
+		
+		<dependency>
+		    <groupId>org.hibernate</groupId>
+		    <artifactId>hibernate-core</artifactId>
+		    <version>5.2.5.Final</version>
 		</dependency>
 		
 		<!-- Validation dependencies -->

@@ -4,6 +4,7 @@
 		xmlns:aop="http://www.springframework.org/schema/aop"
 		xmlns:tx="http://www.springframework.org/schema/tx"
 		xmlns:mvc="http://www.springframework.org/schema/mvc"
+		xmlns:jpa="http://www.springframework.org/schema/data/jpa"
 		xsi:schemaLocation="http://www.springframework.org/schema/beans
 		http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
 		http://www.springframework.org/schema/context
@@ -13,7 +14,10 @@
 		http://www.springframework.org/schema/aop
 		http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
 		http://www.springframework.org/schema/mvc
-		http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd">
+		http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
+		http://www.springframework.org/schema/data/jpa
+		http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
+		
 		
 		<context:annotation-config />
 		<mvc:annotation-driven/>
@@ -25,14 +29,13 @@
 		cache-period="31556926" />
 		<mvc:resources mapping="/fonts/**" location="/fonts/"
 		cache-period="31556926" />
-		
-		<bean id="messageSource"
+			
+	<bean id="messageSource"
 		class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
 		<property name="basename" value="classpath:locales/messages" />
 		<property name="defaultEncoding" value="UTF-8" />
 	</bean>
 	
-			
 	<bean id="localeResolver"
 		class="org.springframework.web.servlet.i18n.CookieLocaleResolver">
 		<property name="defaultLocale" value="en" />
@@ -45,18 +48,35 @@
 			class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
 			<property name="paramName" value="locale" />
 		</bean>
-	</mvc:interceptors>		
+	</mvc:interceptors>	
 		
-		<!--  Non transactional beans -->
-		<import resource="database/Spring-Datasource.xml" />
-		<import resource="database/Spring-JDBCTemplate.xml" />
-		<import resource="company/Spring-Company.xml" />
+	<!--  Non transactional beans -->
+	<import resource="database/Spring-Datasource.xml" />
+	<import resource="database/Spring-JDBCTemplate.xml" />
+	<import resource="company/Spring-Company.xml" />
+	
+	<!-- SPI interface that allows to plug in vendor-specific behavior into Spring's EntityManagerFactory creators.
+	 Serves as single configuration point for all vendor-specific properties. -->			
+    <bean id="hibernateJpaVendorAdapter"
+        class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" />
+	
+	<bean id="entityManagerFactory"
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="dataSource" ref="dataSource"/>
+		<property name="jpaVendorAdapter" ref="hibernateJpaVendorAdapter" />
+		<!-- Set JPA properties -->
+		<property name="jpaProperties">
+			<props>
+				<prop key="hibernate.dialect">${hibernate.dialect}</prop>
+			</props>
+		</property>
+		<property name ="packagesToScan" value="com.excilys.formation.entity" />	
+	</bean>
 		
-		
-		<bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-			<property name="dataSource" ref="dataSource" />
-		</bean>
-		
-		
-		
-		</beans>
+	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="entityManagerFactory" />
+	</bean>
+	<tx:annotation-driven />
+	<jpa:repositories base-package="com.excilys.formation.persistence" />
+	
+</beans>

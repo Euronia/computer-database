@@ -37,7 +37,7 @@ import com.excilys.formation.persistence.computerdao.ComputerDao;
  * 
  */
 
-@Repository
+
 public class ComputerDaoImpl implements ComputerDao {
 
     ////////// Attributes //////////
@@ -198,7 +198,8 @@ public class ComputerDaoImpl implements ComputerDao {
      * A method that deletes an entry of the computer table.
      *
      * @param pcomputer The computer entry that we want to delete from our
-     *            table. The only used parameter from it is its id.
+     *            table. The only used param
+     *            eter from it is its id.
      */
     @Override
     public void delete(Computer toDelete) {

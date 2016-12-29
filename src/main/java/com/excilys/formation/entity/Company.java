@@ -1,17 +1,31 @@
 package com.excilys.formation.entity;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 /**
  * @author Euronia
  * 
  */
+
+@Entity
+@Table(name="company")
 public final class Company {
 
     ////////// Parameters //////////
 
+
     private long id;
+
     private String name;
 
     ////////// Constructors //////////
+    
+    public Company() {}
 
     public Company(String cname) {
         this.name = cname;
@@ -24,6 +38,8 @@ public final class Company {
 
     ////////// Getters and Setters //////////
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public long getId() {
         return id;
     }
@@ -32,6 +48,7 @@ public final class Company {
         this.id = id;
     }
 
+    @Column
     public String getName() {
         return name;
     }

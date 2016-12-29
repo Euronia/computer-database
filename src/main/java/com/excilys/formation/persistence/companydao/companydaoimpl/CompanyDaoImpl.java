@@ -82,8 +82,8 @@ public class CompanyDaoImpl implements CompanyDao {
         List<Company> allCompanies = new ArrayList<>();
         try (Connection connection = dataSource.getConnection();
                 PreparedStatement preparedStatement = connection.prepareStatement(SELECT_PAGE);) {
-            preparedStatement.setInt(1, page.getElementsByPage());
-            preparedStatement.setInt(2, (page.getCurrentPage() - 1) * page.getElementsByPage());
+            preparedStatement.setLong(1, page.getElementsByPage());
+            preparedStatement.setLong(2, (page.getCurrentPage() - 1) * page.getElementsByPage());
             ResultSet resultSet = preparedStatement.executeQuery();
             allCompanies = PersistenceMapper.mapResultsToCompanyList(resultSet);
             page.setElements(allCompanies);

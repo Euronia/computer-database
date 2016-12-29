@@ -13,7 +13,6 @@ import com.excilys.formation.pagination.Page;
 import com.excilys.formation.persistence.companydao.CompanyDao;
 import com.excilys.formation.persistence.companydao.companydaoimpl.CompanyDaoImpl;
 import com.excilys.formation.persistence.computerdao.ComputerDao;
-import com.excilys.formation.persistence.computerdao.computerdaoimpl.ComputerDaoImpl;
 import com.excilys.formation.service.companyservice.CompanyService;
 import com.excilys.formation.util.ServiceUtil;
 
