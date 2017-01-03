@@ -13,7 +13,6 @@ import javax.sql.DataSource;
 
 import ch.qos.logback.classic.Logger;
 
-import org.openxmlformats.schemas.spreadsheetml.x2006.main.STSourceType;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
