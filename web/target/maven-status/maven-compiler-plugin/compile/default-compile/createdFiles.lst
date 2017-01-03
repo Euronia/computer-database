@@ -1,0 +1,5 @@
+com/excilys/formation/controller/AddComputerController.class
+com/excilys/formation/controller/DashboardController.class
+com/excilys/formation/config/SpringMvcInitializer.class
+com/excilys/formation/controller/EditComputerController.class
+com/excilys/formation/config/SpringMvcConfig.class

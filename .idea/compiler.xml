@@ -7,7 +7,6 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="cli" />
-        <module name="cli (1)" />
         <module name="core" />
         <module name="databinding" />
         <module name="persistence" />

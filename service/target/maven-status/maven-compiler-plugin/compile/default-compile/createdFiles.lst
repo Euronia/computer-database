@@ -1,0 +1,8 @@
+com/excilys/formation/service/companyservice/companyserviceimpl/CompanyServiceImpl.class
+com/excilys/formation/config/SpringServiceConfig.class
+com/excilys/formation/service/BaseService.class
+com/excilys/formation/util/ServiceUtil.class
+com/excilys/formation/service/computerservice/ComputerService.class
+com/excilys/formation/service/computerservice/computerserviceimpl/ComputerServiceImpl.class
+com/excilys/formation/exception/ServiceException.class
+com/excilys/formation/service/companyservice/CompanyService.class
