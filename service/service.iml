@@ -66,6 +66,8 @@
     <orderEntry type="library" name="Maven: com.google.guava:guava:19.0" level="project" />
     <orderEntry type="library" name="Maven: net.java.dev.jna:jna-platform:4.1.0" level="project" />
     <orderEntry type="library" name="Maven: net.java.dev.jna:jna:4.1.0" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.security:spring-security-core:4.2.1.RELEASE" level="project" />
+    <orderEntry type="library" name="Maven: aopalliance:aopalliance:1.0" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Maven: mysql:mysql-connector-java:6.0.5" level="project" />
     <orderEntry type="library" name="Maven: com.zaxxer:HikariCP:2.5.1" level="project" />
     <orderEntry type="library" name="Maven: org.hibernate:hibernate-core:5.2.5.Final" level="project" />

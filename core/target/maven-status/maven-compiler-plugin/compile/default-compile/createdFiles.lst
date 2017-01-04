@@ -1,8 +1,11 @@
 com/excilys/formation/entity/Computer$1.class
+com/excilys/formation/entity/User.class
 com/excilys/formation/pagination/Page.class
 com/excilys/formation/util/PropertyReader.class
 com/excilys/formation/pagination/PageConstraints.class
+com/excilys/formation/entity/Role.class
 com/excilys/formation/entity/Company.class
 com/excilys/formation/entity/Computer$Builder.class
 com/excilys/formation/entity/Computer.class
+com/excilys/formation/entity/User$UserBuilder.class
 com/excilys/formation/util/DateConverter.class

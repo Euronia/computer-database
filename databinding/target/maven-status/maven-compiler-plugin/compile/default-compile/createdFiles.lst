@@ -4,6 +4,7 @@ com/excilys/formation/mapper/CompanyAndDtoMapper.class
 com/excilys/formation/dto/CompanyDto.class
 com/excilys/formation/mapper/ConstraintMapper.class
 com/excilys/formation/validation/DateValidator.class
+com/excilys/formation/dto/UserDto.class
 com/excilys/formation/validation/ComputerValidator.class
 com/excilys/formation/mapper/ComputerAndDtoMapper.class
 com/excilys/formation/dto/ComputerDto.class

@@ -5,4 +5,6 @@
 /home/excilys/workspace/computer-database/service/src/main/java/com/excilys/formation/service/computerservice/ComputerService.java
 /home/excilys/workspace/computer-database/service/src/main/java/com/excilys/formation/config/SpringServiceConfig.java
 /home/excilys/workspace/computer-database/service/src/main/java/com/excilys/formation/util/ServiceUtil.java
+/home/excilys/workspace/computer-database/service/src/main/java/com/excilys/formation/service/userservice/userserviceimpl/UserServiceImpl.java
 /home/excilys/workspace/computer-database/service/src/main/java/com/excilys/formation/service/BaseService.java
+/home/excilys/workspace/computer-database/service/src/main/java/com/excilys/formation/service/userservice/UserService.java

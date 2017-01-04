@@ -1,10 +1,12 @@
-com/excilys/formation/persistence/BaseDao.class
 com/excilys/formation/exception/PersistenceException.class
 com/excilys/formation/persistence/computerdao/computerdaoimpl/ComputerRepository.class
 com/excilys/formation/mapper/CustomResultSetExtractor.class
+com/excilys/formation/persistence/BaseDao.class
+com/excilys/formation/persistence/userdao/UserDao.class
 com/excilys/formation/config/SpringPersistenceConfig.class
 com/excilys/formation/mapper/CustomRowMapper.class
 com/excilys/formation/mapper/PersistenceMapper.class
+com/excilys/formation/persistence/userdao/userdaoimpl/UserRepository.class
 com/excilys/formation/persistence/computerdao/ComputerDao.class
 com/excilys/formation/persistence/companydao/CompanyDao.class
 com/excilys/formation/persistence/companydao/companydaoimpl/CompanyRepository.class

@@ -5,7 +5,7 @@
 
 	<groupId>com.excilys.formation</groupId>
 	<artifactId>computer-database</artifactId>
-	<version>1.6-SNAPSHOT</version>
+	<version>1.7-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<name>computer-database</name>

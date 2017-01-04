@@ -5,6 +5,8 @@
 /home/excilys/workspace/computer-database/persistence/src/main/java/com/excilys/formation/persistence/computerdao/computerdaoimpl/ComputerRepository.java
 /home/excilys/workspace/computer-database/persistence/src/main/java/com/excilys/formation/persistence/companydao/CompanyDao.java
 /home/excilys/workspace/computer-database/persistence/src/main/java/com/excilys/formation/persistence/computerdao/ComputerDao.java
+/home/excilys/workspace/computer-database/persistence/src/main/java/com/excilys/formation/persistence/userdao/UserDao.java
 /home/excilys/workspace/computer-database/persistence/src/main/java/com/excilys/formation/mapper/CustomRowMapper.java
 /home/excilys/workspace/computer-database/persistence/src/main/java/com/excilys/formation/exception/PersistenceException.java
+/home/excilys/workspace/computer-database/persistence/src/main/java/com/excilys/formation/persistence/userdao/userdaoimpl/UserRepository.java
 /home/excilys/workspace/computer-database/persistence/src/main/java/com/excilys/formation/mapper/CustomResultSetExtractor.java

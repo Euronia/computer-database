@@ -9,9 +9,9 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="module" module-name="service" />
-    <orderEntry type="module" module-name="persistence" />
-    <orderEntry type="module" module-name="core" />
+    <orderEntry type="library" name="Maven: com.excilys.formation:service:1.6-SNAPSHOT" level="project" />
+    <orderEntry type="library" name="Maven: com.excilys.formation:persistence:1.6-SNAPSHOT" level="project" />
+    <orderEntry type="library" name="Maven: com.excilys.formation:core:1.6-SNAPSHOT" level="project" />
     <orderEntry type="library" name="Maven: org.webjars:jquery:2.1.4" level="project" />
     <orderEntry type="library" name="Maven: ch.qos.logback:logback-classic:1.1.3" level="project" />
     <orderEntry type="library" name="Maven: ch.qos.logback:logback-core:1.1.3" level="project" />
@@ -26,6 +26,8 @@
     <orderEntry type="library" name="Maven: javax.servlet:javax.servlet-api:3.1.0" level="project" />
     <orderEntry type="library" name="Maven: org.seleniumhq.selenium:htmlunit-driver:2.23" level="project" />
     <orderEntry type="library" name="Maven: org.yaml:snakeyaml:1.15" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.security:spring-security-core:4.2.1.RELEASE" level="project" />
+    <orderEntry type="library" name="Maven: aopalliance:aopalliance:1.0" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Maven: mysql:mysql-connector-java:6.0.5" level="project" />
     <orderEntry type="library" name="Maven: com.zaxxer:HikariCP:2.5.1" level="project" />
     <orderEntry type="library" name="Maven: org.hibernate:hibernate-core:5.2.5.Final" level="project" />
@@ -60,7 +62,7 @@
     <orderEntry type="library" name="Maven: org.aspectj:aspectjrt:1.8.9" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Maven: org.slf4j:jcl-over-slf4j:1.7.22" level="project" />
     <orderEntry type="library" name="Maven: org.eclipse.persistence:javax.persistence:2.1.1" level="project" />
-    <orderEntry type="module" module-name="databinding" />
+    <orderEntry type="library" name="Maven: com.excilys.formation:databinding:1.6-SNAPSHOT" level="project" />
     <orderEntry type="library" name="Maven: javax.validation:validation-api:1.1.0.Final" level="project" />
     <orderEntry type="library" name="Maven: org.hibernate:hibernate-validator:5.3.4.Final" level="project" />
     <orderEntry type="library" name="Maven: commons-validator:commons-validator:1.5.1" level="project" />

@@ -2,6 +2,7 @@
 /home/excilys/workspace/computer-database/databinding/src/main/java/com/excilys/formation/dto/ComputerDto.java
 /home/excilys/workspace/computer-database/databinding/src/main/java/com/excilys/formation/validation/DateValidator.java
 /home/excilys/workspace/computer-database/databinding/src/main/java/com/excilys/formation/validation/ConstraintsValidator.java
+/home/excilys/workspace/computer-database/databinding/src/main/java/com/excilys/formation/dto/UserDto.java
 /home/excilys/workspace/computer-database/databinding/src/main/java/com/excilys/formation/validation/ComputerValidator.java
 /home/excilys/workspace/computer-database/databinding/src/main/java/com/excilys/formation/dto/CompanyDto.java
 /home/excilys/workspace/computer-database/databinding/src/main/java/com/excilys/formation/mapper/ConstraintMapper.java

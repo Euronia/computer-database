@@ -2,5 +2,7 @@
 /home/excilys/workspace/computer-database/core/src/main/java/com/excilys/formation/util/DateConverter.java
 /home/excilys/workspace/computer-database/core/src/main/java/com/excilys/formation/pagination/Page.java
 /home/excilys/workspace/computer-database/core/src/main/java/com/excilys/formation/pagination/PageConstraints.java
+/home/excilys/workspace/computer-database/core/src/main/java/com/excilys/formation/entity/Role.java
 /home/excilys/workspace/computer-database/core/src/main/java/com/excilys/formation/entity/Computer.java
 /home/excilys/workspace/computer-database/core/src/main/java/com/excilys/formation/util/PropertyReader.java
+/home/excilys/workspace/computer-database/core/src/main/java/com/excilys/formation/entity/User.java
