@@ -69,8 +69,12 @@ public class ComputerServiceImpl implements ComputerService {
             computerDto.setIntroduced(computerMapper.localDateToString(computer.getIntroduced()));
             computerDto.setDiscontinued(computerMapper.localDateToString(computer.getDiscontinued()));
             Company company = computer.getCompany();
-            computerDto.setCompanyId(company.getId());
-            computerDto.setCompanyName(company.getName());
+            if (company != null) {
+                computerDto.setCompanyId(company.getId());
+                computerDto.setCompanyName(company.getName());
+            } else {
+                computerDto.setCompanyId(0);
+            }
         }
         return computerDto;
     }
@@ -84,8 +88,6 @@ public class ComputerServiceImpl implements ComputerService {
     public Page<ComputerDto> getPage(PageConstraints constraints) {
         Page<Computer> pageComputer = ConstraintMapper.contraintesToComputerPage(constraints);
         PageRequest pageRequest = new PageRequest(pageComputer.currentPage-1,(int) pageComputer.elementsPerPage);
-        /*org.springframework.data.domain.Page<Computer> listComputer = computerRepository.findAll(pageRequest);     
-        pageComputer.setElements(listComputer.getContent());*/
         if (constraints.getFilter() != null) {
             pageComputer.setElements(computerRepository.findAllByNameLike(constraints.getFilter()));
         } else {

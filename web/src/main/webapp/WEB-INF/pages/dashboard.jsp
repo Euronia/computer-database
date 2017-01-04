@@ -81,7 +81,7 @@
 
 	<my:LinkTag/>
     
-<script src="/computerdatabase/resources/dashboard/strings.js"></script>
+<script src="/computerdatabase/dashboard/strings.js"></script>
 <script src="/computerdatabase/resources/js/jquery.min.js"></script>
 <script src="/computerdatabase/resources/js/bootstrap.min.js"></script>
 <script src="/computerdatabase/resources/js/dashboard.js"></script>

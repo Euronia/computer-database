@@ -37,9 +37,9 @@
         	</ul>
 		
         <div class="btn-group btn-group-sm pull-right" role="group" >
-            <button type="button" class="btn btn-default" onclick="location.href='../../'">10</button>
-            <button type="button" class="btn btn-default" onclick="location.href='../../'">50</button>
-            <button type="button" class="btn btn-default" onclick="location.href='../../'">100</button>
+            <button type="button" class="btn btn-default" onclick="location.href='?page=${pageComputer.currentPage}&perPage=10&search=${filter}'">10</button>
+            <button type="button" class="btn btn-default" onclick="location.href='?page=${pageComputer.currentPage}&perPage=50&search=${filter}'">50</button>
+            <button type="button" class="btn btn-default" onclick="location.href='?page=${pageComputer.currentPage}&perPage=100&search=${filter}'">100</button>
         </div>
         </div>
 

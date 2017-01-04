@@ -4,7 +4,6 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,17 +34,12 @@ public class DashboardController {
     @Autowired
     private ComputerService computerService;
 
-    ////////// Constructors //////////
-
-    ////////// Getters & Setters //////////
-
     ////////// Methods //////////
-
     
     @RequestMapping(method = RequestMethod.GET)
-    public ModelAndView dashboardGet(HttpServletRequest request, HttpServletResponse response) {
+    public ModelAndView dashboardGet(HttpServletRequest request) {
         ModelAndView model = new ModelAndView("dashboard");
-        Page<ComputerDto> pageComputer = new Page<>(10);
+        Page<ComputerDto> pageComputer ;
         PageConstraints constraints = ConstraintMapper.requestToContraintes(request);
         if (constraints.getFilter() != null) {
             model.addObject("filter", request.getParameter("search"));
@@ -56,9 +50,9 @@ public class DashboardController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ModelAndView dashboardPost(HttpServletRequest request, HttpServletResponse response) {
+    public ModelAndView dashboardPost(HttpServletRequest request) {
         ModelAndView model = new ModelAndView("dashboard");
-        Page<ComputerDto> pageComputer = new Page<>(10);
+        Page<ComputerDto> pageComputer;
         PageConstraints constraints = ConstraintMapper.requestToContraintes(request);
         if (constraints.getFilter() != null) {
             model.addObject("filter", request.getParameter("search"));
@@ -74,12 +68,9 @@ public class DashboardController {
     }
     
     @RequestMapping(path="strings.js")
-    public ModelAndView strings(HttpServletRequest request)
-    {
+    public ModelAndView strings(HttpServletRequest request) {
         Locale locale = RequestContextUtils.getLocale(request);
-        ResourceBundle bundle = ResourceBundle.getBundle(("locales.messages"),locale);
+        ResourceBundle bundle = ResourceBundle.getBundle(("locales.messages"), locale);
         return new ModelAndView("strings", "keys", bundle.getKeys());
     }
-
-    ////////// Builder //////////
 }

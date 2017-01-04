@@ -57,7 +57,7 @@ public class EditComputerController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ModelAndView editComputerPost(HttpServletRequest request, HttpServletResponse response) {
+    public ModelAndView editComputerPost(HttpServletRequest request) {
         ComputerDto computerDto = RequestMapper.toComputer(request);
         try {
             computerService.update(computerDto);
@@ -66,6 +66,4 @@ public class EditComputerController {
         }
         return new ModelAndView("redirect:/dashboard");
     }
-
-    ////////// Builder //////////
 }

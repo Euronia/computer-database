@@ -79,7 +79,7 @@ public class ComputerAndDtoMapper {
     
     public Page<ComputerDto> dtoPagetoComputerPage(Page<Computer> pageComputer) {
         Page<ComputerDto> returnPage = new Page<>(10);
-        returnPage.setPage(pageComputer.getCurrentPage());
+        returnPage.setCurrentPage(pageComputer.getCurrentPage());
         returnPage.setElementsByPage(pageComputer.getElementsByPage());
         returnPage.setNbPages(pageComputer.getNbPages());
         returnPage.setTotalElements(pageComputer.getTotalElements());
@@ -111,9 +111,13 @@ public class ComputerAndDtoMapper {
                 } else {
                     computerDto.setDiscontinued(null);
                 }
-                Company company = computer.getCompany();
-                computerDto.setCompanyId(company.getId());
-                computerDto.setCompanyName(company.getName());
+                if (computer.getCompany() != null) {
+                    Company company = computer.getCompany();
+                    computerDto.setCompanyId(company.getId());
+                    computerDto.setCompanyName(company.getName());
+                } else {
+                    computerDto.setCompanyId(0);
+                }
                 computersDto.add(computerDto);
             }
         }
