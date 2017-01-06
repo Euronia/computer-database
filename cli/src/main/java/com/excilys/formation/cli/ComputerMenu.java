@@ -11,6 +11,7 @@ import com.excilys.formation.exception.ServiceException;
 import com.excilys.formation.pagination.Page;
 import com.excilys.formation.service.computerservice.ComputerService;
 import com.excilys.formation.util.MenuUtil;
+import org.springframework.stereotype.Component;
 
 /**
  * This menu allows the user to do an action on the computer table. Currently
@@ -20,6 +21,7 @@ import com.excilys.formation.util.MenuUtil;
  * 
  */
 
+@Component
 public class ComputerMenu implements BaseMenu {
 
     private Scanner scanner = MainMenu.getScanner();
@@ -41,7 +43,7 @@ public class ComputerMenu implements BaseMenu {
      */
     @Override
     public void startMenu() {
-        System.out.println("/// Menu or1dinateur ///" + " \n Souhaitez vous : " + "\n 1- Lister les ordinateurs "
+        System.out.println("/// Menu ordinateur ///" + " \n Souhaitez vous : " + "\n 1- Lister les ordinateurs "
                 + "\n 2- Montrer l'ordinateur possédant l'id x" + "\n 3- Créer un ordinateur "
                 + "\n 4- Mettre à jour un ordinateur " + "\n 5- Supprimer un ordinateur "
                 + "\n 6- Retourner au menu principal" + "\n 7- Quitter l'application");
@@ -51,22 +53,25 @@ public class ComputerMenu implements BaseMenu {
         switch (choice) {
         case 1:
             list();
+            startMenu();
             break;
         case 2:
             info();
+            startMenu();
             break;
         case 3:
             create();
+            startMenu();
             break;
         case 4:
             update();
+            startMenu();
             break;
         case 5:
             delete();
+            startMenu();
             break;
         case 6:
-            MainMenu main = new MainMenu();
-            main.startMenu();
             break;
         case 7:
             break;
@@ -113,7 +118,7 @@ public class ComputerMenu implements BaseMenu {
 
     private void showComputerPage() {
         try {
-            computerService.getPage(pageComputer);
+            pageComputer = computerService.getPage(pageComputer);
             StringBuilder stringBuilder = new StringBuilder();
             for (ComputerDto computer : pageComputer.elements) {
                 stringBuilder.append(computer.toString()).append("\n");

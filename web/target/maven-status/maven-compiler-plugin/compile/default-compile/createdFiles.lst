@@ -1,8 +1,6 @@
-com/excilys/formation/controller/DashboardController.class
-com/excilys/formation/config/SpringMvcInitializer.class
-com/excilys/formation/controller/EditComputerController.class
-com/excilys/formation/controller/AddComputerController.class
 com/excilys/formation/config/SpringSecurityConfig.class
+com/excilys/formation/config/SpringMvcInitializer.class
 com/excilys/formation/config/SpringWebConfig.class
+com/excilys/formation/controller/ComputerController.class
 com/excilys/formation/config/SecurityWebApplicationInitializer.class
 com/excilys/formation/config/SpringMvcConfig.class

@@ -7,13 +7,13 @@
           <element id="module-output" name="web" />
         </element>
         <element id="directory" name="lib">
-          <element id="archive" name="service-1.6-SNAPSHOT.jar">
+          <element id="archive" name="service-1.7-SNAPSHOT.jar">
             <element id="module-output" name="service" />
           </element>
-          <element id="archive" name="persistence-1.6-SNAPSHOT.jar">
+          <element id="archive" name="persistence-1.7-SNAPSHOT.jar">
             <element id="module-output" name="persistence" />
           </element>
-          <element id="archive" name="core-1.6-SNAPSHOT.jar">
+          <element id="archive" name="core-1.7-SNAPSHOT.jar">
             <element id="module-output" name="core" />
           </element>
           <element id="library" level="project" name="Maven: org.webjars:jquery:2.1.4" />
@@ -46,7 +46,7 @@
           <element id="library" level="project" name="Maven: org.jboss.spec.javax.interceptor:jboss-interceptors-api_1.1_spec:1.0.0.Beta1" />
           <element id="library" level="project" name="Maven: javax.annotation:jsr250-api:1.0" />
           <element id="library" level="project" name="Maven: javax.inject:javax.inject:1" />
-          <element id="archive" name="databinding-1.6-SNAPSHOT.jar">
+          <element id="archive" name="databinding-1.7-SNAPSHOT.jar">
             <element id="module-output" name="databinding" />
           </element>
           <element id="library" level="project" name="Maven: javax.validation:validation-api:1.1.0.Final" />
@@ -116,6 +116,17 @@
           <element id="library" level="project" name="Maven: aopalliance:aopalliance:1.0" />
           <element id="library" level="project" name="Maven: org.springframework.security:spring-security-core:4.2.1.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework.security:spring-security-config:4.2.1.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework.data:spring-data-rest-webmvc:2.5.6.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework.data:spring-data-rest-core:2.5.6.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework.hateoas:spring-hateoas:0.20.0.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework.plugin:spring-plugin-core:1.2.0.RELEASE" />
+          <element id="library" level="project" name="Maven: org.atteo:evo-inflector:1.2.1" />
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.6.7" />
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-core:2.6.7" />
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.6.7" />
+          <element id="archive" name="cli-1.7-SNAPSHOT.jar">
+            <element id="module-output" name="cli" />
+          </element>
         </element>
       </element>
       <element id="directory" name="META-INF">

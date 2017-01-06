@@ -1,6 +1,7 @@
+com/excilys/formation/cli/BaseMenu.class
 com/excilys/formation/cli/CompanyMenu.class
 com/excilys/formation/cli/ComputerMenu.class
+com/excilys/formation/config/SpringCliConfig.class
 com/excilys/formation/util/MenuUtil.class
 com/excilys/formation/cli/MainMenu.class
 com/excilys/formation/cli/Main.class
-com/excilys/formation/cli/BaseMenu.class

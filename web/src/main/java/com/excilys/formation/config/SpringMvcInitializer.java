@@ -2,6 +2,7 @@ package com.excilys.formation.config;
 
 import javax.servlet.ServletRegistration;
 
+import org.springframework.data.rest.webmvc.config.RepositoryRestMvcConfiguration;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.servlet.DispatcherServlet;
 import org.springframework.web.servlet.FrameworkServlet;
@@ -14,7 +15,9 @@ public class SpringMvcInitializer extends AbstractAnnotationConfigDispatcherServ
         return new Class[] { SpringWebConfig.class,
                 SpringPersistenceConfig.class,
                 SpringServiceConfig.class,
-                SpringSecurityConfig.class
+                SpringSecurityConfig.class,
+                SpringCliConfig.class,
+                RepositoryRestMvcConfiguration.class
         };
     }
     

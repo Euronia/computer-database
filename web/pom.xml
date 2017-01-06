@@ -151,6 +151,16 @@
             <artifactId>spring-security-config</artifactId>
             <version>${springsecurity.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-rest-webmvc</artifactId>
+            <version>RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>com.excilys.formation</groupId>
+            <artifactId>cli</artifactId>
+            <version>1.7-SNAPSHOT</version>
+        </dependency>
     </dependencies>
     <build>
         <plugins>

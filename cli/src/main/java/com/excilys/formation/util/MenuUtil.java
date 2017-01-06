@@ -93,7 +93,7 @@ public class MenuUtil {
     /**
      * Checks if a string is an integer.
      * 
-     * @param pStringToCheck the String to check
+     * @param stringToCheck the String to check
      * @return a boolean
      */
     public static boolean isInteger(String stringToCheck) {

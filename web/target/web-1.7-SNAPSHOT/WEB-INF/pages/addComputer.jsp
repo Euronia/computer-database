@@ -9,13 +9,13 @@
 <title><spring:message code="addComputer.title"/></title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!-- Bootstrap -->
-<link href="/computerdatabase/resources/css/bootstrap.min.css" rel="stylesheet" media="screen">
-    <link href="/computerdatabase/resources/css/font-awesome.css" rel="stylesheet" media="screen">
-    <link href="/computerdatabase/resources/css/main.css" rel="stylesheet" media="screen">
+<link href="/resources/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="/resources/css/font-awesome.css" rel="stylesheet" media="screen">
+    <link href="/resources/css/main.css" rel="stylesheet" media="screen">
 </head>
-<script src="../computerdatabase/resources/js/jquery.min.js"></script>
-<script src="../computerdatabase/resources/js/jquery.validate.min.js"></script>
-<script src="../computerdatabase/resources/js/validation/addcomputer-validation.js"></script>
+<script src="../resources/js/jquery.min.js"></script>
+<script src="../resources/js/jquery.validate.min.js"></script>
+<script src="../resources/js/validation/addcomputer-validation.js"></script>
 <body>
     <header class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
@@ -60,7 +60,7 @@
                         <div class="actions pull-right">
                             <input type="submit" value=<spring:message code="addComputer.add"/> class="btn btn-primary">
                             or
-                            <a href="/computerdatabase/dashboard" class="btn btn-default"><spring:message code="addComputer.cancel"/></a>
+                            <a href="/dashboard" class="btn btn-default"><spring:message code="addComputer.cancel"/></a>
                         </div>
                     </sf:form>
                 </div>

@@ -9,8 +9,9 @@ import com.excilys.formation.dto.CompanyDto;
 import com.excilys.formation.exception.ServiceException;
 import com.excilys.formation.pagination.Page;
 import com.excilys.formation.service.companyservice.CompanyService;
-import com.excilys.formation.service.companyservice.companyserviceimpl.CompanyServiceImpl;
 import com.excilys.formation.util.MenuUtil;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 /**
  * This menu allows the user to do an action on the company table. Currently
@@ -20,12 +21,14 @@ import com.excilys.formation.util.MenuUtil;
  * @version 1.0
  */
 
+@Component
 public class CompanyMenu implements BaseMenu {
 
     ////////// Parameters //////////
 
-    private static CompanyService companyService = new CompanyServiceImpl();
-    MainMenu main = new MainMenu();
+    @Autowired
+    private CompanyService companyService;
+
     private Scanner scanner = MainMenu.getScanner();
     private Page<CompanyDto> pageCompany;
     private static Logger logger;
@@ -42,7 +45,7 @@ public class CompanyMenu implements BaseMenu {
     ////////// Methods //////////
 
     @Override
-    public void startMenu() {
+    public void startMenu () {
         System.out.println("/// Menu compagnie ///" + " \n Souhaitez vous : " + "\n 1- Lister les compagnies "
                 + "\n 2- Retourner au menu principal" + "\n 3- Quitter l'application");
         while (!scanner.hasNextInt()) {
@@ -55,12 +58,10 @@ public class CompanyMenu implements BaseMenu {
             startMenu();
             break;
         case 2:
-            main.startMenu();
             break;
         case 3:
             break;
         default:
-            startMenu();
             break;
         }
     }
@@ -69,20 +70,15 @@ public class CompanyMenu implements BaseMenu {
      * This method prints (in cli) a page.
      */
     public void showPage() {
-        try {
-            companyService.getPage(pageCompany);
-            StringBuilder stringBuilder = new StringBuilder();
-            for (CompanyDto company : pageCompany.elements) {
-                stringBuilder.append(company.toString()).append("\n");
-            }
-            stringBuilder.append("Page : ").append(pageCompany.getCurrentPage()).append(" / ")
-                    .append(pageCompany.nbPages)
-                    .append("\nOptions :\n1 - Page Précédente\n2 - Page Suivante\n3 - Aller à la page\n4 - Quitter");
-            System.out.println(stringBuilder.toString());
-        } catch (ServiceException e) {
-            logger.error("ComputerMenu : showPage() catched ServiceException ");
-            logger.error(e.getStackTrace().toString());
+        pageCompany = companyService.getAll();
+        StringBuilder stringBuilder = new StringBuilder();
+        for (CompanyDto company : pageCompany.elements) {
+            stringBuilder.append(company.toString()).append("\n");
         }
+        stringBuilder.append("Page : ").append(pageCompany.getCurrentPage()).append(" / ")
+                .append(pageCompany.nbPages)
+                .append("\nOptions :\n1 - Page Précédente\n2 - Page Suivante\n3 - Aller à la page\n4 - Quitter");
+        System.out.println(stringBuilder.toString());
     }
 
     public void list() {

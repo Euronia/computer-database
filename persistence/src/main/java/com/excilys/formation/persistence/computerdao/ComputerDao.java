@@ -16,10 +16,6 @@ public interface ComputerDao extends BaseDao<Computer> {
         throw new UnsupportedOperationException("getById() is not implemented");
     }
 
-    public default void deleteById(Computer pcomputer) throws PersistenceException {
-        throw new UnsupportedOperationException("delete(Computer) is not implemented");
-    }
-
     public default void deleteById(long id) throws PersistenceException {
         throw new UnsupportedOperationException("delete(long) is not implemented");
     }

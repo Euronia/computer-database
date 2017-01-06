@@ -2,9 +2,14 @@ package com.excilys.formation.cli;
 
 import java.util.Scanner;
 
+import com.excilys.formation.config.SpringCliConfig;
 import org.slf4j.LoggerFactory;
 
 import ch.qos.logback.classic.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.stereotype.Component;
 
 /**
  * The first menu the user will see when starting the program.
@@ -18,6 +23,17 @@ public class MainMenu implements BaseMenu {
     public static Scanner scanner = new Scanner(System.in);
     private static final Logger logger = (Logger) LoggerFactory.getLogger(MainMenu.class);
 
+    private CompanyMenu companyMenu;
+
+    private ComputerMenu computerMenu;
+
+    public MainMenu() {
+        ApplicationContext context = new AnnotationConfigApplicationContext(SpringCliConfig.class);
+        computerMenu = context.getBean(ComputerMenu.class);
+        companyMenu = context.getBean(CompanyMenu.class);
+    }
+
+
     @Override
     public void startMenu() {
         BaseMenu nextMenu;
@@ -29,12 +45,12 @@ public class MainMenu implements BaseMenu {
         switch (choice) {
         case 1:
             logger.info("Main menu -> Computer menu");
-            nextMenu = new ComputerMenu();
-            nextMenu.startMenu();
+            computerMenu.startMenu();
+            startMenu();
             break;
         case 2:
-            nextMenu = new CompanyMenu();
-            nextMenu.startMenu();
+            companyMenu.startMenu();
+            startMenu();
             break;
         case 3:
             exitMenu();

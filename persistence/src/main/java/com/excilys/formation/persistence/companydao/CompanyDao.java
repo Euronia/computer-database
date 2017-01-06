@@ -10,7 +10,7 @@ public interface CompanyDao extends BaseDao<Company> {
 
     public Company getById(int pId) throws PersistenceException;
 
-    public default void delete(long companyId, Connection connection) throws PersistenceException {
+    public default void delete(long companyId) throws PersistenceException {
         throw new UnsupportedOperationException("delete(long, Connection) is not implemented");
     }
 }

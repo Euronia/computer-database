@@ -1,9 +1,13 @@
 package com.excilys.formation.cli;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 /**
  * @author Euronia
  * @version 1.0
  */
+@Component
 public class Main {
 
     /**

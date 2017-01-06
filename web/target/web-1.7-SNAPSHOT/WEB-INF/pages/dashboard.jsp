@@ -40,7 +40,7 @@
                     </form>
                 </div>
                 <div class="pull-right">
-                    <a class="btn btn-success" id="addComputer" href="/computerdatabase/addComputer"><spring:message code="dashboard.add"/></a> 
+                    <a class="btn btn-success" id="addComputer" href="/addComputer"><spring:message code="dashboard.add"/></a>
                     <a class="btn btn-default" id="editComputer" href="#" onclick="$.fn.toggleEditMode();"><spring:message code="dashboard.edit"/></a>
                 </div>
             </div>

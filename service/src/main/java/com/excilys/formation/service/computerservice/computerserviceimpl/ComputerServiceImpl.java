@@ -19,6 +19,7 @@ import com.excilys.formation.persistence.computerdao.computerdaoimpl.ComputerRep
 import com.excilys.formation.service.computerservice.ComputerService;
 
 import ch.qos.logback.classic.Logger;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class ComputerServiceImpl implements ComputerService {
@@ -34,7 +35,8 @@ public class ComputerServiceImpl implements ComputerService {
     static {
         logger = (Logger) LoggerFactory.getLogger("cdbLogger");
     }
-    
+
+    @Transactional
     @Override
     public ComputerDto create(ComputerDto pComputerDto) {
         Company company = new Company(pComputerDto.getCompanyName());
@@ -47,16 +49,13 @@ public class ComputerServiceImpl implements ComputerService {
         return pComputerDto;
     }
 
+    @Transactional
     @Override
     public void delete(long id) {
-        try {
-            computerRepository.delete(id);
-        } catch (PersistenceException e) {
-            logger.error("ComputerServiceImpl : delete(long) catched PersistenceException ");
-            logger.error(e.getStackTrace().toString());
-        }
+        computerRepository.deleteById(id);
     }
 
+    @Transactional
     @Override
     public ComputerDto getById(long pId) {
         Computer computer = null;
@@ -85,19 +84,34 @@ public class ComputerServiceImpl implements ComputerService {
      * @param constraints all the constraints that our page must respects.
      * @return a page of Computer
      */
+    @Transactional
     public Page<ComputerDto> getPage(PageConstraints constraints) {
         Page<Computer> pageComputer = ConstraintMapper.contraintesToComputerPage(constraints);
         PageRequest pageRequest = new PageRequest(pageComputer.currentPage-1,(int) pageComputer.elementsPerPage);
         if (constraints.getFilter() != null) {
-            pageComputer.setElements(computerRepository.findAllByNameLike(constraints.getFilter()));
+            pageComputer.setElements(computerRepository.findByNameContaining(constraints.getFilter()));
         } else {
             pageComputer.setElements(computerRepository.findAll(pageRequest).getContent());
         }
-            pageComputer.setTotalElements(computerRepository.count());
+        pageComputer.setTotalElements(computerRepository.count());
         Page<ComputerDto> returnPage = computerMapper.dtoPagetoComputerPage(pageComputer);
         return returnPage;
     }
 
+    @Transactional
+    public Page<ComputerDto> getPage(Page<ComputerDto> page)
+    {
+        Page<Computer> pageComputer = new Page<>(10);
+        ComputerAndDtoMapper.copyAttributes(page,pageComputer);
+        pageComputer.setElements(computerMapper.dtoListToComputerList(page.getElements()));
+        PageRequest pageRequest = new PageRequest(pageComputer.currentPage-1,(int) pageComputer.elementsPerPage);
+        pageComputer.setElements(computerRepository.findAll(pageRequest).getContent());
+        pageComputer.setTotalElements(computerRepository.count());
+        Page<ComputerDto> returnPage = computerMapper.dtoPagetoComputerPage(pageComputer);
+        return returnPage;
+    }
+
+    @Transactional
     @Override
     public ComputerDto update(ComputerDto pComputerDto) {
         Company company = new Company(pComputerDto.getCompanyId(), pComputerDto.getCompanyName());
@@ -115,6 +129,7 @@ public class ComputerServiceImpl implements ComputerService {
      * 
      * @param ids A list of integers representing the Ids to delete.
      */
+    @Transactional
     public void deleteMultiplesId(List<Long> ids) {
         for (Long id : ids) {
             delete(id);

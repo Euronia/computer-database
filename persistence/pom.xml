@@ -19,6 +19,7 @@
 		<hikariCp.version>2.5.1</hikariCp.version>
 		<!-- Persistence dependencies -->
 		<hibernateCore.version>5.2.5.Final</hibernateCore.version>
+        <springdatarest.version>2.5.6.RELEASE</springdatarest.version>
 		<!-- Spring dependencies -->
 		<spring.version>4.3.5.RELEASE</spring.version>
 		<springdata.version>1.10.6.RELEASE</springdata.version>
@@ -106,6 +107,11 @@
 			<artifactId>spring-data-jpa</artifactId>
 			<version>${springdata.version}</version>
 		</dependency>
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-rest-webmvc</artifactId>
+            <version>${springdatarest.version}</version>
+        </dependency>
 		<dependency>
 			<groupId>org.eclipse.persistence</groupId>
 			<artifactId>javax.persistence</artifactId>
@@ -114,7 +120,7 @@
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-core</artifactId>
-			<version>5.2.5.Final</version>
+			<version>${hibernateCore.version}</version>
 		</dependency>
 	</dependencies>
 

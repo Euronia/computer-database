@@ -10,7 +10,7 @@ public interface BaseService<T> {
     }
 
     default public Page<T> getPage(Page<T> t) throws ServiceException {
-        throw new UnsupportedOperationException("getList() is not implemented");
+        throw new UnsupportedOperationException("getPAge() is not implemented");
     }
 
     default public T update(T t) throws ServiceException {

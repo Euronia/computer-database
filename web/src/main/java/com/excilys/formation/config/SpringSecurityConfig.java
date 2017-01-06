@@ -48,10 +48,8 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf()
                 .disable()
                 .authorizeRequests()
-                .antMatchers("/dashboard", "/resources/**")
-                .permitAll()
-                .antMatchers("/editComputer", "/addComputer", "/deleteComputer")
-                .authenticated();
+                .antMatchers("/dashboard", "/resources/**", "/editComputer", "/addComputer", "/deleteComputer")
+                .permitAll();
     }
 
     @Override

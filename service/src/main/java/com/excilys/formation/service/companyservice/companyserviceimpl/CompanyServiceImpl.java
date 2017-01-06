@@ -34,7 +34,8 @@ public class CompanyServiceImpl implements CompanyService {
     }
 
     ////////// Methods ///////////
-    
+
+    @Transactional
     @Override
     public Page<CompanyDto> getAll() {
         Page<CompanyDto> returnPage = new Page<>(10);

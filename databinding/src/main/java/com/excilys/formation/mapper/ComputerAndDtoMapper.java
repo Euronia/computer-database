@@ -26,12 +26,14 @@ public class ComputerAndDtoMapper {
     public  void setMessageSource(MessageSource messageSource) {
         this.messageSource = messageSource;
     }
+
+    private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     
     
     ////////// Methods //////////
 
     public String localDateToString(LocalDate date) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(messageSource.getMessage("date.format",null ,LocaleContextHolder.getLocale()));
+        //DateTimeFormatter formatter = DateTimeFormatter.ofPattern(messageSource.getMessage("date.format",null ,LocaleContextHolder.getLocale()));
         if (date == null) {
             return null;
         } else {
@@ -40,7 +42,7 @@ public class ComputerAndDtoMapper {
     }
 
     public LocalDate stringToLocalDate(String date) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(messageSource.getMessage("date.format",null ,LocaleContextHolder.getLocale()));
+        //DateTimeFormatter formatter = DateTimeFormatter.ofPattern(messageSource.getMessage("date.format",null ,LocaleContextHolder.getLocale()));
         if (date == null | date.isEmpty()) {
             return null;
         } else {

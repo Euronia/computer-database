@@ -144,5 +144,14 @@
     <orderEntry type="library" name="Maven: aopalliance:aopalliance:1.0" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.security:spring-security-core:4.2.1.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.security:spring-security-config:4.2.1.RELEASE" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.data:spring-data-rest-webmvc:2.5.6.RELEASE" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.data:spring-data-rest-core:2.5.6.RELEASE" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.hateoas:spring-hateoas:0.20.0.RELEASE" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.plugin:spring-plugin-core:1.2.0.RELEASE" level="project" />
+    <orderEntry type="library" name="Maven: org.atteo:evo-inflector:1.2.1" level="project" />
+    <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.6.7" level="project" />
+    <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-core:2.6.7" level="project" />
+    <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.6.7" level="project" />
+    <orderEntry type="module" module-name="cli" />
   </component>
 </module>
