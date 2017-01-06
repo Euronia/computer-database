@@ -40,7 +40,7 @@ public class ComputerController {
     private ComputerService computerService;
 
     @Autowired
-    CompanyService companyService;
+    private CompanyService companyService;
 
     @RequestMapping(path = "/dashboard", method = RequestMethod.GET)
     public ModelAndView dashboardGet(HttpServletRequest request) {

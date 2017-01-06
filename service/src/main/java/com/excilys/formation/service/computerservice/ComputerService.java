@@ -14,7 +14,7 @@ public interface ComputerService extends BaseService<ComputerDto> {
         throw new UnsupportedOperationException("getByName() is not implemented");
     }
 
-    public default ComputerDto getById(long l) throws ServiceException {
+    public default ComputerDto getById(long l) {
         throw new UnsupportedOperationException("getById() is not implemented");
     }
 

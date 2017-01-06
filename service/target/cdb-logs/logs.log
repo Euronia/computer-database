@@ -1,0 +1,97 @@
+INFO  2017-01-06 16:16:34 o.s.t.c.s.DefaultTestContextBootstrapper - Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener]
+INFO  2017-01-06 16:16:34 o.s.t.c.s.DefaultTestContextBootstrapper - Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@2ddc8ecb, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@229d10bd, org.springframework.test.context.support.DependencyInjectionTestExecutionListener@47542153, org.springframework.test.context.support.DirtiesContextTestExecutionListener@33afa13b, org.springframework.test.context.transaction.TransactionalTestExecutionListener@7a4ccb53, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@309e345f]
+INFO  2017-01-06 16:16:34 o.s.c.s.GenericApplicationContext - Refreshing org.springframework.context.support.GenericApplicationContext@3c419631: startup date [Fri Jan 06 16:16:34 CET 2017]; root of context hierarchy
+INFO  2017-01-06 16:16:34 o.s.b.f.a.AutowiredAnnotationBeanPostProcessor - JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
+INFO  2017-01-06 16:16:34 o.s.o.j.LocalContainerEntityManagerFactoryBean - Building JPA container EntityManagerFactory for persistence unit 'default'
+INFO  2017-01-06 16:16:35 o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+INFO  2017-01-06 16:16:35 org.hibernate.Version - HHH000412: Hibernate Core {5.2.5.Final}
+INFO  2017-01-06 16:16:35 org.hibernate.cfg.Environment - HHH000206: hibernate.properties not found
+INFO  2017-01-06 16:16:35 o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+INFO  2017-01-06 16:16:35 com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Started.
+INFO  2017-01-06 16:16:35 org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+INFO  2017-01-06 16:16:35 o.h.validator.internal.util.Version - HV000001: Hibernate Validator 5.3.4.Final
+INFO  2017-01-06 16:16:36 o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+INFO  2017-01-06 16:16:36 o.s.c.s.GenericApplicationContext - Closing org.springframework.context.support.GenericApplicationContext@3c419631: startup date [Fri Jan 06 16:16:34 CET 2017]; root of context hierarchy
+INFO  2017-01-06 16:16:36 o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+INFO  2017-01-06 16:16:36 com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Close initiated...
+INFO  2017-01-06 16:16:36 com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Closed.
+INFO  2017-01-06 16:17:28 o.s.t.c.s.DefaultTestContextBootstrapper - Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener]
+INFO  2017-01-06 16:17:28 o.s.t.c.s.DefaultTestContextBootstrapper - Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@2ddc8ecb, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@229d10bd, org.springframework.test.context.support.DependencyInjectionTestExecutionListener@47542153, org.springframework.test.context.support.DirtiesContextTestExecutionListener@33afa13b, org.springframework.test.context.transaction.TransactionalTestExecutionListener@7a4ccb53, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@309e345f]
+INFO  2017-01-06 16:17:28 o.s.c.s.GenericApplicationContext - Refreshing org.springframework.context.support.GenericApplicationContext@3c419631: startup date [Fri Jan 06 16:17:28 CET 2017]; root of context hierarchy
+INFO  2017-01-06 16:17:28 o.s.b.f.a.AutowiredAnnotationBeanPostProcessor - JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
+INFO  2017-01-06 16:17:29 o.s.o.j.LocalContainerEntityManagerFactoryBean - Building JPA container EntityManagerFactory for persistence unit 'default'
+INFO  2017-01-06 16:17:29 o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+INFO  2017-01-06 16:17:29 org.hibernate.Version - HHH000412: Hibernate Core {5.2.5.Final}
+INFO  2017-01-06 16:17:29 org.hibernate.cfg.Environment - HHH000206: hibernate.properties not found
+INFO  2017-01-06 16:17:29 o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+INFO  2017-01-06 16:17:29 com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Started.
+INFO  2017-01-06 16:17:29 org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+INFO  2017-01-06 16:17:29 o.h.validator.internal.util.Version - HV000001: Hibernate Validator 5.3.4.Final
+INFO  2017-01-06 16:17:30 o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+INFO  2017-01-06 16:17:30 o.h.h.i.QueryTranslatorFactoryInitiator - HHH000397: Using ASTQueryTranslatorFactory
+INFO  2017-01-06 16:17:30 o.s.c.s.GenericApplicationContext - Closing org.springframework.context.support.GenericApplicationContext@3c419631: startup date [Fri Jan 06 16:17:28 CET 2017]; root of context hierarchy
+INFO  2017-01-06 16:17:30 o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+INFO  2017-01-06 16:17:30 com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Close initiated...
+INFO  2017-01-06 16:17:30 com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Closed.
+INFO  2017-01-06 16:17:53 o.s.t.c.s.DefaultTestContextBootstrapper - Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener]
+INFO  2017-01-06 16:17:53 o.s.t.c.s.DefaultTestContextBootstrapper - Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@2ddc8ecb, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@229d10bd, org.springframework.test.context.support.DependencyInjectionTestExecutionListener@47542153, org.springframework.test.context.support.DirtiesContextTestExecutionListener@33afa13b, org.springframework.test.context.transaction.TransactionalTestExecutionListener@7a4ccb53, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@309e345f]
+INFO  2017-01-06 16:17:53 o.s.c.s.GenericApplicationContext - Refreshing org.springframework.context.support.GenericApplicationContext@3c419631: startup date [Fri Jan 06 16:17:53 CET 2017]; root of context hierarchy
+INFO  2017-01-06 16:17:54 o.s.b.f.a.AutowiredAnnotationBeanPostProcessor - JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
+INFO  2017-01-06 16:17:54 o.s.o.j.LocalContainerEntityManagerFactoryBean - Building JPA container EntityManagerFactory for persistence unit 'default'
+INFO  2017-01-06 16:17:54 o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+INFO  2017-01-06 16:17:54 org.hibernate.Version - HHH000412: Hibernate Core {5.2.5.Final}
+INFO  2017-01-06 16:17:54 org.hibernate.cfg.Environment - HHH000206: hibernate.properties not found
+INFO  2017-01-06 16:17:54 o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+INFO  2017-01-06 16:17:54 com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Started.
+INFO  2017-01-06 16:17:54 org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+INFO  2017-01-06 16:17:55 o.h.validator.internal.util.Version - HV000001: Hibernate Validator 5.3.4.Final
+INFO  2017-01-06 16:17:55 o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+INFO  2017-01-06 16:17:55 o.s.c.s.GenericApplicationContext - Closing org.springframework.context.support.GenericApplicationContext@3c419631: startup date [Fri Jan 06 16:17:53 CET 2017]; root of context hierarchy
+INFO  2017-01-06 16:17:55 o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+INFO  2017-01-06 16:17:55 com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Close initiated...
+INFO  2017-01-06 16:17:55 com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Closed.
+INFO  2017-01-06 16:18:16 o.s.t.c.s.DefaultTestContextBootstrapper - Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener]
+INFO  2017-01-06 16:18:16 o.s.t.c.s.DefaultTestContextBootstrapper - Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@2ddc8ecb, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@229d10bd, org.springframework.test.context.support.DependencyInjectionTestExecutionListener@47542153, org.springframework.test.context.support.DirtiesContextTestExecutionListener@33afa13b, org.springframework.test.context.transaction.TransactionalTestExecutionListener@7a4ccb53, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@309e345f]
+INFO  2017-01-06 16:18:16 o.s.c.s.GenericApplicationContext - Refreshing org.springframework.context.support.GenericApplicationContext@3c419631: startup date [Fri Jan 06 16:18:16 CET 2017]; root of context hierarchy
+INFO  2017-01-06 16:18:16 o.s.b.f.a.AutowiredAnnotationBeanPostProcessor - JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
+INFO  2017-01-06 16:18:17 o.s.o.j.LocalContainerEntityManagerFactoryBean - Building JPA container EntityManagerFactory for persistence unit 'default'
+INFO  2017-01-06 16:18:17 o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+INFO  2017-01-06 16:18:17 org.hibernate.Version - HHH000412: Hibernate Core {5.2.5.Final}
+INFO  2017-01-06 16:18:17 org.hibernate.cfg.Environment - HHH000206: hibernate.properties not found
+INFO  2017-01-06 16:18:17 o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+INFO  2017-01-06 16:18:17 com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Started.
+INFO  2017-01-06 16:18:17 org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+INFO  2017-01-06 16:18:17 o.h.validator.internal.util.Version - HV000001: Hibernate Validator 5.3.4.Final
+INFO  2017-01-06 16:18:18 o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+INFO  2017-01-06 16:18:18 o.h.h.i.QueryTranslatorFactoryInitiator - HHH000397: Using ASTQueryTranslatorFactory
+INFO  2017-01-06 16:18:18 o.s.c.s.GenericApplicationContext - Closing org.springframework.context.support.GenericApplicationContext@3c419631: startup date [Fri Jan 06 16:18:16 CET 2017]; root of context hierarchy
+INFO  2017-01-06 16:18:18 o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+INFO  2017-01-06 16:18:18 com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Close initiated...
+INFO  2017-01-06 16:18:18 com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Closed.
+INFO  2017-01-06 16:22:58 o.s.t.c.s.DefaultTestContextBootstrapper - Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener]
+INFO  2017-01-06 16:22:58 o.s.t.c.s.DefaultTestContextBootstrapper - Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@2ddc8ecb, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@229d10bd, org.springframework.test.context.support.DependencyInjectionTestExecutionListener@47542153, org.springframework.test.context.support.DirtiesContextTestExecutionListener@33afa13b, org.springframework.test.context.transaction.TransactionalTestExecutionListener@7a4ccb53, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@309e345f]
+INFO  2017-01-06 16:22:58 o.s.c.s.GenericApplicationContext - Refreshing org.springframework.context.support.GenericApplicationContext@3c419631: startup date [Fri Jan 06 16:22:58 CET 2017]; root of context hierarchy
+INFO  2017-01-06 16:22:59 o.s.b.f.a.AutowiredAnnotationBeanPostProcessor - JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
+INFO  2017-01-06 16:22:59 o.s.o.j.LocalContainerEntityManagerFactoryBean - Building JPA container EntityManagerFactory for persistence unit 'default'
+INFO  2017-01-06 16:22:59 o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+INFO  2017-01-06 16:22:59 org.hibernate.Version - HHH000412: Hibernate Core {5.2.5.Final}
+INFO  2017-01-06 16:22:59 org.hibernate.cfg.Environment - HHH000206: hibernate.properties not found
+INFO  2017-01-06 16:22:59 o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+INFO  2017-01-06 16:22:59 com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Started.
+INFO  2017-01-06 16:22:59 org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+INFO  2017-01-06 16:23:00 o.h.validator.internal.util.Version - HV000001: Hibernate Validator 5.3.4.Final
+INFO  2017-01-06 16:23:00 o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+INFO  2017-01-06 16:23:00 o.s.c.s.GenericApplicationContext - Closing org.springframework.context.support.GenericApplicationContext@3c419631: startup date [Fri Jan 06 16:22:58 CET 2017]; root of context hierarchy
+INFO  2017-01-06 16:23:00 o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+INFO  2017-01-06 16:23:00 com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Close initiated...
+INFO  2017-01-06 16:23:00 com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Closed.

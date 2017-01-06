@@ -15,7 +15,7 @@ public interface ComputerRepository extends JpaRepository<Computer, Long>, Compu
     List<Computer> findByNameContaining (String name);
     Integer countByName (String name);
     void deleteById(long id);
-    Computer findByName(String name);
+    List<Computer> findByName(String name);
     Computer findById(long id);
     void deleteByCompanyId(long companyId);     
     

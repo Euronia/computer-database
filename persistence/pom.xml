@@ -23,6 +23,7 @@
 		<!-- Spring dependencies -->
 		<spring.version>4.3.5.RELEASE</spring.version>
 		<springdata.version>1.10.6.RELEASE</springdata.version>
+		<junit.version>4.12</junit.version>
 		<java.source>1.8</java.source>
 		<java.target>1.8</java.target>
 	</properties>
@@ -39,6 +40,43 @@
 			<artifactId>mysql-connector-java</artifactId>
 			<version>${mysqlConnector.version}</version>
 			<scope>runtime</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>${junit.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.assertj</groupId>
+			<artifactId>assertj-core</artifactId>
+			<version>3.2.0</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>${spring.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.dbunit</groupId>
+			<artifactId>dbunit</artifactId>
+			<version>2.5.1</version>
+			<scope>test</scope>
+			<exclusions>
+				<exclusion>
+					<artifactId>junit</artifactId>
+					<groupId>junit</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>com.github.springtestdbunit</groupId>
+			<artifactId>spring-test-dbunit</artifactId>
+			<version>1.2.1</version>
+			<scope>test</scope>
 		</dependency>
 
 		<!-- DataSource dependencies -->

@@ -17,6 +17,7 @@
 		<selenium.version>3.0.1</selenium.version>
 		<dbUnit.version>2.5.3</dbUnit.version>
 		<mockito.version>1.9.5</mockito.version>
+		<jersey.version>2.22.2</jersey.version>
 
 		<java.source>1.8</java.source>
 		<java.target>1.8</java.target>
@@ -28,6 +29,11 @@
 			<artifactId>service</artifactId>
 			<version>${cdb.version}</version>
 		</dependency>
+        <dependency>
+            <groupId>com.excilys.formation</groupId>
+            <artifactId>databinding</artifactId>
+            <version>${cdb.version}</version>
+        </dependency>
 		<!-- Test dependencies -->
 		<dependency>
 			<groupId>junit</groupId>
@@ -52,7 +58,29 @@
 			<version>${mockito.version}</version>
 			<scope>test</scope>
 		</dependency>
-	</dependencies>
+		<!-- Jersey Dependencies -->
+		<dependency>
+			<groupId>org.glassfish.jersey.core</groupId>
+			<artifactId>jersey-client</artifactId>
+			<version>${jersey.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.jaxrs</groupId>
+			<artifactId>jackson-jaxrs-json-provider</artifactId>
+			<version>2.7.4</version>
+		</dependency>
+		<dependency>
+			<groupId>org.glassfish.jersey.media</groupId>
+			<artifactId>jersey-media-json-jackson</artifactId>
+			<version>2.7</version>
+		</dependency>
+        <dependency>
+            <groupId>com.excilys.formation</groupId>
+            <artifactId>computerdatabase</artifactId>
+            <version>1.6-SNAPSHOT</version>
+        </dependency>
+
+    </dependencies>
 
 	<build>
 		<plugins>
