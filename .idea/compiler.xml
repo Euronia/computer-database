@@ -17,7 +17,7 @@
     <bytecodeTargetLevel>
       <module name="cli" target="1.8" />
       <module name="cli (1)" target="1.8" />
-      <module name="computerdatabase" target="1.8" />
+      <module name="computerdatabase" target="1.5" />
       <module name="core" target="1.8" />
       <module name="databinding" target="1.8" />
       <module name="persistence" target="1.8" />

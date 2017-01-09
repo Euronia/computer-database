@@ -81,7 +81,7 @@
 
 	<my:LinkTag/>
     
-<script src="/dashboard/strings.js"></script>
+<script src="/strings.js"></script>
 <script src="/resources/js/jquery.min.js"></script>
 <script src="/resources/js/bootstrap.min.js"></script>
 <script src="/resources/js/dashboard.js"></script>
