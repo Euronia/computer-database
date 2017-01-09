@@ -49,7 +49,9 @@ public class SpringPersistenceConfig {
 
     @Bean
     public HibernateJpaVendorAdapter jpaVendorAdapter() {
-        return new HibernateJpaVendorAdapter();
+        HibernateJpaVendorAdapter jpaVendorAdapter = new HibernateJpaVendorAdapter();
+        jpaVendorAdapter.setShowSql(true);
+        return jpaVendorAdapter;
     }
     
     Properties additionalProperties() {
