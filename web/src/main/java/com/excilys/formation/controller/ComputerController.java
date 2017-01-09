@@ -87,7 +87,7 @@ public class ComputerController {
             try {
                 ComputerDto computer = computerService.getById(Long.parseLong(request.getParameter("id")));
                 model.addObject("computer",computer);
-            } catch (NumberFormatException | ServiceException e) {
+            } catch (NumberFormatException e) {
                 LOGGER.error("EditComputerController : dashboardGet() catched Exception", e);
             }
         } else {

@@ -143,19 +143,14 @@ public class ComputerMenu implements BaseMenu {
             idToShow = Integer.parseInt(infoId);
         }
         if (idToShow >= 1) {
-            try {
-                ComputerDto computer = computerService.getById(idToShow);
-                if (computer != null) {
-                    System.out.println(new StringBuilder().append("Nom : ").append(computer.getName())
-                            .append("\nDate de début de production : ").append(computer.getIntroduced())
-                            .append("\nDate de fin de production : ").append(computer.getDiscontinued())
-                            .append("\nId de la compagnie : ").append(computer.getCompanyId()).toString());
-                } else {
-                    System.out.println("Aucun ordinateur trouvé");
-                }
-            } catch (ServiceException e) {
-                logger.error("ComputerMenu : info() catched ServiceException ");
-                logger.error(e.getStackTrace().toString());
+            ComputerDto computer = computerService.getById(idToShow);
+            if (computer != null) {
+                System.out.println(new StringBuilder().append("Nom : ").append(computer.getName())
+                        .append("\nDate de début de production : ").append(computer.getIntroduced())
+                        .append("\nDate de fin de production : ").append(computer.getDiscontinued())
+                        .append("\nId de la compagnie : ").append(computer.getCompanyId()).toString());
+            } else {
+                System.out.println("Aucun ordinateur trouvé");
             }
         }
         startMenu();

@@ -94,7 +94,7 @@ public final class Computer {
     public void setDiscontinued(LocalDate discontinued) {
         this.discontinued = discontinued;
     }
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name="company_id")
     public Company getCompany() {
         return company;
